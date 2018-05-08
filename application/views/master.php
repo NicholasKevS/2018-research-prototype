@@ -19,12 +19,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="assets/vendor/chart.js/Chart.min.js"></script>
+    <script src="assets/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="assets/vendor/datatables/dataTables.bootstrap4.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="welcome/">Start Bootstrap</a>
+    <a class="navbar-brand" href="welcome/">Research</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -34,6 +44,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a class="nav-link" href="">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Nodes">
+                <a class="nav-link" href="nodes/">
+                    <i class="fa fa-fw fa-lightbulb-o"></i>
+                    <span class="nav-link-text">Nodes</span>
                 </a>
             </li>
         </ul>
@@ -165,15 +181,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="assets/vendor/chart.js/Chart.min.js"></script>
-    <script src="assets/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="assets/vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="assets/js/sb-admin.min.js"></script>
 </body>
