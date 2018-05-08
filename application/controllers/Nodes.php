@@ -9,4 +9,11 @@ class Nodes extends CI_Controller {
         $data['view'] = "nodes";
         $this->load->view('master', $data);
     }
+
+    public function detail()
+    {
+        $data['title'] = "Detail";
+        $data['view'] = "detail";
+        $this->load->view('master', $data);
+    }
 }
