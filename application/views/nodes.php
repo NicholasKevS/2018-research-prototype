@@ -37,7 +37,7 @@
                                 <input type="checkbox" class="form-check-input" value="">Toggle
                             </label>
                         </div></td>
-                    <td><a href="nodes/detail" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Computer</td>
@@ -48,7 +48,7 @@
                                 <input type="checkbox" class="form-check-input" value="">Toggle
                             </label>
                         </div></td>
-                    <td><a href="nodes/detail" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Standing Lamp</td>
@@ -59,7 +59,7 @@
                                 <input type="checkbox" class="form-check-input" value="">Toggle
                             </label>
                         </div></td>
-                    <td><a href="nodes/detail" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Electric Blanket</td>
@@ -70,7 +70,7 @@
                                 <input type="checkbox" class="form-check-input" value="">Toggle
                             </label>
                         </div></td>
-                    <td><a href="nodes/detail" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>TV</td>
@@ -81,7 +81,7 @@
                                 <input type="checkbox" class="form-check-input" value="">Toggle
                             </label>
                         </div></td>
-                    <td><a href="nodes/detail" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Playstation</td>
@@ -92,7 +92,7 @@
                                 <input type="checkbox" class="form-check-input" value="">Toggle
                             </label>
                         </div></td>
-                    <td><a href="nodes/detail" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 </tbody>
             </table>
