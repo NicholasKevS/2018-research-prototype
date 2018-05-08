@@ -19,6 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin.css" rel="stylesheet">
+    <link href="assets/css/jquery-ui.min.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
@@ -29,6 +30,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="assets/vendor/chart.js/Chart.min.js"></script>
     <script src="assets/vendor/datatables/jquery.dataTables.js"></script>
     <script src="assets/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="assets/js/jquery-ui.min.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">

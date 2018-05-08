@@ -1,3 +1,15 @@
+<div class="row">
+    <div class="col-12">
+        <h1>Usage Chart Example</h1>
+    </div>
+    <div class="col-12">
+        From:
+        <input type="text" name="from" id="date1">
+        To:
+        <input type="text" name="to" id="date2">
+    </div>
+</div>
+<br>
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-area-chart"></i> Electricity Usage Example</div>
@@ -60,4 +72,6 @@
             }
         }
     });
+    $("#date1").datepicker();
+    $("#date2").datepicker();
 </script>
