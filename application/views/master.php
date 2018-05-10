@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title><?php echo $title; ?></title>
+    <title>Power Grid - <?php echo $title; ?></title>
 
     <!-- Bootstrap core CSS-->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

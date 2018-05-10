@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Forgot Password</title>
+    <title>Power Grid - Forgot Password</title>
     <!-- Bootstrap core CSS-->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
