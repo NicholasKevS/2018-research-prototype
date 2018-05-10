@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login</title>
+    <title>Forgot Password</title>
     <!-- Bootstrap core CSS-->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -22,28 +22,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body class="bg-dark">
 <div class="container">
     <div class="card card-login mx-auto mt-5">
-        <div class="card-header">Login</div>
+        <div class="card-header">Reset Password</div>
         <div class="card-body">
+            <div class="text-center mt-4 mb-5">
+                <h4>Forgot your password?</h4>
+                <p>Enter your email address and we will send you instructions on how to reset your password.</p>
+            </div>
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email address">
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox"> Remember Password</label>
-                    </div>
-                </div>
-                <a class="btn btn-primary btn-block" href="">Login</a>
+                <a class="btn btn-primary btn-block" href="">Reset Password</a>
             </form>
             <div class="text-center">
                 <a class="d-block small mt-3" href="register/">Register an Account</a>
-                <a class="d-block small" href="forgotpassword/">Forgot Password?</a>
+                <a class="d-block small" href="login/">Login Page</a>
             </div>
         </div>
     </div>
