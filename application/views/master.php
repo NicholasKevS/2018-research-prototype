@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Helps">
                 <a class="nav-link" href="help/">
-                    <i class="fa fa-fw fa-battery-three-quarters"></i>
+                    <i class="fa fa-fw fa-question-circle-o"></i>
                     <span class="nav-link-text">Helps</span>
                 </a>
             </li>
@@ -124,6 +124,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item small" href="#">View all alerts</a>
                 </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="profile/">
+                    <i class="fa fa-fw fa-user"></i>User name</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
