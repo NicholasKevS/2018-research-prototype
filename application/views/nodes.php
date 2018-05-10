@@ -7,6 +7,9 @@
     <div class="card-header">
         <i class="fa fa-table"></i> Node List Example</div>
     <div class="card-body">
+        <div class="float-md-right mb-3"">
+            <button type="button" class="btn btn-primary">Add New Node</button>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
