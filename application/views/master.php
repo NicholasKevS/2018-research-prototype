@@ -67,6 +67,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span class="nav-link-text">Discharge List</span>
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Helps">
+                <a class="nav-link" href="help/">
+                    <i class="fa fa-fw fa-battery-three-quarters"></i>
+                    <span class="nav-link-text">Helps</span>
+                </a>
+            </li>
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
