@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="">Research</a>
+    <a class="navbar-brand" href="">Power Grid</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -128,7 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="profile/">
-                    <i class="fa fa-fw fa-user"></i>User name</a>
+                    <i class="fa fa-fw fa-user"></i>Hello user , "username"!</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
