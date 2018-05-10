@@ -55,6 +55,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span class="nav-link-text">Nodes</span>
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Nodes Schedule">
+                <a class="nav-link" href="schedule/">
+                    <i class="fa fa-fw fa-clock-o"></i>
+                    <span class="nav-link-text">Nodes Schedule</span>
+                </a>
+            </li>
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
