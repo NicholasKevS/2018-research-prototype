@@ -7,7 +7,7 @@
     <div class="card-header">
         <i class="fa fa-table"></i> Node List Example</div>
     <div class="card-body">
-        <div class="float-md-right mb-3"">
+        <div class="float-md-right mb-3">
             <button type="button" class="btn btn-primary">Add New Node</button>
         </div>
         <div class="table-responsive">
@@ -35,66 +35,54 @@
                     <td>Fridge</td>
                     <td>123123123</td>
                     <td>Running</td>
-                    <td><div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="">Toggle
-                            </label>
-                        </div></td>
+                    <td><label class="switch">
+                            <input type="checkbox" value="on" checked><span class="slider round"></span>
+                        </label></td>
                     <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Computer</td>
                     <td>321321321</td>
                     <td>Running</td>
-                    <td><div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="">Toggle
-                            </label>
-                        </div></td>
+                    <td><label class="switch">
+                            <input type="checkbox" value="on" checked><span class="slider round"></span>
+                        </label></td>
                     <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Standing Lamp</td>
                     <td>456456456</td>
                     <td>Running</td>
-                    <td><div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="">Toggle
-                            </label>
-                        </div></td>
+                    <td><label class="switch">
+                            <input type="checkbox" value="on" checked><span class="slider round"></span>
+                        </label></td>
                     <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Electric Blanket</td>
                     <td>654654654</td>
                     <td>Running</td>
-                    <td><div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="">Toggle
-                            </label>
-                        </div></td>
+                    <td><label class="switch">
+                            <input type="checkbox" value="on"><span class="slider round"></span>
+                        </label></td>
                     <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>TV</td>
                     <td>789789789</td>
                     <td>Running</td>
-                    <td><div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="">Toggle
-                            </label>
-                        </div></td>
+                    <td><label class="switch">
+                            <input type="checkbox" value="on"><span class="slider round"></span>
+                        </label></td>
                     <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Playstation</td>
                     <td>987987987</td>
                     <td>Running</td>
-                    <td><div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="">Toggle
-                            </label>
-                        </div></td>
+                    <td><label class="switch">
+                            <input type="checkbox" value="on" checked><span class="slider round"></span>
+                        </label></td>
                     <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 </tbody>

@@ -20,6 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin.css" rel="stylesheet">
     <link href="assets/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="assets/css/toggle-switch.min.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
