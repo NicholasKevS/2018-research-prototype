@@ -61,6 +61,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span class="nav-link-text">Nodes Schedule</span>
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Discharge List">
+                <a class="nav-link" href="discharge/">
+                    <i class="fa fa-fw fa-battery-three-quarters"></i>
+                    <span class="nav-link-text">Discharge List</span>
+                </a>
+            </li>
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
