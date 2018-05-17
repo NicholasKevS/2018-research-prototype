@@ -15,9 +15,17 @@
         To:
         <input type="text" name="to" id="date2">
     </div>
+    <div class="col-12">
+        <p>Time pick</p>
+    </div>
+    <div class="col-12 mb-3">
+        From:
+        <input type="text" name="from" id="time1">
+        To:
+        <input type="text" name="to" id="time2">
+    </div>
 </div>
-<br>
-<div class="card mb-3">
+<div class="card">
     <div class="card-header">
         <i class="fa fa-area-chart"></i> Electricity Usage Example</div>
     <div class="card-body">
@@ -81,4 +89,22 @@
     });
     $("#date1").datepicker();
     $("#date2").datepicker();
+    $("#time1").timepicker({
+        timeFormat: 'HH:mm',
+        interval: 60,
+        minTime: '0',
+        maxTime: '23',
+        startTime: '0',
+        dynamic: false,
+        scrollbar: true
+    });
+    $("#time2").timepicker({
+        timeFormat: 'HH:mm',
+        interval: 60,
+        minTime: '0',
+        maxTime: '23',
+        startTime: '0',
+        dynamic: false,
+        scrollbar: true
+    });
 </script>

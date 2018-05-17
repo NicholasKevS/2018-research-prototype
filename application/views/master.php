@@ -20,6 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin.css" rel="stylesheet">
     <link href="assets/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="assets/css/jquery.timepicker.min.css" rel="stylesheet">
     <link href="assets/css/toggle-switch.min.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
@@ -33,6 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="assets/vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="assets/js/jquery-ui.min.js"></script>
+    <script src="assets/js/jquery.timepicker.min.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -44,37 +46,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link" href="">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Nodes">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link" href="node/">
                     <i class="fa fa-fw fa-lightbulb-o"></i>
                     <span class="nav-link-text">Nodes</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Nodes Schedule">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link" href="schedule/">
                     <i class="fa fa-fw fa-clock-o"></i>
                     <span class="nav-link-text">Nodes Schedule</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Battery">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link" href="battery/">
                     <i class="fa fa-fw fa-battery-three-quarters"></i>
                     <span class="nav-link-text">Battery</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Solar Roof">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link" href="solar/">
                     <i class="fa fa-fw fa-bolt"></i>
                     <span class="nav-link-text">Solar Roof</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Helps">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link" href="help/">
                     <i class="fa fa-fw fa-question-circle-o"></i>
                     <span class="nav-link-text">Helps</span>
