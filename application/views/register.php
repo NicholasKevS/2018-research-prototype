@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </form>
             <div class="text-center">
                 <a class="d-block small mt-3" href="login/">Login Page</a>
-                <a class="d-block small" href="forgotpassword/">Forgot Password?</a>
+                <a class="d-block small" href="login/forgot/">Forgot Password?</a>
             </div>
         </div>
     </div>

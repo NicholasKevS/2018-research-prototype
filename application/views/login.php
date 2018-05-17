@@ -42,8 +42,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a class="btn btn-primary btn-block" href="">Login</a>
             </form>
             <div class="text-center">
-                <a class="d-block small mt-3" href="register/">Register an Account</a>
-                <a class="d-block small" href="forgotpassword/">Forgot Password?</a>
+                <a class="d-block small mt-3" href="login/register/">Register an Account</a>
+                <a class="d-block small" href="login/forgot/">Forgot Password?</a>
             </div>
         </div>
     </div>
