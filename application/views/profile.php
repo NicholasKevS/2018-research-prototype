@@ -18,6 +18,10 @@
             <input type="text" class="form-control" id="fullname">
         </div>
         <div class="form-group">
+            <label for="fullname">Suburb</label>
+            <input type="text" class="form-control" id="suburb">
+        </div>
+        <div class="form-group">
             <label for="provider">Electricity Provider</label>
             <select class="form-control" id="provider">
                 <option>Red Energy</option>
