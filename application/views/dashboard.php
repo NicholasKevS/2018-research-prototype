@@ -13,6 +13,7 @@
         <input type="text" name="from" id="time1">
         To:
         <input type="text" name="to" id="time2">
+        <button type="submit" class="btn btn-primary">Go</button>
     </div>
 </div>
 <div class="card mb-3">

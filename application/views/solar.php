@@ -7,6 +7,7 @@
         <input type="text" name="from" id="date1">
         To:
         <input type="text" name="to" id="date2">
+        <button type="submit" class="btn btn-primary">Go</button>
     </div>
 </div>
 <div class="card mb-3">

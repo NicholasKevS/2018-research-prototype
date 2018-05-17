@@ -9,7 +9,7 @@
     <div class="col-12">
         <p>Date pick</p>
     </div>
-    <div class="col-12">
+    <div class="col-12 mb-3">
         From:
         <input type="text" name="from" id="date1">
         To:
@@ -23,6 +23,9 @@
         <input type="text" name="from" id="time1">
         To:
         <input type="text" name="to" id="time2">
+    </div>
+    <div class="col-12 mb-3">
+        <button type="submit" class="btn btn-primary">Go</button>
     </div>
 </div>
 <div class="card">
