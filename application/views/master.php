@@ -63,9 +63,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Discharge List">
-                <a class="nav-link" href="discharge/">
+                <a class="nav-link" href="battery/">
                     <i class="fa fa-fw fa-battery-three-quarters"></i>
-                    <span class="nav-link-text">Discharge List</span>
+                    <span class="nav-link-text">Battery</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Discharge List">
+                <a class="nav-link" href="solar/">
+                    <i class="fa fa-fw fa-battery-three-quarters"></i>
+                    <span class="nav-link-text">Solar Roof</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Helps">
