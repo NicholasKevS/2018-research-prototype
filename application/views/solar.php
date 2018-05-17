@@ -2,7 +2,7 @@
     <div class="col-12">
         <h1>Solar Roof Production Example</h1>
     </div>
-    <div class="col-12 mb-3"">
+    <div class="col-12 mb-3">
         From:
         <input type="text" name="from" id="date1">
         To:
