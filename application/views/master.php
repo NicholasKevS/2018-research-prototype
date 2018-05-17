@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Nodes">
-                <a class="nav-link" href="nodes/">
+                <a class="nav-link" href="node/">
                     <i class="fa fa-fw fa-lightbulb-o"></i>
                     <span class="nav-link-text">Nodes</span>
                 </a>

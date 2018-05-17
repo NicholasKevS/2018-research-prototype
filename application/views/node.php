@@ -38,7 +38,7 @@
                     <td><label class="switch">
                             <input type="checkbox" value="on" checked><span class="slider round"></span>
                         </label></td>
-                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="node/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Computer</td>
@@ -47,7 +47,7 @@
                     <td><label class="switch">
                             <input type="checkbox" value="on" checked><span class="slider round"></span>
                         </label></td>
-                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="node/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Standing Lamp</td>
@@ -56,7 +56,7 @@
                     <td><label class="switch">
                             <input type="checkbox" value="on" checked><span class="slider round"></span>
                         </label></td>
-                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="node/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Electric Blanket</td>
@@ -65,7 +65,7 @@
                     <td><label class="switch">
                             <input type="checkbox" value="on"><span class="slider round"></span>
                         </label></td>
-                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="node/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>TV</td>
@@ -74,7 +74,7 @@
                     <td><label class="switch">
                             <input type="checkbox" value="on"><span class="slider round"></span>
                         </label></td>
-                    <td><a href="nodes/detail/" class="btn btn-secondary" role="button">Details</a></td>
+                    <td><a href="node/detail/" class="btn btn-secondary" role="button">Details</a></td>
                 </tr>
                 <tr>
                     <td>Playstation</td>
