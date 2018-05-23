@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2018 at 05:32 PM
+-- Generation Time: May 23, 2018 at 02:35 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -70,24 +70,47 @@ INSERT INTO `battery_acts` (`batteryid`, `date`, `status`, `amount`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `location`
+-- Table structure for table `locations`
 --
 
-CREATE TABLE `location` (
+CREATE TABLE `locations` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `location`
+-- Dumping data for table `locations`
 --
 
-INSERT INTO `location` (`id`, `name`) VALUES
+INSERT INTO `locations` (`id`, `name`) VALUES
 (1, 'Eastwood'),
 (2, 'Haymarket'),
 (3, 'Redfern'),
 (4, 'Strathfield'),
 (5, 'Wynyard');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location_weathers`
+--
+
+CREATE TABLE `location_weathers` (
+  `locationid` int(11) NOT NULL,
+  `today` text NOT NULL,
+  `tomorrow` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `location_weathers`
+--
+
+INSERT INTO `location_weathers` (`locationid`, `today`, `tomorrow`) VALUES
+(1, 'Sunny', 'Clear'),
+(2, 'Shower', 'Rain'),
+(3, 'Cloudy', 'Rain'),
+(4, 'Sunny', 'Cloudy'),
+(5, 'Clear', 'Shower');
 
 -- --------------------------------------------------------
 
@@ -171,9 +194,31 @@ CREATE TABLE `providers` (
 --
 
 INSERT INTO `providers` (`id`, `name`) VALUES
-(1, 'EnergyAustralia'),
+(1, 'AGL'),
 (2, 'Origin Energy'),
 (3, 'Red Energy');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `provider_price`
+--
+
+CREATE TABLE `provider_price` (
+  `providerid` int(11) NOT NULL,
+  `peak` float NOT NULL,
+  `shoulder` float NOT NULL,
+  `offpeak` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `provider_price`
+--
+
+INSERT INTO `provider_price` (`providerid`, `peak`, `shoulder`, `offpeak`) VALUES
+(1, 54, 23, 15),
+(2, 53.01, 23.79, 14.42),
+(3, 54.57, 24.69, 16.43);
 
 -- --------------------------------------------------------
 
@@ -236,29 +281,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `fullname`, `locatio
 (1, 'admin', 'admin', 'admin@admin.com', 'administrator', 2, 1, 'qweasdzxc', 1),
 (2, 'user1', 'user1', 'user1@user.com', 'testuser1', 4, 2, 'asdasdasd', 0);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `weathers`
---
-
-CREATE TABLE `weathers` (
-  `locationid` int(11) NOT NULL,
-  `today` text NOT NULL,
-  `tomorrow` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `weathers`
---
-
-INSERT INTO `weathers` (`locationid`, `today`, `tomorrow`) VALUES
-(1, 'Sunny', 'Clear'),
-(2, 'Shower', 'Rain'),
-(3, 'Cloudy', 'Rain'),
-(4, 'Sunny', 'Cloudy'),
-(5, 'Clear', 'Shower');
-
 --
 -- Indexes for dumped tables
 --
@@ -276,10 +298,16 @@ ALTER TABLE `battery_acts`
   ADD UNIQUE KEY `batteryid` (`batteryid`,`date`);
 
 --
--- Indexes for table `location`
+-- Indexes for table `locations`
 --
-ALTER TABLE `location`
+ALTER TABLE `locations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `location_weathers`
+--
+ALTER TABLE `location_weathers`
+  ADD PRIMARY KEY (`locationid`);
 
 --
 -- Indexes for table `nodes`
@@ -306,6 +334,12 @@ ALTER TABLE `providers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `provider_price`
+--
+ALTER TABLE `provider_price`
+  ADD PRIMARY KEY (`providerid`);
+
+--
 -- Indexes for table `solars`
 --
 ALTER TABLE `solars`
@@ -324,12 +358,6 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `weathers`
---
-ALTER TABLE `weathers`
-  ADD PRIMARY KEY (`locationid`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -340,9 +368,9 @@ ALTER TABLE `batteries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `location`
+-- AUTO_INCREMENT for table `locations`
 --
-ALTER TABLE `location`
+ALTER TABLE `locations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
