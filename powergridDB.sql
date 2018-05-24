@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2018 at 02:35 PM
+-- Generation Time: May 24, 2018 at 03:19 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -55,7 +55,7 @@ CREATE TABLE `battery_acts` (
   `batteryid` int(11) NOT NULL,
   `date` date NOT NULL,
   `status` int(11) NOT NULL COMMENT '0 = buy, 1 = discharge',
-  `amount` float NOT NULL
+  `amount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -175,7 +175,7 @@ CREATE TABLE `node_usages` (
   `nodeid` int(11) NOT NULL,
   `date` date NOT NULL,
   `time` int(11) NOT NULL,
-  `amount` float NOT NULL
+  `amount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -206,9 +206,9 @@ INSERT INTO `providers` (`id`, `name`) VALUES
 
 CREATE TABLE `provider_price` (
   `providerid` int(11) NOT NULL,
-  `peak` float NOT NULL,
-  `shoulder` float NOT NULL,
-  `offpeak` float NOT NULL
+  `peak` double NOT NULL,
+  `shoulder` double NOT NULL,
+  `offpeak` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -230,9 +230,9 @@ CREATE TABLE `solars` (
   `id` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `name` text NOT NULL,
-  `area` float NOT NULL,
+  `area` double NOT NULL,
   `quantity` int(11) NOT NULL,
-  `power` float NOT NULL
+  `power` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -240,7 +240,7 @@ CREATE TABLE `solars` (
 --
 
 INSERT INTO `solars` (`id`, `userid`, `name`, `area`, `quantity`, `power`) VALUES
-(1, 2, 'My Solar Panel', 30, 100, 10);
+(1, 2, 'My Solar Panel', 30.25, 100, 10);
 
 -- --------------------------------------------------------
 
@@ -252,7 +252,7 @@ CREATE TABLE `solar_productions` (
   `solarid` int(11) NOT NULL,
   `date` date NOT NULL,
   `time` int(11) NOT NULL,
-  `amount` float NOT NULL
+  `amount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
