@@ -8,8 +8,18 @@ class Users extends CI_Model {
         return $this->db->get_where('users', array('username'=>$user,'password'=>$pass))->row_array();
     }
 
-    public function getAll($id)
+    public function getUser($id)
     {
         return $this->db->get_where('users', array('id'=>$id))->row_array();
+    }
+
+    public function getSuburbs()
+    {
+        return $this->db->get('locations')->result_array();
+    }
+
+    public function getProviders()
+    {
+        return $this->db->get('providers')->result_array();
     }
 }

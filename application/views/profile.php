@@ -4,34 +4,42 @@
     </div>
 </div>
 <div class="col-4">
-    <form>
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email">
-        </div>
+    <form action="profile/save/" method="post">
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" id="username">
+            <input type="text" class="form-control" id="username" name="username" value="<?php echo $profile['username']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo $profile['email']; ?>">
         </div>
         <div class="form-group">
             <label for="fullname">Full Name</label>
-            <input type="text" class="form-control" id="fullname">
+            <input type="text" class="form-control" id="fullname" name="password" value="<?php echo $profile['password']; ?>">
         </div>
         <div class="form-group">
-            <label for="fullname">Suburb</label>
-            <input type="text" class="form-control" id="suburb">
+            <label for="suburb">Suburb</label>
+            <select class="form-control" id="provider">
+                <?php
+                foreach($suburb as $val) {
+                    echo "<option value='{$val['id']}'".($val['id']==$profile['locationid']?" selected":"").">{$val['name']}</option>";
+                }
+                ?>
+            </select>
         </div>
         <div class="form-group">
             <label for="provider">Electricity Provider</label>
             <select class="form-control" id="provider">
-                <option>Red Energy</option>
-                <option>Origin Energy</option>
-                <option>EnergyAustralia</option>
+                <?php
+                    foreach($provider as $val) {
+                        echo "<option value='{$val['id']}'".($val['id']==$profile['providerid']?" selected":"").">{$val['name']}</option>";
+                    }
+                ?>
             </select>
         </div>
         <div class="form-group">
-            <label for="custid">Electricity Provider Customer ID</label>
-            <input type="text" class="form-control" id="custid">
+            <label for="providercode">Electricity Provider Customer ID</label>
+            <input type="text" class="form-control" id="providercode" name="providercode" value="<?php echo $profile['providercode']; ?>">
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
