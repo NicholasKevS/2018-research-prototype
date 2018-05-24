@@ -5,7 +5,7 @@ class Users extends CI_Model {
 
     public function login($user, $pass)
     {
-        return $this->db->get_where('users', array('username'=>$user,'password'=>$pass))->row_array();
+        return $this->db->get_where('users', array('username'=>$user, 'password'=>$pass))->row_array();
     }
 
     public function getUser($id)
