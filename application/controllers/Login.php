@@ -35,7 +35,12 @@ class Login extends CI_Controller {
             $result = $this->users->login($user, $pass);
 
             if(!empty($result)) {
-                $this->session->set_userdata(array('id'=>$result['id'], 'fullname'=>$result['fullname'], 'isLogin'=>'yes'));
+                if($result['type'] == 1) {
+                    $admin = TRUE;
+                } else {
+                    $admin = FALSE;
+                }
+                $this->session->set_userdata(array('id'=>$result['id'], 'fullname'=>$result['fullname'], 'isAdmin'=>$admin, 'isLogin'=>'yes'));
                 redirect('welcome/');
             } else {
                 $this->session->set_flashdata('alert','<p>Username or password is wrong.</p>');

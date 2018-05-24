@@ -82,12 +82,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span class="nav-link-text">Helps</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right">
-                <a class="nav-link" href="admin/">
-                    <i class="fa fa-fw fa-wrench"></i>
-                    <span class="nav-link-text">Admin Page</span>
+            <?php if($this->session->isAdmin == TRUE) {
+                echo "<li class='nav-item' data-toggle='tooltip' data-placement='right'>
+                <a class='nav-link' href='admin/'>
+                    <i class='fa fa-fw fa-wrench'></i>
+                    <span class='nav-link-text'>Admin Page</span>
                 </a>
-            </li>
+            </li>";
+            }
+            ?>
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
