@@ -1,42 +1,68 @@
 <div class="row">
     <div class="col-12">
-        <h1>Solar Roof Production Example</h1>
+        <h1>Solar Roof</h1>
     </div>
-    <div class="col-12 mb-3">
-        From:
-        <input type="text" name="from" id="date1">
-        To:
-        <input type="text" name="to" id="date2">
-        <button type="submit" class="btn btn-primary">Go</button>
-    </div>
-</div>
-<div class="card mb-3">
-    <div class="card-header">
-        <i class="fa fa-area-chart"></i> Solar Roof Production Example</div>
-    <div class="card-body">
-        <canvas id="myAreaChart" width="100%" height="30"></canvas>
-    </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-</div>
-<div class="row">
     <div class="col-12">
-        <h1>Weather forecast</h1>
-    </div>
-    <div class="col-3">
-        today forecast detail<br>
-        estimation
-    </div>
-    <div class="col-3">
-        tomorrow forecast detail<br>
-        estimation
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#production">Production Chart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#weather">Weather Forecast</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#details">Solar Roof Details</a>
+            </li>
+        </ul>
     </div>
 </div>
-<div class="row">
-    <div class="col-12">
-        <h1>Solar Roof Details</h1>
+<div class="tab-content" id="solarContent">
+    <div class="tab-pane fade show active" id="production">
+        <div class="row">
+            <div class="col-12">
+                <h2>Production</h2>
+            </div>
+            <div class="col-12 mb-3">
+                From:
+                <input type="text" name="from" id="date1">
+                To:
+                <input type="text" name="to" id="date2">
+                <button type="submit" class="btn btn-primary">Go</button>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-area-chart"></i> Production</div>
+            <div class="card-body">
+                <canvas id="productionChart" width="100%" height="30"></canvas>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
     </div>
-    <div class="col-12 mb-3">
-        Some details.
+    <div class="tab-pane fade" id="weather">
+        <div class="row">
+            <div class="col-12">
+                <h2>Weather forecast</h2>
+            </div>
+            <div class="col-3">
+                today forecast detail<br>
+                estimation
+            </div>
+            <div class="col-3">
+                tomorrow forecast detail<br>
+                estimation
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="details">
+        <div class="row">
+            <div class="col-12">
+                <h2>Solar Roof Details</h2>
+            </div>
+            <div class="col-12 mb-3">
+                Some details.
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -44,7 +70,7 @@
     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#292b2c';
     // -- Area Chart Example
-    var ctx = document.getElementById("myAreaChart");
+    var ctx = document.getElementById("productionChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {

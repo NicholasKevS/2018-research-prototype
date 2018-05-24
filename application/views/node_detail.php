@@ -1,47 +1,67 @@
 <div class="row">
     <div class="col-12">
-        <h1>Node Detail</h1>
-        <p>Set of details.</p>
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-12">
-        <p>Date pick</p>
-    </div>
-    <div class="col-12 mb-3">
-        From:
-        <input type="text" name="from" id="date1">
-        To:
-        <input type="text" name="to" id="date2">
+        <h1>Node Name - Node</h1>
     </div>
     <div class="col-12">
-        <p>Time pick</p>
-    </div>
-    <div class="col-12 mb-3">
-        From:
-        <input type="text" name="from" id="time1">
-        To:
-        <input type="text" name="to" id="time2">
-    </div>
-    <div class="col-12 mb-3">
-        <button type="submit" class="btn btn-primary">Go</button>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#usage">Usage Chart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#details">Node Details</a>
+            </li>
+        </ul>
     </div>
 </div>
-<div class="card">
-    <div class="card-header">
-        <i class="fa fa-area-chart"></i> Electricity Usage Example</div>
-    <div class="card-body">
-        <canvas id="myAreaChart" width="100%" height="30"></canvas>
+<div class="tab-content" id="nodeContent">
+    <div class="tab-pane fade show active" id="usage">
+        <div class="row">
+            <div class="col-12">
+                <h2>Usage Chart</h2>
+            </div>
+            <div class="col-12 mb-3">
+                From:
+                <input type="text" name="from" id="date1">
+                To:
+                <input type="text" name="to" id="date2">
+            </div>
+            <div class="col-12">
+                <p>Time pick</p>
+            </div>
+            <div class="col-12 mb-3">
+                From:
+                <input type="text" name="from" id="time1">
+                To:
+                <input type="text" name="to" id="time2">
+            </div>
+            <div class="col-12 mb-3">
+                <button type="submit" class="btn btn-primary">Go</button>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-area-chart"></i> Usage</div>
+            <div class="card-body">
+                <canvas id="usageChart" width="100%" height="30"></canvas>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    <div class="tab-pane fade" id="details">
+        <div class="row">
+            <div class="col-12">
+                <h2>Node Details</h2>
+                <p>Set of details.</p>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     // -- Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#292b2c';
     // -- Area Chart Example
-    var ctx = document.getElementById("myAreaChart");
+    var ctx = document.getElementById("usageChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
