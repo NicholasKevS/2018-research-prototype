@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#price">Price Rates</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#report">See Report</a>
+            </li>
         </ul>
     </div>
 </div>
@@ -93,6 +96,20 @@
                 <canvas id="priceChart" width="100%" height="30"></canvas>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="report">
+        <div class="row">
+            <div class="col-12">
+                <h2>Get Report</h2>
+                <form action="" method="post">
+                    <div class="col-12 mb-3">
+                        Date:
+                        <input type="text" name="datereport" id="datereport" value="">
+                        <button type="submit" class="btn btn-primary">Go</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -295,7 +312,10 @@
     $("#date").datepicker({
         dateFormat: "yy-mm-dd"
     });
-    //$("#date2").datepicker();
+
+    $("#datereport").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
 
     $("#time1").timepicker({
         timeFormat: 'HH:mm',
