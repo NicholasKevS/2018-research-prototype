@@ -111,36 +111,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">New Alerts:</h6>
+                    <h6 class="dropdown-header">Notifications:</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-danger">
+                <strong>Turned on node</strong>
+              </span>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">Someone turn on node that should be off in schedule.</div>
+                    </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">
               <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+                <strong>You save many this week!</strong>
               </span>
                         <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                        <div class="dropdown-message small">You save {number}, click here to see your report.</div>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">
               <span class="text-danger">
-                <strong>
-                  <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+                <strong>Turned off node</strong>
               </span>
                         <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                        <div class="dropdown-message small">Someone turn off node that should be on in schedule.</div>
                     </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item small" href="#">View all alerts</a>
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item small" href="#">View all alerts</a>-->
                 </div>
             </li>
             <li class="nav-item">
