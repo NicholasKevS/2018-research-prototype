@@ -10,6 +10,13 @@ class Processor {
         $this->CI =& get_instance();
     }
 
+    public function checkLogin()
+    {
+        if(!$this->CI->session->userdata('isLogin')) {
+            redirect('');
+        }
+    }
+
     public function getHourlyUsage($date)
     {
         $total = array();
@@ -28,5 +35,10 @@ class Processor {
             array_push($total, number_format($production,3));
         }
         return $total;
+    }
+
+    public function getPrice($id)
+    {
+        return $this->CI->datas->getPrice($id);
     }
 }

@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Profile extends CI_Controller {
 
+    function __construct()
+    {
+        parent::__construct();
+        $this->processor->checkLogin();
+    }
+
     public function index()
     {
         $data['profile'] = $this->users->getUser($this->session->id);

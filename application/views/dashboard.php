@@ -25,7 +25,7 @@
             <div class="col-12">
                 <h2>Usage & Production Chart</h2>
             </div>
-            <form action="dashboard/date/" method="post">
+            <form action="dashboard/" method="post">
                 <div class="col-12 mb-3">
                     Date:
                     <input type="text" name="date" id="date" value="<?php echo $date; ?>">
