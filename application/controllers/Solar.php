@@ -1,13 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Solar extends CI_Controller {
-
-    function __construct()
-    {
-        parent::__construct();
-        $this->processor->checkLogin();
-    }
+class Solar extends MY_Controller {
 
     public function index()
     {
