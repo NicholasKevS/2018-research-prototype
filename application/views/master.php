@@ -65,6 +65,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right">
+                <a class="nav-link" href="vehicle/">
+                    <i class="fa fa-fw fa-car"></i>
+                    <span class="nav-link-text">Electric Vehicle</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link" href="battery/">
                     <i class="fa fa-fw fa-battery-three-quarters"></i>
                     <span class="nav-link-text">Battery</span>
