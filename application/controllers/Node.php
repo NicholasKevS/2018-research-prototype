@@ -12,7 +12,7 @@ class Node extends MY_Controller {
 
     public function detail()
     {
-        $data['title'] = "Detail";
+        $data['title'] = "Node Detail";
         $data['view'] = "node_detail";
         $this->load->view('master', $data);
     }

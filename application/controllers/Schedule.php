@@ -5,14 +5,14 @@ class Schedule extends MY_Controller {
 
     public function index()
     {
-        $data['title'] = "Nodes Schedule";
+        $data['title'] = "Node Schedules List";
         $data['view'] = "schedule";
         $this->load->view('master', $data);
     }
 
     public function detail()
     {
-        $data['title'] = "Detail";
+        $data['title'] = "Node Schedule Detail";
         $data['view'] = "schedule_detail";
         $this->load->view('master', $data);
     }

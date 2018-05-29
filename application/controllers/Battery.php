@@ -5,7 +5,7 @@ class Battery extends MY_Controller {
 
     public function index()
     {
-        $data['title'] = "Battery Detail";
+        $data['title'] = "Battery";
         $data['view'] = "battery";
         $this->load->view('master', $data);
     }

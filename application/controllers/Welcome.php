@@ -5,7 +5,7 @@ class Welcome extends MY_Controller {
 
     public function index()
     {
-        $data['title'] = "Welcome";
+        $data['title'] = "Welcome Page";
         $data['view'] = "welcome";
         $this->load->view('master', $data);
     }

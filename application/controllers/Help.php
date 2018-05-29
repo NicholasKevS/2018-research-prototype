@@ -5,7 +5,7 @@ class Help extends MY_Controller {
 
     public function index()
     {
-        $data['title'] = "Help";
+        $data['title'] = "Help Page";
         $data['view'] = "help";
         $this->load->view('master', $data);
     }
