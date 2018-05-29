@@ -25,7 +25,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="card-header">Login</div>
         <div class="card-body">
             <form action="login/check/" method="post">
-                <div style="color: red;"><?php echo $this->session->flashdata('alert'); ?></div>
+                <?php
+                if($this->session->flashdata('alert')) {
+                    echo "<div class='alert alert-danger'>{$this->session->flashdata('alert')}</div>";
+                }
+                ?>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input class="form-control" id="username" name="username" type="text" placeholder="Enter username">
