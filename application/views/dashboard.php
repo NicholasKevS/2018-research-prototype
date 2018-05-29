@@ -28,17 +28,22 @@
             <form action="dashboard/" method="post">
                 <div class="col-12 mb-3">
                     Date:
-                    <input type="text" name="date" id="date" value="<?php echo $date; ?>">
+                    <input type="text" name="date" id="date" onkeydown="return false" value="<?php echo $date; ?>">
                 </div>
                 <div class="col-12 mb-3">
                     From:
-                    <input type="text" name="test1" id="time1">
+                    <input type="text" name="time1" id="time1" onkeydown="return false" value="<?php echo $time1; ?>">
                     To:
-                    <input type="text" name="test2" id="time2">
+                    <input type="text" name="time2" id="time2" onkeydown="return false" value="<?php echo $time2; ?>">
                     <button type="submit" class="btn btn-primary">Go</button>
                 </div>
             </form>
         </div>
+        <?php
+        if($this->session->flashdata('alert')) {
+            echo "<div class='alert alert-danger'>{$this->session->flashdata('alert')}</div>";
+        }
+        ?>
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fa fa-area-chart"></i> Usage & Production</div>
@@ -67,26 +72,6 @@
         <div class="row">
             <div class="col-12">
                 <h2>Current Electricity Rate</h2>
-            </div>
-            <div class="col-4">
-<!--                <table class="table table-bordered">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th>Peak</th>-->
-<!--                        <th>Shoulder</th>-->
-<!--                        <th>Off Peak</th>-->
-<!--                        <th>Unit</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                    <tr>-->
-<!--                        <td>--><?php //echo $price['peak']; ?><!--</td>-->
-<!--                        <td>--><?php //echo $price['shoulder']; ?><!--</td>-->
-<!--                        <td>--><?php //echo $price['offpeak']; ?><!--</td>-->
-<!--                        <td>cents per kWh</td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
             </div>
         </div>
         <div class="card mb-3">
@@ -118,16 +103,17 @@
     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#292b2c';
 
-    // test variable
-    var usage = <?php echo json_encode($usage) ?>;
-    var production = <?php echo json_encode($production) ?>;
+    // chart variable
+    var timeAxis = <?php echo json_encode($timeAxis); ?>;
+    var usage = <?php echo json_encode($usage); ?>;
+    var production = <?php echo json_encode($production); ?>;
 
     // -- Line Chart
     var ctx = document.getElementById("usageproductionChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+            labels: timeAxis,
             datasets: [{
                 label: "Usage",
                 lineTension: 0.3,
@@ -326,6 +312,7 @@
         dynamic: false,
         scrollbar: true
     });
+
     $("#time2").timepicker({
         timeFormat: 'HH:mm',
         interval: 60,
@@ -335,4 +322,5 @@
         dynamic: false,
         scrollbar: true
     });
+
 </script>
