@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2018 at 06:18 PM
+-- Generation Time: May 29, 2018 at 10:58 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -158,6 +158,19 @@ INSERT INTO `battery_sums` (`batteryid`, `date`, `status`, `amount`) VALUES
 (1, '2018-05-14', 2, 2.157),
 (1, '2018-05-15', 2, 2.511),
 (1, '2018-05-16', 2, 2.049);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ci_sessions`
+--
+
+CREATE TABLE `ci_sessions` (
+  `id` varchar(128) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `data` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -847,7 +860,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `fullname`, `locationid`, `providerid`, `providercode`, `type`) VALUES
-(1, 'admin', 'admin', 'admin@admin.com', 'administrator', 2, 1, 'qweasdzxc', 1),
+(1, 'admin', 'admin', 'admin@admin.com', 'administrator', 2, 2, 'qweqwe', 1),
 (2, 'user1', 'user1', 'user1@user.com', 'testuser1', 4, 2, 'asdasdasd', 0);
 
 --
@@ -871,6 +884,13 @@ ALTER TABLE `battery_acts`
 --
 ALTER TABLE `battery_sums`
   ADD UNIQUE KEY `batteryid` (`batteryid`,`date`);
+
+--
+-- Indexes for table `ci_sessions`
+--
+ALTER TABLE `ci_sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
 -- Indexes for table `locations`
