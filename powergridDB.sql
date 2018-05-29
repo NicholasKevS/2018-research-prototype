@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2018 at 10:58 PM
+-- Generation Time: May 30, 2018 at 02:16 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `powergrid`
 --
+CREATE DATABASE IF NOT EXISTS `powergrid` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `powergrid`;
 
 -- --------------------------------------------------------
 
@@ -171,6 +173,13 @@ CREATE TABLE `ci_sessions` (
   `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `data` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ci_sessions`
+--
+
+INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('kane6iuvh489g7l6942flvvh9n4ndm2o', '::1', 1527610462, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373631303435373b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b);
 
 -- --------------------------------------------------------
 
@@ -889,7 +898,7 @@ ALTER TABLE `battery_sums`
 -- Indexes for table `ci_sessions`
 --
 ALTER TABLE `ci_sessions`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`,`ip_address`),
   ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
