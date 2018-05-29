@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2018 at 02:16 AM
+-- Generation Time: May 30, 2018 at 02:36 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -784,14 +784,14 @@ CREATE TABLE `solars` (
   `name` text NOT NULL,
   `area` double NOT NULL,
   `quantity` int(11) NOT NULL,
-  `power` double NOT NULL
+  `size` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `solars`
 --
 
-INSERT INTO `solars` (`id`, `userid`, `name`, `area`, `quantity`, `power`) VALUES
+INSERT INTO `solars` (`id`, `userid`, `name`, `area`, `quantity`, `size`) VALUES
 (1, 2, 'My Solar Panel', 30.25, 100, 10);
 
 -- --------------------------------------------------------

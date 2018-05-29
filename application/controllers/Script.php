@@ -79,27 +79,27 @@ class Script extends CI_Controller {
         echo "DONE";
     }
 
-    private function populate_battery_sum()
-    {
-        for($i=0;$i<3;$i++) {
-            $d = mktime(0, 0, 0, 5, 14+$i, 2018);
-            $date = date('Y-m-d', $d);
-            echo "ADD TO BATTERY SUM DATE $date<br>";
-            $production = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>2))->row_array()['amount'];
-            $usage = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>1))->row_array()['amount'];
-            $production = number_format($production,3);
-            $usage = number_format($usage,3);
-            $total = $production - $usage;
-
-            if($total < 0) {
-                $status = 1;
-                $final = $total * -1.000;
-            } else {
-                $status = 2;
-                $final = $total;
-            }
-            $this->db->insert('battery_sums', array('batteryid'=>1, 'date'=>$date, 'status'=>$status, 'amount'=>$final));
-        }
-        echo "DONE";
-    }
+//    private function populate_battery_sum()
+//    {
+//        for($i=0;$i<3;$i++) {
+//            $d = mktime(0, 0, 0, 5, 14+$i, 2018);
+//            $date = date('Y-m-d', $d);
+//            echo "ADD TO BATTERY SUM DATE $date<br>";
+//            $production = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>2))->row_array()['amount'];
+//            $usage = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>1))->row_array()['amount'];
+//            $production = number_format($production,3);
+//            $usage = number_format($usage,3);
+//            $total = $production - $usage;
+//
+//            if($total < 0) {
+//                $status = 1;
+//                $final = $total * -1.000;
+//            } else {
+//                $status = 2;
+//                $final = $total;
+//            }
+//            $this->db->insert('battery_sums', array('batteryid'=>1, 'date'=>$date, 'status'=>$status, 'amount'=>$final));
+//        }
+//        echo "DONE";
+//    }
 }
