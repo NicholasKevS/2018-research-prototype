@@ -157,9 +157,9 @@
                 }],
                 yAxes: [{
                     ticks: {
-                        min: -3,
-                        max: 3,
-                        maxTicksLimit: 10
+                        min: -1,
+                        max: 4,
+                        maxTicksLimit: 6
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
