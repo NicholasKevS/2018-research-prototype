@@ -1,12 +1,10 @@
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 mb-3">
         <h1>Node List</h1>
     </div>
 </div>
-<div class="card mb-3">
-    <div class="card-header">
-        <i class="fa fa-table"></i> Node List Example</div>
-    <div class="card-body">
+<div class="row">
+    <div class="col-12 mb-3">
         <div class="float-md-right mb-3">
             <button type="button" class="btn btn-primary">Add New Node</button>
         </div>
@@ -92,5 +90,4 @@
             <button type="button" class="btn btn-primary">Save</button>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>

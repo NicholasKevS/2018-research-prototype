@@ -4,10 +4,8 @@
         <p>Set of details.</p>
     </div>
 </div>
-<div class="card mb-3">
-    <div class="card-header">
-        <i class="fa fa-table"></i> Node Schedule Rule List Example</div>
-    <div class="card-body">
+<div class="row">
+    <div class="col-12 mb-3">
         <div class="float-md-right mb-3">
             <button type="button" class="btn btn-primary">Add New Rule</button>
         </div>
@@ -46,5 +44,4 @@
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
