@@ -31,7 +31,7 @@ class Profile extends MY_Controller {
                 'providerid'=>$this->input->post('providerid'),
                 'providercode'=>$this->input->post('providercode'));
 
-            $this->db->where('id', $this->session->id)->update('users', $data);
+            $this->processor->saveProfile($this->session->id, $data);
 
             $this->session->set_flashdata('success','<p>Profile saved.</p>');
         }

@@ -13,6 +13,11 @@ class Users extends CI_Model {
         return $this->db->get_where('users', array('id'=>$id))->row_array();
     }
 
+    public function saveProfile($id, $data)
+    {
+        return $this->db->where('id', $id)->update('users', $data);
+    }
+
     public function getSuburbs()
     {
         return $this->db->get('locations')->result_array();

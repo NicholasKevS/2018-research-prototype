@@ -29,10 +29,13 @@ class Dashboard extends MY_Controller {
         $data['date'] = $date;
         $data['time1'] = $time1;
         $data['time2'] = $time2;
+
+        $id = $this->session->id;
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
-        $data['price'] = $this->processor->getPrice($this->session->id);
-        $data['usage'] = $this->processor->getHourlyUsage($date, $time1, $time2);
-        $data['production'] = $this->processor->getHourlyProduction($date, $time1, $time2);
+        $data['price'] = $this->processor->getPrice($id);
+        $data['usage'] = $this->processor->getHourlyUsage($id, $date, $time1, $time2);
+        $data['production'] = $this->processor->getHourlyProduction($id, $date, $time1, $time2);
+
         $data['title'] = "Dashboard";
         $data['view'] = "dashboard";
         $this->load->view('master', $data);
