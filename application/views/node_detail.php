@@ -1,6 +1,14 @@
 <div class="row">
     <div class="col-12">
-        <h1>Node Name - Node</h1>
+        <h1><?php echo $nodeName; ?></h1>
+        <?php
+        if($this->session->flashdata('success')) {
+            echo "<div class='alert alert-success'>{$this->session->flashdata('success')}</div>";
+        }
+        if($this->session->flashdata('alert')) {
+            echo "<div class='alert alert-danger'>{$this->session->flashdata('alert')}</div>";
+        }
+        ?>
     </div>
     <div class="col-12">
         <ul class="nav nav-tabs">
@@ -19,24 +27,19 @@
             <div class="col-12">
                 <h2>Usage Chart</h2>
             </div>
-            <div class="col-12 mb-3">
-                From:
-                <input type="text" name="from" id="date1">
-                To:
-                <input type="text" name="to" id="date2">
-            </div>
-            <div class="col-12">
-                <p>Time pick</p>
-            </div>
-            <div class="col-12 mb-3">
-                From:
-                <input type="text" name="from" id="time1">
-                To:
-                <input type="text" name="to" id="time2">
-            </div>
-            <div class="col-12 mb-3">
-                <button type="submit" class="btn btn-primary">Go</button>
-            </div>
+            <form action="node/detail/<?php echo $node['id']; ?>" method="post">
+                <div class="col-12 mb-3">
+                    Date:
+                    <input type="text" name="date" id="date" onkeydown="return false" value="<?php echo $date; ?>">
+                </div>
+                <div class="col-12 mb-3">
+                    From:
+                    <input type="text" name="time1" id="time1" onkeydown="return false" value="<?php echo $time1; ?>">
+                    To:
+                    <input type="text" name="time2" id="time2" onkeydown="return false" value="<?php echo $time2; ?>">
+                    <button type="submit" class="btn btn-primary">Go</button>
+                </div>
+            </form>
         </div>
         <div class="card mb-3">
             <div class="card-header">
@@ -44,48 +47,78 @@
             <div class="card-body">
                 <canvas id="usageChart" width="100%" height="30"></canvas>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
     </div>
     <div class="tab-pane fade" id="details">
         <div class="row">
-            <div class="col-12">
+            <div class="col-4">
                 <h2>Node Details</h2>
-                <p>Set of details.</p>
+                <form action="node/saveDetail/" method="post">
+                    <input type="hidden" id="id" name="id" value="<?php echo $node['id']; ?>">
+                    <div class="form-group">
+                        <label for="username">Node Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $node['name']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Id Number</label>
+                        <input type="text" class="form-control" id="code" name="code" value="<?php echo $node['code']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox" name="status" id="status" value="on"<?php echo $checked; ?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 <script>
-    // -- Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#292b2c';
+    // chart variable
+    var timeAxis = <?php echo json_encode($timeAxis); ?>;
+    var usage = <?php echo json_encode($usage); ?>;
+    var total = <?php echo json_encode($total); ?>;
+
     // -- Area Chart Example
     var ctx = document.getElementById("usageChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10"],
+            labels: timeAxis,
             datasets: [{
-                label: "Sessions",
+                label: "Node Usage",
+                yAxisID:"left",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
+                borderColor: "rgba(198,0,29,1)",
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(198,0,29,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: usage
+            },{
+                label: "Total Usage",
+                yAxisID:"left",
+                lineTension: 0.3,
                 borderColor: "rgba(2,117,216,1)",
                 pointRadius: 5,
                 pointBackgroundColor: "rgba(2,117,216,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
-                data: [10000, 30162, 26263, 18287, 28682, 33259, 25849 , 32651, 24159, 38451],
+                data: total
             }],
         },
         options: {
             scales: {
                 xAxes: [{
-                    time: {
-                        unit: 'date'
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Time"
                     },
                     gridLines: {
                         display: false
@@ -95,10 +128,15 @@
                     }
                 }],
                 yAxes: [{
+                    id: "left",
                     ticks: {
-                        min: 0,
-                        max: 40000,
-                        maxTicksLimit: 5
+                        min: -1,
+                        max: 4,
+                        maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Kilowatt hour"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
@@ -110,23 +148,37 @@
             }
         }
     });
-    $("#date1").datepicker();
-    $("#date2").datepicker();
+
+    $("#date").datepicker({
+        dateFormat: 'yy-mm-dd',
+        firstDay: 1
+    });
+
     $("#time1").timepicker({
         timeFormat: 'HH:mm',
         interval: 60,
         minTime: '0',
-        maxTime: '23',
-        startTime: '0',
+        maxTime: '22',
         dynamic: false,
-        scrollbar: true
+        scrollbar: true,
+        change: function(time) {
+            var timepicker = $(this).timepicker();
+            var minTime = (new Date(time).getHours()+1).toString();
+            var newTime = timepicker.format(new Date(0,0,0,minTime));
+
+            $("#time2").timepicker('option', 'minTime', minTime);
+
+            if($("#time2").val() < newTime) {
+                $("#time2").val(newTime);
+            }
+        }
     });
+
     $("#time2").timepicker({
         timeFormat: 'HH:mm',
         interval: 60,
-        minTime: '0',
+        minTime: (new Date(0,0,0,parseInt(<?php echo "'$time1'"; ?>)).getHours()+1).toString(),
         maxTime: '23',
-        startTime: '0',
         dynamic: false,
         scrollbar: true
     });

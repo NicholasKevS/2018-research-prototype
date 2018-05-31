@@ -22,7 +22,7 @@ class Dashboard extends MY_Controller {
         }
 
         if($time1 >= $time2) {
-            $this->session->set_flashdata('alert',"'To' time must be bigger than 'From'");
+            $this->session->set_flashdata('alert',"'To' time must be later than 'From' time");
             redirect('dashboard/');
         }
 

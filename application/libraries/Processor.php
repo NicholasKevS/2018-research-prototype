@@ -37,6 +37,17 @@ class Processor {
         return $time;
     }
 
+    public function getNodeUsage($id, $date, $from, $to) {
+        $usage = array();
+        $from = (int)explode(":", $from)[0];
+        $to = (int)explode(":", $to)[0];
+        for($i=$from;$i<=$to;$i++) {
+            $node = $this->CI->datas->getUsage($id, $date, $i);
+            array_push($usage, number_format($node, 3));
+        }
+        return $usage;
+    }
+
     public function getHourlyUsage($userid, $date, $from, $to)
     {
         $total = array();
@@ -90,5 +101,42 @@ class Processor {
         }
 
         return $final;
+    }
+
+    public function getNode($id)
+    {
+        return $this->CI->datas->getNode($id);
+    }
+
+    public function getNodes($userid)
+    {
+        return $this->CI->datas->getNodes($userid);
+    }
+
+    public function saveNode($data)
+    {
+        if($data['id'] == "new") {
+            unset($data['id']);
+            return $this->CI->datas->insertNode($data);
+        } else {
+            return $this->CI->datas->updateNode($data);
+        }
+    }
+
+    public function saveNodes($userid, $status)
+    {
+        $nodes = $this->CI->datas->getNodes($userid);
+        foreach($nodes as &$node) {
+            if($status == null) {
+                $node['status'] = 0;
+            } else {
+                if(in_array($node['id'], $status)) {
+                    $node['status'] = 1;
+                } else {
+                    $node['status'] = 0;
+                }
+            }
+        }
+        return $this->CI->datas->updateNodes($nodes);
     }
 }

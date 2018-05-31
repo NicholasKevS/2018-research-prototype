@@ -1,10 +1,6 @@
 <div class="row">
     <div class="col-12">
         <h1>Profile Details</h1>
-    </div>
-</div>
-<div class="col-4">
-    <form action="profile/save/" method="post">
         <?php
         if($this->session->flashdata('success')) {
             echo "<div class='alert alert-success'>{$this->session->flashdata('success')}</div>";
@@ -13,6 +9,10 @@
             echo "<div class='alert alert-danger'>{$this->session->flashdata('alert')}</div>";
         }
         ?>
+    </div>
+</div>
+<div class="col-4">
+    <form action="profile/save/" method="post">
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" value="<?php echo $profile['username']; ?>">

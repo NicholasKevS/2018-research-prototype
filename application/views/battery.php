@@ -36,7 +36,6 @@
             <div class="card-body">
                 <canvas id="buydischargeChart" width="100%" height="30"></canvas>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
     </div>
     <div class="tab-pane fade" id="details">

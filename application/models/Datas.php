@@ -5,7 +5,9 @@ class Datas extends CI_Model {
 
     public function getUsage($id, $date, $hour)
     {
-        return $this->db->get_where('node_usages', array('nodeid'=>$id, 'date'=>$date, 'time'=>$hour))->row_array();
+        return $this->db->select('amount')
+            ->get_where('node_usages', array('nodeid'=>$id, 'date'=>$date, 'time'=>$hour))
+            ->row_array()['amount'];
     }
 
     public function getUsageTotalByDate($userid, $date)
@@ -52,5 +54,30 @@ class Datas extends CI_Model {
     {
         return $this->db->from('provider_price')->join('users', 'provider_price.providerid = users.providerid')
             ->where('users.id', $userid)->get()->row_array();
+    }
+
+    public function getNode($id)
+    {
+        return $this->db->get_where('nodes', array('id'=>$id))->row_array();
+    }
+
+    public function getNodes($userid)
+    {
+        return $this->db->get_where('nodes', array('userid'=>$userid))->result_array();
+    }
+
+    public function insertNode($node)
+    {
+        return $this->db->insert('nodes', $node);
+    }
+
+    public function updateNode($node)
+    {
+        return $this->db->where('id', $node['id'])->update('nodes', $node);
+    }
+
+    public function updateNodes($nodes)
+    {
+        return $this->db->update_batch('nodes', $nodes, 'id');
     }
 }
