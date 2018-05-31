@@ -103,13 +103,28 @@ class Processor {
         return $final;
     }
 
-    public function getVehicleAct($userid, $date, $from, $to)
+    public function getHourlyVehicleAct($userid, $date, $from, $to)
     {
         $total = array();
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
-            $act = $this->CI->datas->getVehicleAct($userid, $date, $i);
+            $act = $this->CI->datas->getVehicleActByHour($userid, $date, $i);
+            if($act['status'] == 1) {
+                $act['amount']*= -1;
+            }
+            array_push($total, number_format($act['amount'], 3));
+        }
+        return $total;
+    }
+
+    public function getHourlyBatteryAct($userid, $date, $from, $to)
+    {
+        $total = array();
+        $from = (int)explode(":", $from)[0];
+        $to = (int)explode(":", $to)[0];
+        for($i=$from;$i<=$to;$i++) {
+            $act = $this->CI->datas->getBatteryActByHour($userid, $date, $i);
             if($act['status'] == 1) {
                 $act['amount']*= -1;
             }
@@ -163,5 +178,30 @@ class Processor {
     public function saveVehicle($data)
     {
         return $this->CI->datas->updateVehicle($data);
+    }
+
+    public function getBattery($userid)
+    {
+        return $this->CI->datas->getBattery($userid);
+    }
+
+    public function saveBattery($data)
+    {
+        return $this->CI->datas->updateBattery($data);
+    }
+
+    public function getSolar($userid)
+    {
+        return $this->CI->datas->getSolar($userid);
+    }
+
+    public function saveSolar($data)
+    {
+        return $this->CI->datas->updateSolar($data);
+    }
+
+    public function getLocation($userid)
+    {
+        return $this->CI->datas->getLocation($userid);
     }
 }

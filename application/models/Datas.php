@@ -56,10 +56,18 @@ class Datas extends CI_Model {
             ->where('users.id', $userid)->get()->row_array();
     }
 
-    public function getVehicleAct($userid, $date, $hour)
+    public function getVehicleActByHour($userid, $date, $hour)
     {
         return $this->db->from('vehicle_acts')
             ->join('vehicles', 'vehicle_acts.vehicleid = vehicles.id')->join('users', 'vehicles.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
+            ->get()->row_array();
+    }
+
+    public function getBatteryActByHour($userid, $date, $hour)
+    {
+        return $this->db->from('battery_acts')
+            ->join('batteries', 'battery_acts.batteryid = batteries.id')->join('users', 'batteries.userid = users.id')
             ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
             ->get()->row_array();
     }
@@ -89,13 +97,39 @@ class Datas extends CI_Model {
         return $this->db->update_batch('nodes', $nodes, 'id');
     }
 
-    public function getVehicle($id)
+    public function getVehicle($userid)
     {
-        return $this->db->get_where('vehicles', array('userid'=>$id))->row_array();
+        return $this->db->get_where('vehicles', array('userid'=>$userid))->row_array();
     }
 
     public function updateVehicle($vehicle)
     {
         return $this->db->where('id', $vehicle['id'])->update('vehicles', $vehicle);
+    }
+
+    public function getBattery($userid)
+    {
+        return $this->db->get_where('batteries', array('userid'=>$userid))->row_array();
+    }
+
+    public function updateBattery($battery)
+    {
+        return $this->db->where('id', $battery['id'])->update('batteries', $battery);
+    }
+
+    public function getSolar($userid)
+    {
+        return $this->db->get_where('solars', array('userid'=>$userid))->row_array();
+    }
+
+    public function updateSolar($solar)
+    {
+        return $this->db->where('id', $solar['id'])->update('solars', $solar);
+    }
+
+    public function getLocation($userid)
+    {
+        return $this->db->from('locations')->join('users', 'locations.id = users.locationid')
+            ->where('users.id', $userid)->get()->row_array();
     }
 }

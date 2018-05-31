@@ -1,6 +1,14 @@
 <div class="row">
     <div class="col-12">
         <h1>Battery</h1>
+        <?php
+        if($this->session->flashdata('success')) {
+            echo "<div class='alert alert-success'>{$this->session->flashdata('success')}</div>";
+        }
+        if($this->session->flashdata('alert')) {
+            echo "<div class='alert alert-danger'>{$this->session->flashdata('alert')}</div>";
+        }
+        ?>
     </div>
     <div class="col-12">
         <ul class="nav nav-tabs">
@@ -9,9 +17,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#details">Battery Details</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#rules">Discharge Rules</a>
             </li>
         </ul>
     </div>
@@ -22,13 +27,19 @@
             <div class="col-12">
                 <h2>Buy & Discharge Chart</h2>
             </div>
-            <div class="col-12 mb-3">
-                From:
-                <input type="text" name="from" id="date1">
-                To:
-                <input type="text" name="to" id="date2">
-                <button type="submit" class="btn btn-primary">Go</button>
-            </div>
+            <form action="battery/" method="post">
+                <div class="col-12 mb-3">
+                    Date:
+                    <input type="text" name="date" id="date" onkeydown="return false" value="<?php echo $date; ?>">
+                </div>
+                <div class="col-12 mb-3">
+                    From:
+                    <input type="text" name="time1" id="time1" onkeydown="return false" value="<?php echo $time1; ?>">
+                    To:
+                    <input type="text" name="time2" id="time2" onkeydown="return false" value="<?php echo $time2; ?>">
+                    <button type="submit" class="btn btn-primary">Go</button>
+                </div>
+            </form>
         </div>
         <div class="card mb-3">
             <div class="card-header">
@@ -40,61 +51,67 @@
     </div>
     <div class="tab-pane fade" id="details">
         <div class="row">
-            <div class="col-12">
+            <div class="col-4 mb-3">
                 <h2>Battery Details</h2>
-            </div>
-            <div class="col-12 mb-3">
-                Some details.
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="rules">
-        <div class="row">
-            <div class="col-12">
-                <h2>Discharge Rule</h2>
-            </div>
-            <div class="col-12 mb-3">
-                <form method="post" action="battery/edit/">
-                    Top Threshold:
-                    <input type="text" name="topthreshold" id="topthreshold"> kw <br>
-                    Bottom Threshold:
-                    <input type="text" name="bottomthreshold" id="bottomthreshold"> kw
-                    <button type="submit" class="btn btn-primary">Change</button>
+                <form action="battery/save/" method="post">
+                    <input type="hidden" id="id" name="id" value="<?php echo $battery['id']; ?>">
+                    <div class="form-group">
+                        <label for="name">Battery Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $battery['name']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="code">Id Number</label>
+                        <input type="text" class="form-control" id="code" name="code" value="<?php echo $battery['code']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="capacity">Battery Capacity</label>
+                        <input type="text" class="form-control" id="capacity" name="capacity" value="<?php echo $battery['capacity']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="topthreshold">Top Threshold</label>
+                        <input type="text" class="form-control" id="topthreshold" name="topthreshold" value="<?php echo $battery['topthreshold']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="bottomthreshold">Bottom Threshold</label>
+                        <input type="text" class="form-control" id="bottomthreshold" name="bottomthreshold" value="<?php echo $battery['bottomthreshold']; ?>">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <script>
-    // -- Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#292b2c';
-    // -- Area Chart Example
+    // chart variable
+    var timeAxis = <?php echo json_encode($timeAxis); ?>;
+    var activity = <?php echo json_encode($activity); ?>;
+
+    // buy & discharge chart
     var ctx = document.getElementById("buydischargeChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10"],
+            labels: timeAxis,
             datasets: [{
-                label: "Sessions",
+                label: "Activity",
+                yAxisID:"left",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
                 borderColor: "rgba(2,117,216,1)",
                 pointRadius: 5,
                 pointBackgroundColor: "rgba(2,117,216,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
-                data: [10000, 30162, 26263, 18287, 28682, 33259, 25849 , 32651, 24159, 38451],
+                data: activity
             }],
         },
         options: {
             scales: {
                 xAxes: [{
-                    time: {
-                        unit: 'date'
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Time"
                     },
                     gridLines: {
                         display: false
@@ -104,10 +121,15 @@
                     }
                 }],
                 yAxes: [{
+                    id: "left",
                     ticks: {
-                        min: 0,
-                        max: 40000,
-                        maxTicksLimit: 5
+                        min: -2,
+                        max: 3,
+                        maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Kilowatt hour"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
@@ -119,6 +141,38 @@
             }
         }
     });
-    $("#date1").datepicker();
-    $("#date2").datepicker();
+
+    $("#date").datepicker({
+        dateFormat: 'yy-mm-dd',
+        firstDay: 1
+    });
+
+    $("#time1").timepicker({
+        timeFormat: 'HH:mm',
+        interval: 60,
+        minTime: '0',
+        maxTime: '22',
+        dynamic: false,
+        scrollbar: true,
+        change: function(time) {
+            var timepicker = $(this).timepicker();
+            var minTime = (new Date(time).getHours()+1).toString();
+            var newTime = timepicker.format(new Date(0,0,0,minTime));
+
+            $("#time2").timepicker('option', 'minTime', minTime);
+
+            if($("#time2").val() < newTime) {
+                $("#time2").val(newTime);
+            }
+        }
+    });
+
+    $("#time2").timepicker({
+        timeFormat: 'HH:mm',
+        interval: 60,
+        minTime: (new Date(0,0,0,parseInt(<?php echo "'$time1'"; ?>)).getHours()+1).toString(),
+        maxTime: '23',
+        dynamic: false,
+        scrollbar: true
+    });
 </script>

@@ -27,7 +27,7 @@ class Vehicle extends MY_Controller {
 
         $id = $this->session->id;
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
-        $data['activity'] = $this->processor->getVehicleAct($id, $date, $time1, $time2);
+        $data['activity'] = $this->processor->getHourlyVehicleAct($id, $date, $time1, $time2);
         $data['vehicle'] = $this->processor->getVehicle($id);
 
         $data['title'] = "Electric Vehicle";
