@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2018 at 01:01 AM
+-- Generation Time: Jun 01, 2018 at 01:11 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -175,7 +175,7 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 ('le929hpcbra9mv2dp1getckjpsrlabjt', '::1', 1527778098, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373737383039383b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b),
 ('mgesm961sufhnpdffml467kb9d6tpntj', '::1', 1527766599, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373736363539393b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b737563636573737c733a31323a22536176652073756363657373223b5f5f63695f766172737c613a313a7b733a373a2273756363657373223b733a333a226f6c64223b7d),
 ('n9u1qmc1qbr5p6arnln0muj9dq23m6v3', '::1', 1527773927, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373737333932373b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b),
-('ndlf9fv32cot1nmsnf1b4pa8bk4tad15', '::1', 1527778894, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373737383736333b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b),
+('ndlf9fv32cot1nmsnf1b4pa8bk4tad15', '::1', 1527778978, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373737383736333b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b737563636573737c733a31393a22536f6c61722064657461696c73207361766564223b5f5f63695f766172737c613a313a7b733a373a2273756363657373223b733a333a226f6c64223b7d),
 ('nojsbp8sg5imvaq0kjmucblflpt2g0g8', '::1', 1527769566, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373736393536363b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b616c6572747c733a34303a223c703e546865204e6f6465204e616d65206669656c642069732072657175697265642e3c2f703e0a223b5f5f63695f766172737c613a313a7b733a353a22616c657274223b733a333a226f6c64223b7d),
 ('sdcbp9ctb8etifub7n4mrkfqdqtj127c', '::1', 1527763558, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373736333535383b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b),
 ('spphbauglm6f6cnugjabcug82e8am8sc', '::1', 1527778763, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532373737383736333b69647c733a313a2231223b66756c6c6e616d657c733a31333a2261646d696e6973747261746f72223b697341646d696e7c623a313b69734c6f67696e7c733a333a22796573223b);
@@ -188,42 +188,21 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL,
-  `name` text NOT NULL
+  `name` text NOT NULL,
+  `today` text NOT NULL,
+  `tomorrow` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `locations`
 --
 
-INSERT INTO `locations` (`id`, `name`) VALUES
-(1, 'Eastwood'),
-(2, 'Haymarket'),
-(3, 'Redfern'),
-(4, 'Strathfield'),
-(5, 'Wynyard');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `location_weathers`
---
-
-CREATE TABLE `location_weathers` (
-  `locationid` int(11) NOT NULL,
-  `today` text NOT NULL,
-  `tomorrow` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `location_weathers`
---
-
-INSERT INTO `location_weathers` (`locationid`, `today`, `tomorrow`) VALUES
-(1, 'Sunny', 'Clear'),
-(2, 'Shower', 'Rain'),
-(3, 'Cloudy', 'Rain'),
-(4, 'Sunny', 'Cloudy'),
-(5, 'Clear', 'Shower');
+INSERT INTO `locations` (`id`, `name`, `today`, `tomorrow`) VALUES
+(1, 'Eastwood', 'Sunny', 'Clear'),
+(2, 'Haymarket', 'Shower', 'Rain'),
+(3, 'Redfern', 'Cloudy', 'Rain'),
+(4, 'Strathfield', 'Sunny', 'Cloudy'),
+(5, 'Wynyard', 'Clear', 'Shower');
 
 -- --------------------------------------------------------
 
@@ -792,7 +771,7 @@ CREATE TABLE `solars` (
 --
 
 INSERT INTO `solars` (`id`, `userid`, `name`, `code`, `area`, `quantity`, `size`) VALUES
-(1, 1, 'My Solar Panel', '321321321', 30.25, 100, 10);
+(1, 1, 'My Solar Roof', '321321321', 30.25, 100, 10);
 
 -- --------------------------------------------------------
 
@@ -891,7 +870,7 @@ CREATE TABLE `vehicles` (
 --
 
 INSERT INTO `vehicles` (`id`, `userid`, `name`, `code`, `capacity`) VALUES
-(1, 1, 'My Electric Vehicle', '123123123', 30);
+(1, 1, 'My Electric Vehicle', '456456456', 30);
 
 -- --------------------------------------------------------
 
@@ -1013,12 +992,6 @@ ALTER TABLE `ci_sessions`
 --
 ALTER TABLE `locations`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `location_weathers`
---
-ALTER TABLE `location_weathers`
-  ADD PRIMARY KEY (`locationid`);
 
 --
 -- Indexes for table `nodes`
