@@ -35,6 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom scripts for all pages-->
     <script src="assets/js/jquery-ui.min.js"></script>
     <script src="assets/js/jquery.timepicker.min.js"></script>
+    <script src="assets/js/powergrid.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">

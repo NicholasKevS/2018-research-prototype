@@ -99,10 +99,6 @@
     </div>
 </div>
 <script>
-    // -- Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#292b2c';
-
     // chart variable
     var timeAxis = <?php echo json_encode($timeAxis); ?>;
     var usage = <?php echo json_encode($usage); ?>;
@@ -117,37 +113,48 @@
             labels: timeAxis,
             datasets: [{
                 label: "Usage",
+                yAxisID:"left",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
-                borderColor: "rgba(2,117,216,1)",
+                borderColor: "rgba(198,0,29,1)",
                 pointRadius: 5,
-                pointBackgroundColor: "rgba(2,117,216,1)",
+                pointBackgroundColor: "rgba(198,0,29,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
                 data: usage
             },{
                 label: "Production",
+                yAxisID:"left",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
                 borderColor: "rgba(2,117,216,1)",
                 pointRadius: 5,
                 pointBackgroundColor: "rgba(2,117,216,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
                 data: production
+            },{
+                label: "Price",
+                yAxisID:"right",
+                lineTension: 0.3,
+                borderColor: "rgba(67,182,47,1)",
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(67,182,47,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: price
             }],
         },
         options: {
             scales: {
                 xAxes: [{
-                    time: {
-                        unit: 'hour'
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Time"
                     },
                     gridLines: {
                         display: false
@@ -157,10 +164,30 @@
                     }
                 }],
                 yAxes: [{
+                    id: "left",
                     ticks: {
                         min: -1,
                         max: 4,
                         maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Kilowatt hour"
+                    },
+                    gridLines: {
+                        color: "rgba(0, 0, 0, .125)",
+                    }
+                },{
+                    id: "right",
+                    position: 'right',
+                    ticks: {
+                        min: 10,
+                        max: 60,
+                        maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Cents per kWh"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
@@ -168,7 +195,7 @@
                 }],
             },
             legend: {
-                display: false
+                display: true
             }
         }
     });
