@@ -107,6 +107,7 @@
     var timeAxis = <?php echo json_encode($timeAxis); ?>;
     var usage = <?php echo json_encode($usage); ?>;
     var production = <?php echo json_encode($production); ?>;
+    var price = <?php echo json_encode($price); ?>;
 
     // -- Line Chart
     var ctx = document.getElementById("usageproductionChart");
@@ -256,13 +257,7 @@
                 pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
-                data: [<?php echo $price['offpeak']; ?>,<?php echo $price['offpeak']; ?>,<?php echo $price['offpeak']; ?>,<?php echo $price['offpeak']; ?>,
-                    <?php echo $price['offpeak']; ?>,<?php echo $price['offpeak']; ?>,<?php echo $price['offpeak']; ?>,
-                    <?php echo $price['shoulder']; ?>,<?php echo $price['shoulder']; ?>,<?php echo $price['shoulder']; ?>,<?php echo $price['shoulder']; ?>,
-                    <?php echo $price['shoulder']; ?>,<?php echo $price['shoulder']; ?>,<?php echo $price['shoulder']; ?>,
-                    <?php echo $price['peak']; ?>,<?php echo $price['peak']; ?>,<?php echo $price['peak']; ?>,<?php echo $price['peak']; ?>,
-                    <?php echo $price['peak']; ?>,<?php echo $price['peak']; ?>,<?php echo $price['shoulder']; ?>,<?php echo $price['shoulder']; ?>,<?php echo $price['offpeak']; ?>,
-                    <?php echo $price['offpeak']; ?>]
+                data: price
             }],
         },
         options: {

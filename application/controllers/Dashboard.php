@@ -32,7 +32,7 @@ class Dashboard extends MY_Controller {
 
         $id = $this->session->id;
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
-        $data['price'] = $this->processor->getPrice($id);
+        $data['price'] = $this->processor->getPrice($id, $date, $time1, $time2);
         $data['usage'] = $this->processor->getHourlyUsage($id, $date, $time1, $time2);
         $data['production'] = $this->processor->getHourlyProduction($id, $date, $time1, $time2);
 

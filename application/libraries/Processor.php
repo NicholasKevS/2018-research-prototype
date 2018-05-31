@@ -61,8 +61,34 @@ class Processor {
         return $total;
     }
 
-    public function getPrice($id)
+    public function getPrice($id, $date, $from, $to)
     {
-        return $this->CI->datas->getPrice($id);
+        $final = array();
+        $date = date('N', strtotime($date));
+        $from = (int)explode(":", $from)[0];
+        $to = (int)explode(":", $to)[0];
+        $price = $this->CI->datas->getPrice($id);
+
+        if($date < 6) {
+            for($i=$from;$i<=$to;$i++) {
+                if(($i>=0 && $i<=6) || ($i>=22 && $i<=23)) {
+                    array_push($final, $price['offpeak']);
+                } elseif(($i>=7 && $i<=13) || ($i>=20 && $i<=21)) {
+                    array_push($final, $price['shoulder']);
+                } elseif($i>=14 && $i<=19) {
+                    array_push($final, $price['peak']);
+                }
+            }
+        } else {
+            for($i=$from;$i<=$to;$i++) {
+                if(($i>=0 && $i<=6) || ($i>=22 && $i<=23)) {
+                    array_push($final, $price['offpeak']);
+                } elseif($i>=7 && $i<=21) {
+                    array_push($final, $price['shoulder']);
+                }
+            }
+        }
+
+        return $final;
     }
 }

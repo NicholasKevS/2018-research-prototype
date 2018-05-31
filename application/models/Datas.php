@@ -50,7 +50,7 @@ class Datas extends CI_Model {
 
     public function getPrice($userid)
     {
-        return $this->db->from('provider_price')->join('users', 'provider_price.providerid = users.providerid')->where('users.id', $userid)
-            ->get()->row_array();
+        return $this->db->from('provider_price')->join('users', 'provider_price.providerid = users.providerid')
+            ->where('users.id', $userid)->get()->row_array();
     }
 }
