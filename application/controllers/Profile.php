@@ -33,7 +33,7 @@ class Profile extends MY_Controller {
 
             $this->processor->saveProfile($this->session->id, $data);
 
-            $this->session->set_flashdata('success',"Profile saved");
+            $this->session->set_flashdata('success',"Profile details saved");
         }
 
         redirect('profile/');

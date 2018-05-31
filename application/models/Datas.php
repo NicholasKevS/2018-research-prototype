@@ -56,6 +56,14 @@ class Datas extends CI_Model {
             ->where('users.id', $userid)->get()->row_array();
     }
 
+    public function getVehicleAct($userid, $date, $hour)
+    {
+        return $this->db->from('vehicle_acts')
+            ->join('vehicles', 'vehicle_acts.vehicleid = vehicles.id')->join('users', 'vehicles.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
+            ->get()->row_array();
+    }
+
     public function getNode($id)
     {
         return $this->db->get_where('nodes', array('id'=>$id))->row_array();
@@ -79,5 +87,15 @@ class Datas extends CI_Model {
     public function updateNodes($nodes)
     {
         return $this->db->update_batch('nodes', $nodes, 'id');
+    }
+
+    public function getVehicle($id)
+    {
+        return $this->db->get_where('vehicles', array('userid'=>$id))->row_array();
+    }
+
+    public function updateVehicle($vehicle)
+    {
+        return $this->db->where('id', $vehicle['id'])->update('vehicles', $vehicle);
     }
 }

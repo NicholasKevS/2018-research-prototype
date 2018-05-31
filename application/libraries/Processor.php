@@ -103,6 +103,21 @@ class Processor {
         return $final;
     }
 
+    public function getVehicleAct($userid, $date, $from, $to)
+    {
+        $total = array();
+        $from = (int)explode(":", $from)[0];
+        $to = (int)explode(":", $to)[0];
+        for($i=$from;$i<=$to;$i++) {
+            $act = $this->CI->datas->getVehicleAct($userid, $date, $i);
+            if($act['status'] == 1) {
+                $act['amount']*= -1;
+            }
+            array_push($total, number_format($act['amount'], 3));
+        }
+        return $total;
+    }
+
     public function getNode($id)
     {
         return $this->CI->datas->getNode($id);
@@ -138,5 +153,15 @@ class Processor {
             }
         }
         return $this->CI->datas->updateNodes($nodes);
+    }
+
+    public function getVehicle($userid)
+    {
+        return $this->CI->datas->getVehicle($userid);
+    }
+
+    public function saveVehicle($data)
+    {
+        return $this->CI->datas->updateVehicle($data);
     }
 }

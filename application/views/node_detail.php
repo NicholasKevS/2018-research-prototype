@@ -51,16 +51,16 @@
     </div>
     <div class="tab-pane fade" id="details">
         <div class="row">
-            <div class="col-4">
+            <div class="col-4 mb-3">
                 <h2>Node Details</h2>
                 <form action="node/saveDetail/" method="post">
                     <input type="hidden" id="id" name="id" value="<?php echo $node['id']; ?>">
                     <div class="form-group">
-                        <label for="username">Node Name</label>
+                        <label for="name">Node Name</label>
                         <input type="text" class="form-control" id="name" name="name" value="<?php echo $node['name']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="email">Id Number</label>
+                        <label for="code">Id Number</label>
                         <input type="text" class="form-control" id="code" name="code" value="<?php echo $node['code']; ?>">
                     </div>
                     <div class="form-group">
@@ -81,7 +81,7 @@
     var usage = <?php echo json_encode($usage); ?>;
     var total = <?php echo json_encode($total); ?>;
 
-    // -- Area Chart Example
+    // usage chart
     var ctx = document.getElementById("usageChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',

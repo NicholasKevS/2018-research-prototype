@@ -102,7 +102,7 @@
     var production = <?php echo json_encode($production); ?>;
     var price = <?php echo json_encode($price); ?>;
 
-    // -- Line Chart
+    // usage & production chart
     var ctx = document.getElementById("usageproductionChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
@@ -197,6 +197,7 @@
         }
     });
 
+    // estimation chart
     var ctx = document.getElementById("estimationChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
@@ -264,6 +265,7 @@
         }
     });
 
+    // price chart
     var ctx = document.getElementById("priceChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
@@ -352,5 +354,4 @@
         dynamic: false,
         scrollbar: true
     });
-
 </script>

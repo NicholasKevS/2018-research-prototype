@@ -43,11 +43,6 @@ class Node extends MY_Controller {
             $time2 = '23:00';
         }
 
-        if($time1 >= $time2) {
-            $this->session->set_flashdata('alert',"'To' time must be later than 'From' time");
-            redirect("node/detail/$id/");
-        }
-
         $data['date'] = $date;
         $data['time1'] = $time1;
         $data['time2'] = $time2;
@@ -89,7 +84,7 @@ class Node extends MY_Controller {
             if($data['id'] == "new") {
                 $this->session->set_flashdata('success', "Node created");
             } else {
-                $this->session->set_flashdata('success', "Node saved");
+                $this->session->set_flashdata('success', "Node details saved");
             }
         }
 
