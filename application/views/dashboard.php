@@ -291,29 +291,40 @@
     });
 
     $("#date").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: 'yy-mm-dd',
+        firstDay: 1
     });
 
     $("#datereport").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: 'yy-mm-dd',
+        firstDay: 1
     });
 
     $("#time1").timepicker({
         timeFormat: 'HH:mm',
         interval: 60,
         minTime: '0',
-        maxTime: '23',
-        startTime: '0',
+        maxTime: '22',
         dynamic: false,
-        scrollbar: true
+        scrollbar: true,
+        change: function(time) {
+            var timepicker = $(this).timepicker();
+            var minTime = (new Date(time).getHours()+1).toString();
+            var newTime = timepicker.format(new Date(0,0,0,minTime));
+
+            $("#time2").timepicker('option', 'minTime', minTime);
+
+            if($("#time2").val() < newTime) {
+                $("#time2").val(newTime);
+            }
+        }
     });
 
     $("#time2").timepicker({
         timeFormat: 'HH:mm',
         interval: 60,
-        minTime: '0',
+        minTime: (new Date(0,0,0,parseInt(<?php echo "'$time1'"; ?>)).getHours()+1).toString(),
         maxTime: '23',
-        startTime: '0',
         dynamic: false,
         scrollbar: true
     });
