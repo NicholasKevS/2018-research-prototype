@@ -28,15 +28,6 @@
                     <th>Details</th>
                 </tr>
                 </thead>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Id Number</th>
-                    <th>Status</th>
-                    <th>Toggle</th>
-                    <th>Details</th>
-                </tr>
-                </tfoot>
                 <tbody>
                 <?php
                 foreach($nodes as $node) {

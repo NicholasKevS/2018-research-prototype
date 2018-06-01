@@ -19,14 +19,6 @@
                     <th>To</th>
                 </tr>
                 </thead>
-                <tfoot>
-                <tr>
-                    <th>Status</th>
-                    <th>Day</th>
-                    <th>From</th>
-                    <th>To</th>
-                </tr>
-                </tfoot>
                 <tbody>
                 <tr>
                     <td>On</td>

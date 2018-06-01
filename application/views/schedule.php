@@ -18,14 +18,6 @@
                     <th>Details</th>
                 </tr>
                 </thead>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Id Number</th>
-                    <th>Schedule</th>
-                    <th>Details</th>
-                </tr>
-                </tfoot>
                 <tbody>
                 <tr>
                     <td>Computer</td>

@@ -13,7 +13,7 @@
     <div class="col-12">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#chargedischarge">Charge & Discharge Chart</a>
+                <a class="nav-link active" data-toggle="tab" href="#buycharge">Use & Charge Chart</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#details">Electric Vehicle Details</a>
@@ -22,10 +22,10 @@
     </div>
 </div>
 <div class="tab-content" id="batteryContent">
-    <div class="tab-pane fade show active" id="chargedischarge">
+    <div class="tab-pane fade show active" id="buycharge">
         <div class="row">
             <div class="col-12">
-                <h2>Charge & Discharge Chart</h2>
+                <h2>Use & Charge Chart</h2>
             </div>
             <form action="vehicle/" method="post">
                 <div class="col-12 mb-3">
@@ -43,9 +43,9 @@
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Charge & Discharge</div>
+                <i class="fa fa-area-chart"></i> Use & Charge</div>
             <div class="card-body">
-                <canvas id="chargedischargeChart" width="100%" height="30"></canvas>
+                <canvas id="usechargeChart" width="100%" height="30"></canvas>
             </div>
         </div>
     </div>
@@ -78,8 +78,8 @@
     var timeAxis = <?php echo json_encode($timeAxis); ?>;
     var activity = <?php echo json_encode($activity); ?>;
 
-    // charge & discharge chart
-    var ctx = document.getElementById("chargedischargeChart");
+    // use & charge chart
+    var ctx = document.getElementById("usechargeChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
