@@ -39,6 +39,7 @@ class Processor {
 
     public function getNodeUsage($id, $date, $from, $to) {
         $usage = array();
+        $date = date("Y-m-d", strtotime($date));
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
@@ -51,6 +52,7 @@ class Processor {
     public function getHourlyUsage($userid, $date, $from, $to)
     {
         $total = array();
+        $date = date("Y-m-d", strtotime($date));
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
@@ -63,6 +65,7 @@ class Processor {
     public function getHourlyProduction($userid, $date, $from, $to)
     {
         $total = array();
+        $date = date("Y-m-d", strtotime($date));
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
@@ -106,6 +109,7 @@ class Processor {
     public function getHourlyBatteryAct($userid, $date, $from, $to)
     {
         $total = array();
+        $date = date("Y-m-d", strtotime($date));
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
@@ -121,6 +125,7 @@ class Processor {
     public function getHourlyVehicleBat($userid, $date, $from, $to)
     {
         $total = array();
+        $date = date("Y-m-d", strtotime($date));
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
         $capacity = $this->getVehicle($userid)['capacity'];

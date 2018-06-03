@@ -8,7 +8,7 @@ class Vehicle extends MY_Controller {
         if($this->input->post('date')) {
             $date = $this->input->post('date');
         } else {
-            $date = '2018-05-14';
+            $date = '14 May 2018';
         }
         if($this->input->post('time1')) {
             $time1 = $this->input->post('time1');

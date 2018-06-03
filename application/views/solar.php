@@ -159,7 +159,7 @@
     });
 
     $("#date").datepicker({
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'd M yy',
         firstDay: 1
     });
 
