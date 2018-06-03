@@ -16,6 +16,9 @@
                 <a class="nav-link active" data-toggle="tab" href="#activity">Activity Chart</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#buydischarge">Buy & Discharge</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#details">Battery Details</a>
             </li>
         </ul>
@@ -46,6 +49,42 @@
                 <i class="fa fa-area-chart"></i> Activity</div>
             <div class="card-body">
                 <canvas id="activityChart" width="100%" height="30"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="buydischarge">
+        <div class="row">
+            <div class="col-12">
+                <h2>Buy / Discharge to Grid</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Buy / Discharge</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach($sums as $sum) {
+                            if($sum['status'] == 1) {
+                                $status = "Buy";
+                            } else {
+                                $status = "Discharge";
+                            }
+                            echo "<tr></tr><td>{$sum['date']}</td>";
+                            echo "<td>$status</td>";
+                            echo "<td>{$sum['amount']}</td></tr>";
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

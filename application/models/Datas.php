@@ -71,6 +71,14 @@ class Datas extends CI_Model {
             ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
             ->get()->row_array()['amount'];
     }
+    public function getBatterySums($userid, $from, $to)
+    {
+        return $this->db->from('battery_sums')
+            ->join('batteries', 'battery_sums.batteryid = batteries.id')
+            ->join('users', 'batteries.userid = users.id')
+            ->where('users.id', $userid)->where('date >=', $from)->where('date <=', $to)
+            ->get()->result_array();
+    }
 
     public function getNode($id)
     {

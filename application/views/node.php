@@ -38,7 +38,7 @@
                         $status = "Off";
                         $checked = "";
                     }
-                    echo "<tr></tr><td>{$node['name']}</td>";
+                    echo "<tr><td>{$node['name']}</td>";
                     echo "<td>{$node['code']}</td>";
                     echo "<td>$status</td>";
                     echo "<td><label class='switch'>

@@ -122,6 +122,18 @@ class Processor {
         return $total;
     }
 
+    public function getBatterySums($userid, $date)
+    {
+        $to = date("Y-m-d", strtotime($date));
+        $from = date("Y-m-d", strtotime("-6 days", strtotime($date)));
+        $sums = $this->CI->datas->getBatterySums($userid, $from, $to);
+
+        foreach($sums as $sum) {
+            $sum['date'] = date("j M Y", strtotime($sum['date']));
+        }
+        return array_reverse($sums);
+    }
+
     public function getHourlyVehicleBat($userid, $date, $from, $to)
     {
         $total = array();

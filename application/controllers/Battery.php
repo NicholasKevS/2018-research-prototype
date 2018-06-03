@@ -29,6 +29,7 @@ class Battery extends MY_Controller {
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
         $data['activity'] = $this->processor->getHourlyBatteryAct($id, $date, $time1, $time2);
         $data['battery'] = $this->processor->getBattery($id);
+        $data['sums'] = $this->processor->getBatterySums($id, $date);
 
         $data['title'] = "Battery";
         $data['view'] = "battery";
