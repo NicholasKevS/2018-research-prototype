@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-3">
     <div class="col-12">
         <h1>Electric Vehicle</h1>
         <?php

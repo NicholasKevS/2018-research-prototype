@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-3">
     <div class="col-12">
         <h1>Solar Roof</h1>
         <?php
@@ -28,7 +28,7 @@
     <div class="tab-pane fade show active" id="production">
         <div class="row">
             <div class="col-12">
-                <h2>Production</h2>
+                <h2>Production Chart</h2>
             </div>
             <form action="solar/" method="post">
                 <div class="col-12 mb-3">
