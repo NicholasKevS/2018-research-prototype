@@ -25,6 +25,38 @@ class Node extends MY_Controller {
         redirect('node/');
     }
 
+    public function create()
+    {
+        $data['title'] = "Create Node";
+        $data['view'] = "node_create";
+        $this->load->view('master', $data);
+    }
+
+    public function saveCreate()
+    {
+        $this->form_validation->set_rules('name', 'Node Name', 'required');
+        $this->form_validation->set_rules('code', 'Id Number', 'required');
+
+        if($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('alert',validation_errors());
+            $this->session->set_flashdata('name',$this->input->post('name'));
+            $this->session->set_flashdata('code',$this->input->post('code'));
+            redirect('node/create/');
+        } else {
+            $data = array(
+                'id'=>$this->input->post('id'),
+                'userid'=>$this->session->id,
+                'name'=>$this->input->post('name'),
+                'code'=>$this->input->post('code'),
+                'status'=>$this->input->post('status'));
+
+            $this->processor->saveNode($data);
+            $this->session->set_flashdata('success', "Node created");
+        }
+
+        redirect('node/');
+    }
+
     public function detail($id)
     {
         if($this->input->post('date')) {
@@ -80,18 +112,9 @@ class Node extends MY_Controller {
                 'status'=>$status);
 
             $this->processor->saveNode($data);
-
-            if($data['id'] == "new") {
-                $this->session->set_flashdata('success', "Node created");
-            } else {
-                $this->session->set_flashdata('success', "Node details saved");
-            }
+            $this->session->set_flashdata('success', "Node details saved");
         }
 
-        if($this->input->post('id') == "new") {
-            redirect('node/');
-        } else {
-            redirect('node/detail/'.$this->input->post('id'));
-        }
+        redirect('node/detail/'.$this->input->post('id'));
     }
 }
