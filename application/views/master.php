@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li class="nav-item">
                 <a class="nav-link" href="help/">
                     <i class="fa fa-fw fa-question-circle-o"></i>
-                    <span class="nav-link-text">Helps</span>
+                    <span class="nav-link-text">Help</span>
                 </a>
             </li>
             <?php if($this->session->isAdmin == TRUE) {
