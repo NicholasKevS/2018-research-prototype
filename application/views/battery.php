@@ -13,7 +13,7 @@
     <div class="col-12">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#buycharge">Use & Charge Chart</a>
+                <a class="nav-link active" data-toggle="tab" href="#activity">Activity Chart</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#details">Battery Details</a>
@@ -22,10 +22,10 @@
     </div>
 </div>
 <div class="tab-content" id="batteryContent">
-    <div class="tab-pane fade show active" id="buycharge">
+    <div class="tab-pane fade show active" id="activity">
         <div class="row">
             <div class="col-12">
-                <h2>Use & Charge Chart</h2>
+                <h2>Activity Chart</h2>
             </div>
             <form action="battery/" method="post">
                 <div class="col-12 mb-3">
@@ -43,9 +43,9 @@
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Use & Charge</div>
+                <i class="fa fa-area-chart"></i> Activity</div>
             <div class="card-body">
-                <canvas id="usechargeChart" width="100%" height="30"></canvas>
+                <canvas id="activityChart" width="100%" height="30"></canvas>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
     var activity = <?php echo json_encode($activity); ?>;
 
     // use & charge chart
-    var ctx = document.getElementById("usechargeChart");
+    var ctx = document.getElementById("activityChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -129,7 +129,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: "Kilowatt hour"
+                        labelString: "Net charge (kilowatt hour)"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",

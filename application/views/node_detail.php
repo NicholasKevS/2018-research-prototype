@@ -144,7 +144,7 @@
                 }],
             },
             legend: {
-                display: false
+                display: true
             }
         }
     });

@@ -42,55 +42,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="">Power Grid</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li class="nav-item" data-toggle="tooltip" data-placement="right">
+        <ul class="navbar-nav navbar-sidenav" id="navbarAccordion">
+            <li class="nav-item">
                 <a class="nav-link" href="dashboard/">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right">
+            <li class="nav-item">
                 <a class="nav-link" href="node/">
                     <i class="fa fa-fw fa-lightbulb-o"></i>
                     <span class="nav-link-text">Nodes</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right">
+            <li class="nav-item">
                 <a class="nav-link" href="schedule/">
                     <i class="fa fa-fw fa-clock-o"></i>
                     <span class="nav-link-text">Nodes Schedule</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right">
+            <li class="nav-item">
                 <a class="nav-link" href="vehicle/">
                     <i class="fa fa-fw fa-car"></i>
                     <span class="nav-link-text">Electric Vehicle</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right">
+            <li class="nav-item">
                 <a class="nav-link" href="battery/">
                     <i class="fa fa-fw fa-battery-three-quarters"></i>
                     <span class="nav-link-text">Battery</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right">
+            <li class="nav-item">
                 <a class="nav-link" href="solar/">
                     <i class="fa fa-fw fa-bolt"></i>
                     <span class="nav-link-text">Solar Roof</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right">
+            <li class="nav-item">
                 <a class="nav-link" href="help/">
                     <i class="fa fa-fw fa-question-circle-o"></i>
                     <span class="nav-link-text">Helps</span>
                 </a>
             </li>
             <?php if($this->session->isAdmin == TRUE) {
-                echo "<li class='nav-item' data-toggle='tooltip' data-placement='right'>
+                echo "<li class='nav-item'>
                 <a class='nav-link' href='admin/'>
                     <i class='fa fa-fw fa-wrench'></i>
                     <span class='nav-link-text'>Admin Page</span>
@@ -143,8 +143,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <span class="small float-right text-muted">11:21 AM</span>
                         <div class="dropdown-message small">Someone turn off node that should be on in schedule.</div>
                     </a>
-<!--                    <div class="dropdown-divider"></div>-->
-<!--                    <a class="dropdown-item small" href="#">View all alerts</a>-->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item small" href="#">View all alerts</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -152,7 +152,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <i class="fa fa-fw fa-user"></i>Hello user, <?php echo $this->session->fullname; ?>!</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
                     <i class="fa fa-fw fa-sign-out"></i>Logout</a>
             </li>
         </ul>
@@ -176,13 +176,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <i class="fa fa-angle-up"></i>
     </a>
     <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="logoutModal" tabindex="-1">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                    <h5 class="modal-title" id="logoutModalLabel">Ready to Logout?</h5>
+                    <button class="close" type="button" data-dismiss="modal">
+                        <span>×</span>
                     </button>
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
