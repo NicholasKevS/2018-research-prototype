@@ -5,11 +5,12 @@ class Script extends CI_Controller {
 
     public function index()
     {
-        echo "No script to run.";
         //$this->populate_usage();
 		//$this->populate_production();
 		//$this->populate_battery_act();
-		//$this->populate_vehicle_act();
+        //$this->populate_battery_sum();
+		//$this->populate_vehicle_bat();
+        echo "No script to run.";
     }
 
 	private function populate_usage()
@@ -115,59 +116,78 @@ class Script extends CI_Controller {
         echo "DONE";
     }
 
-    private function populate_vehicle_act()
+    private function populate_battery_sum()
     {
+        for($i=0;$i<3;$i++) {
+            $d = mktime(0, 0, 0, 5, 14+$i, 2018);
+            $date = date('Y-m-d', $d);
+            echo "ADD TO BATTERY SUM DATE $date<br>";
+            $production = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>2))->row_array()['amount'];
+            $usage = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>1))->row_array()['amount'];
+            $production = number_format($production,3);
+            $usage = number_format($usage,3);
+            $total = $production - $usage;
+
+            if($total < 0) {
+                $status = 1;
+                $final = $total * -1.000;
+            } else {
+                $status = 2;
+                $final = $total;
+            }
+            $this->db->insert('battery_sums', array('batteryid'=>1, 'date'=>$date, 'status'=>$status, 'amount'=>$final));
+        }
+        echo "DONE";
+    }
+
+    private function populate_vehicle_bat()
+    {
+        $full = 30.000;
+        $empty = 0.000;
+        $use = 3.000;
+        $charge = 0.500;
+        $total = $full/2;
         for($i=0;$i<3;$i++) {
             $d = mktime(0, 0, 0, 5, 14+$i, 2018);
             $date = date('Y-m-d', $d);
             echo "ADD TO VEHICLE ACT DATE $date<br>";
             for($hour=0;$hour<24;$hour++) {
                 echo "ADD VEHICLE ACT TIME $hour<br>";
-                $production = $this->db->select('amount')->get_where('solar_productions', array('date'=>$date, 'time'=>$hour))->row_array()['amount'];
-                $usage = $this->db->select_sum('amount')->get_where('node_usages', array('date'=>$date, 'time'=>$hour))->row_array()['amount'];
-                $total = ($production - $usage)/2;
 
-                if($total < 0) {
-                    $status = 1;
-                    $final = $total * -1.000;
-                } else {
-                    $status = 2;
-                    $final = $total;
+                if($hour>=6 && $hour<=18) {
+                    if(rand(1,100) <= 10) {
+                        if(rand(1,100) <= 50) {
+                            $total = $total - ($use - ($use*rand(1,20)/100));
+                        } else {
+                            $total = $total - ($use + ($use*rand(1,20)/100));
+                        }
+                    } else {
+                        if(rand(1,100) <= 50) {
+                            $total = $total + ($charge - ($charge*rand(1,20)/100));
+                        } else {
+                            $total = $total + ($charge + ($charge*rand(1,20)/100));
+                        }
+                    }
+                } elseif($hour>=18 && $hour<=23) {
+                    if(rand(1,100) <= 30) {
+                        if(rand(1,100) <= 50) {
+                            $total = $total - ($use - ($use*rand(1,20)/100));
+                        } else {
+                            $total = $total - ($use + ($use*rand(1,20)/100));
+                        }
+                    }
                 }
 
-                if(rand(1,100) <= 50) {
-                    $final = $final - ($final*rand(1,40)/100);
-                } else {
-                    $final = $final + ($final*rand(1,15)/100);
+                if($total > $full) {
+                    $total = $full;
+                } elseif($total < $empty) {
+                    $total = $empty;
                 }
-                $final = number_format($final,3);
-                $this->db->insert('vehicle_acts', array('vehicleid'=>1, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
+
+                $total = number_format($total,3);
+                $this->db->insert('vehicle_bats', array('vehicleid'=>1, 'date'=>$date, 'time'=>$hour, 'amount'=>$total));
             }
         }
         echo "DONE";
     }
-
-//    private function populate_battery_sum()
-//    {
-//        for($i=0;$i<3;$i++) {
-//            $d = mktime(0, 0, 0, 5, 14+$i, 2018);
-//            $date = date('Y-m-d', $d);
-//            echo "ADD TO BATTERY SUM DATE $date<br>";
-//            $production = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>2))->row_array()['amount'];
-//            $usage = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>1))->row_array()['amount'];
-//            $production = number_format($production,3);
-//            $usage = number_format($usage,3);
-//            $total = $production - $usage;
-//
-//            if($total < 0) {
-//                $status = 1;
-//                $final = $total * -1.000;
-//            } else {
-//                $status = 2;
-//                $final = $total;
-//            }
-//            $this->db->insert('battery_sums', array('batteryid'=>1, 'date'=>$date, 'status'=>$status, 'amount'=>$final));
-//        }
-//        echo "DONE";
-//    }
 }

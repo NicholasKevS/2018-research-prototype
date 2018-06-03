@@ -56,20 +56,20 @@ class Datas extends CI_Model {
             ->where('users.id', $userid)->get()->row_array();
     }
 
-    public function getVehicleActByHour($userid, $date, $hour)
-    {
-        return $this->db->from('vehicle_acts')
-            ->join('vehicles', 'vehicle_acts.vehicleid = vehicles.id')->join('users', 'vehicles.userid = users.id')
-            ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
-            ->get()->row_array();
-    }
-
     public function getBatteryActByHour($userid, $date, $hour)
     {
         return $this->db->from('battery_acts')
             ->join('batteries', 'battery_acts.batteryid = batteries.id')->join('users', 'batteries.userid = users.id')
             ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
             ->get()->row_array();
+    }
+
+    public function getVehicleBatByHour($userid, $date, $hour)
+    {
+        return $this->db->select('amount')->from('vehicle_bats')
+            ->join('vehicles', 'vehicle_bats.vehicleid = vehicles.id')->join('users', 'vehicles.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
+            ->get()->row_array()['amount'];
     }
 
     public function getNode($id)

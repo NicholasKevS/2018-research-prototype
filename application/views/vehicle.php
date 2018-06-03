@@ -13,7 +13,7 @@
     <div class="col-12">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#battery">Battery Level Chart</a>
+                <a class="nav-link active" data-toggle="tab" href="#battery">Battery Power Chart</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#details">Electric Vehicle Details</a>
@@ -25,7 +25,7 @@
     <div class="tab-pane fade show active" id="battery">
         <div class="row">
             <div class="col-12">
-                <h2>Battery Level Chart</h2>
+                <h2>Battery Power Chart</h2>
             </div>
             <form action="vehicle/" method="post">
                 <div class="col-12 mb-3">
@@ -43,7 +43,7 @@
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Battery Level</div>
+                <i class="fa fa-area-chart"></i> Battery Power</div>
             <div class="card-body">
                 <canvas id="batteryChart" width="100%" height="30"></canvas>
             </div>
@@ -76,7 +76,7 @@
 <script>
     // chart variable
     var timeAxis = <?php echo json_encode($timeAxis); ?>;
-    var activity = <?php echo json_encode($activity); ?>;
+    var battery = <?php echo json_encode($battery); ?>;
 
     // use & charge chart
     var ctx = document.getElementById("batteryChart");
@@ -85,7 +85,7 @@
         data: {
             labels: timeAxis,
             datasets: [{
-                label: "Activity",
+                label: "Battery Power",
                 yAxisID:"left",
                 lineTension: 0.3,
                 borderColor: "rgba(2,117,216,1)",
@@ -95,7 +95,7 @@
                 pointHoverRadius: 5,
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
-                data: activity
+                data: battery
             }],
         },
         options: {
@@ -115,13 +115,13 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -1,
-                        max: 4,
+                        min: 0,
+                        max: 100,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: "Battery power level"
+                        labelString: "%"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
