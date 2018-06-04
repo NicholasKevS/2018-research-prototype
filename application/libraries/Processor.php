@@ -166,16 +166,24 @@ class Processor {
         return $total;
     }
 
-    public function getBatterySums($userid, $date)
+    public function getBatterySum($userid, $to)
     {
-        $to = date("Y-m-d", strtotime($date));
-        $from = date("Y-m-d", strtotime("-6 days", strtotime($date)));
-        $sums = $this->CI->datas->getBatterySums($userid, $from, $to);
-
-        foreach($sums as $sum) {
-            $sum['date'] = date("j M Y", strtotime($sum['date']));
+        $sum = array();
+        $default = date("j M Y", strtotime("1 May 2018"));
+        $from = date("j M Y", strtotime("-6 day", strtotime($to)));
+        if(strtotime($from) < strtotime($default)) {
+            $from = $default;
         }
-        return array_reverse($sums);
+
+        while(strtotime($from) <= strtotime($to)) {
+            $sums = $this->CI->datas->getBatterySum($userid, date("Y-m-d", strtotime($from)));
+            if($sums['status'] == 1) {
+                $sums['amount']*= -1;
+            }
+            array_push($sum, number_format($sums['amount'], 3));
+            $from = date("j M Y", strtotime("+1 day", strtotime($from)));
+        }
+        return $sum;
     }
 
     public function getAvgBatterySum($location, $to)

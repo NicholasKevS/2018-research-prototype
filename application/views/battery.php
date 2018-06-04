@@ -55,36 +55,14 @@
     <div class="tab-pane fade" id="buydischarge">
         <div class="row">
             <div class="col-12">
-                <h2>Buy / Discharge to Grid</h2>
+                <h2>Buy / Discharge Chart</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mb-3">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Buy / Discharge</th>
-                            <th>Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        foreach($sums as $sum) {
-                            if($sum['status'] == 1) {
-                                $status = "Buy";
-                            } else {
-                                $status = "Discharge";
-                            }
-                            echo "<tr></tr><td>{$sum['date']}</td>";
-                            echo "<td>$status</td>";
-                            echo "<td>{$sum['amount']}</td></tr>";
-                        }
-                        ?>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-area-chart"></i> Buy & Discharge</div>
+            <div class="card-body">
+                <canvas id="buydischargeChart" width="100%" height="30"></canvas>
             </div>
         </div>
     </div>
@@ -122,8 +100,10 @@
 </div>
 <script>
     // chart variable
+    var dateAxis = <?php echo json_encode($dateAxis); ?>;
     var timeAxis = <?php echo json_encode($timeAxis); ?>;
     var activity = <?php echo json_encode($activity); ?>;
+    var sum = <?php echo json_encode($sum); ?>;
 
     // use & charge chart
     var ctx = document.getElementById("activityChart");
@@ -169,6 +149,61 @@
                     scaleLabel: {
                         display: true,
                         labelString: "Net charge (kilowatt hour)"
+                    },
+                    gridLines: {
+                        color: "rgba(0, 0, 0, .125)",
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            }
+        }
+    });
+
+    var ctx = document.getElementById("buydischargeChart");
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dateAxis,
+            datasets: [{
+                label: "Buy/Discharge",
+                yAxisID:"left",
+                lineTension: 0.3,
+                borderColor: "rgba(2,117,216,1)",
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(2,117,216,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: sum
+            }],
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Date"
+                    },
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 7
+                    }
+                }],
+                yAxes: [{
+                    id: "left",
+                    ticks: {
+                        min: -2,
+                        max: 6,
+                        maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Buy / Discharge (kW)"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",

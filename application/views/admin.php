@@ -43,7 +43,7 @@
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Usage & Production</div>
+                <i class="fa fa-area-chart"></i> Average Usage & Production</div>
             <div class="card-body">
                 <canvas id="usageproductionChart" width="100%" height="30"></canvas>
             </div>
@@ -57,7 +57,7 @@
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Buy & Discharge</div>
+                <i class="fa fa-area-chart"></i> Average Buy & Discharge</div>
             <div class="card-body">
                 <canvas id="buydischargeChart" width="100%" height="30"></canvas>
             </div>
@@ -66,8 +66,8 @@
 </div>
 <script>
     // chart variable
-    var timeAxis = <?php echo json_encode($timeAxis); ?>;
     var dateAxis = <?php echo json_encode($dateAxis); ?>;
+    var timeAxis = <?php echo json_encode($timeAxis); ?>;
     var usage = <?php echo json_encode($usage); ?>;
     var production = <?php echo json_encode($production); ?>;
     var sum = <?php echo json_encode($sum); ?>;

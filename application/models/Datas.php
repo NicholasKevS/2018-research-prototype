@@ -80,13 +80,13 @@ class Datas extends CI_Model {
             ->get()->row_array();
     }
 
-    public function getBatterySums($userid, $from, $to)
+    public function getBatterySum($userid, $date)
     {
         return $this->db->from('battery_sums')
             ->join('batteries', 'battery_sums.batteryid = batteries.id')
             ->join('users', 'batteries.userid = users.id')
-            ->where('users.id', $userid)->where('date >=', $from)->where('date <=', $to)
-            ->get()->result_array();
+            ->where('users.id', $userid)->where('date', $date)
+            ->get()->row_array();
     }
 
     public function getAvgBatterySum($location, $date)
