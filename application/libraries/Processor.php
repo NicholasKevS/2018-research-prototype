@@ -22,7 +22,24 @@ class Processor {
         return $this->CI->users->saveProfile($id, $data);
     }
 
-    public function getTimeAxis($from, $to) {
+    public function getDateAxis($to)
+    {
+        $date = array();
+        $default = date("j M Y", strtotime("1 May 2018"));
+        $from = date("j M Y", strtotime("-6 day", strtotime($to)));
+        if(strtotime($from) < strtotime($default)) {
+            $from = $default;
+        }
+
+        while(strtotime($from) <= strtotime($to)) {
+            array_push($date, date("j M", strtotime($from)));
+            $from = date("j M Y", strtotime("+1 day", strtotime($from)));
+        }
+        return $date;
+    }
+
+    public function getTimeAxis($from, $to)
+    {
         $time = array();
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
@@ -37,7 +54,8 @@ class Processor {
         return $time;
     }
 
-    public function getNodeUsage($id, $date, $from, $to) {
+    public function getNodeUsage($id, $date, $from, $to)
+    {
         $usage = array();
         $date = date("Y-m-d", strtotime($date));
         $from = (int)explode(":", $from)[0];
@@ -62,6 +80,19 @@ class Processor {
         return $total;
     }
 
+    public function getAvgHourlyUsage($location, $date, $from, $to)
+    {
+        $avg = array();
+        $date = date("Y-m-d", strtotime($date));
+        $from = (int)explode(":", $from)[0];
+        $to = (int)explode(":", $to)[0];
+        for($i=$from;$i<=$to;$i++) {
+            $usage = $this->CI->datas->getUsageAvgByHour($location, $date, $i);
+            array_push($avg, number_format($usage, 3));
+        }
+        return $avg;
+    }
+
     public function getHourlyProduction($userid, $date, $from, $to)
     {
         $total = array();
@@ -73,6 +104,19 @@ class Processor {
             array_push($total, number_format($production, 3));
         }
         return $total;
+    }
+
+    public function getAvgHourlyProduction($location, $date, $from, $to)
+    {
+        $avg = array();
+        $date = date("Y-m-d", strtotime($date));
+        $from = (int)explode(":", $from)[0];
+        $to = (int)explode(":", $to)[0];
+        for($i=$from;$i<=$to;$i++) {
+            $usage = $this->CI->datas->getProductionAvgByHour($location, $date, $i);
+            array_push($avg, number_format($usage, 3));
+        }
+        return $avg;
     }
 
     public function getPrice($id, $date, $from, $to)
@@ -132,6 +176,26 @@ class Processor {
             $sum['date'] = date("j M Y", strtotime($sum['date']));
         }
         return array_reverse($sums);
+    }
+
+    public function getAvgBatterySum($location, $to)
+    {
+        $avg = array();
+        $default = date("j M Y", strtotime("1 May 2018"));
+        $from = date("j M Y", strtotime("-6 day", strtotime($to)));
+        if(strtotime($from) < strtotime($default)) {
+            $from = $default;
+        }
+
+        while(strtotime($from) <= strtotime($to)) {
+            $sum = $this->CI->datas->getAvgBatterySum($location, date("Y-m-d", strtotime($from)));
+            if($sum['status'] == 1) {
+                $sum['amount']*= -1;
+            }
+            array_push($avg, number_format($sum['amount'], 3));
+            $from = date("j M Y", strtotime("+1 day", strtotime($from)));
+        }
+        return $avg;
     }
 
     public function getHourlyVehicleBat($userid, $date, $from, $to)

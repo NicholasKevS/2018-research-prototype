@@ -1,16 +1,28 @@
-<div class="row">
+<div class="row mb-3">
     <div class="col-12">
         <h1>Admin</h1>
     </div>
-    <div class="col-12 mb-3">
-        Pick suburb:
-        <input type="text" name="from" id="suburb">
-        From:
-        <input type="text" name="from" id="date1">
-        To:
-        <input type="text" name="to" id="date2">
-        <button type="submit" class="btn btn-primary">Go</button>
-    </div>
+    <form action="admin/" method="post">
+        <div class="col-12 mb-3">
+            Date:
+            <input type="text" name="date" id="date" onkeydown="return false" value="<?php echo $date; ?>">
+            Suburb:
+            <select id="locationid" name="locationid">
+                <?php
+                foreach($suburb as $val) {
+                    echo "<option value='{$val['id']}'".($val['id']==$locationid?" selected":"").">{$val['name']}</option>";
+                }
+                ?>
+            </select>
+        </div>
+        <div class="col-12 mb-3">
+            From:
+            <input type="text" name="time1" id="time1" onkeydown="return false" value="<?php echo $time1; ?>">
+            To:
+            <input type="text" name="time2" id="time2" onkeydown="return false" value="<?php echo $time2; ?>">
+            <button type="submit" class="btn btn-primary">Go</button>
+        </div>
+    </form>
     <div class="col-12">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -19,9 +31,6 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#buydischarge">Buy & Discharge Chart</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#electricvehicle">Electric Vehicle Chart</a>
-            </li>
         </ul>
     </div>
 </div>
@@ -29,7 +38,7 @@
     <div class="tab-pane fade show active" id="usageproduction">
         <div class="row">
             <div class="col-12">
-                <h2>Usage & Production Chart</h2>
+                <h2>Average Usage & Production Chart</h2>
             </div>
         </div>
         <div class="card mb-3">
@@ -38,13 +47,12 @@
             <div class="card-body">
                 <canvas id="usageproductionChart" width="100%" height="30"></canvas>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
     </div>
     <div class="tab-pane fade" id="buydischarge">
         <div class="row">
             <div class="col-12">
-                <h2>Buy & Discharge Chart</h2>
+                <h2>Average Buy & Discharge Chart</h2>
             </div>
         </div>
         <div class="card mb-3">
@@ -53,55 +61,55 @@
             <div class="card-body">
                 <canvas id="buydischargeChart" width="100%" height="30"></canvas>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="electricvehicle">
-        <div class="row">
-            <div class="col-12">
-                <h2>Electric Vehicle Charge & Discharge Chart</h2>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fa fa-area-chart"></i> Electric Vehicle Charge & Discharge</div>
-            <div class="card-body">
-                <canvas id="electricvehicleChart" width="100%" height="30"></canvas>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
     </div>
 </div>
 <script>
-    // -- Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#292b2c';
+    // chart variable
+    var timeAxis = <?php echo json_encode($timeAxis); ?>;
+    var dateAxis = <?php echo json_encode($dateAxis); ?>;
+    var usage = <?php echo json_encode($usage); ?>;
+    var production = <?php echo json_encode($production); ?>;
+    var sum = <?php echo json_encode($sum); ?>;
+
     // -- Area Chart Example
     var ctx = document.getElementById("usageproductionChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10"],
+            labels: timeAxis,
             datasets: [{
-                label: "Sessions",
+                label: "Usage",
+                yAxisID:"left",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
+                borderColor: "rgba(198,0,29,1)",
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(198,0,29,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: usage
+            },{
+                label: "Production",
+                yAxisID:"left",
+                lineTension: 0.3,
                 borderColor: "rgba(2,117,216,1)",
                 pointRadius: 5,
                 pointBackgroundColor: "rgba(2,117,216,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
-                data: [10000, 30162, 26263, 18287, 28682, 33259, 25849 , 32651, 24159, 38451],
+                data: production
             }],
         },
         options: {
             scales: {
                 xAxes: [{
-                    time: {
-                        unit: 'date'
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Date"
                     },
                     gridLines: {
                         display: false
@@ -111,10 +119,15 @@
                     }
                 }],
                 yAxes: [{
+                    id: "left",
                     ticks: {
-                        min: 0,
-                        max: 40000,
-                        maxTicksLimit: 5
+                        min: -1,
+                        max: 4,
+                        maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Kilowatt hour"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
@@ -122,7 +135,7 @@
                 }],
             },
             legend: {
-                display: false
+                display: true
             }
         }
     });
@@ -131,27 +144,27 @@
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10"],
+            labels: dateAxis,
             datasets: [{
-                label: "Sessions",
+                label: "Buy/Discharge",
+                yAxisID:"left",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
                 borderColor: "rgba(2,117,216,1)",
                 pointRadius: 5,
                 pointBackgroundColor: "rgba(2,117,216,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
-                data: [10000, 30162, 26263, 18287, 28682, 33259, 25849 , 32651, 24159, 38451],
+                data: sum
             }],
         },
         options: {
             scales: {
                 xAxes: [{
-                    time: {
-                        unit: 'date'
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Date"
                     },
                     gridLines: {
                         display: false
@@ -161,10 +174,15 @@
                     }
                 }],
                 yAxes: [{
+                    id: "left",
                     ticks: {
-                        min: 0,
-                        max: 40000,
-                        maxTicksLimit: 5
+                        min: -2,
+                        max: 6,
+                        maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Buy / Discharge (kW)"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
@@ -177,73 +195,36 @@
         }
     });
 
-    var ctx = document.getElementById("electricvehicleChart");
-    var myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10"],
-            datasets: [{
-                label: "Sessions",
-                lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
-                borderColor: "rgba(2,117,216,1)",
-                pointRadius: 5,
-                pointBackgroundColor: "rgba(2,117,216,1)",
-                pointBorderColor: "rgba(255,255,255,0.8)",
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
-                pointHitRadius: 20,
-                pointBorderWidth: 2,
-                data: [10000, 30162, 26263, 18287, 28682, 33259, 25849 , 32651, 24159, 38451],
-            }],
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    time: {
-                        unit: 'date'
-                    },
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: {
-                        maxTicksLimit: 7
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                        max: 40000,
-                        maxTicksLimit: 5
-                    },
-                    gridLines: {
-                        color: "rgba(0, 0, 0, .125)",
-                    }
-                }],
-            },
-            legend: {
-                display: false
-            }
-        }
+    $("#date").datepicker({
+        dateFormat: 'd M yy',
+        firstDay: 1
     });
 
-    $("#date1").datepicker();
-    $("#date2").datepicker();
     $("#time1").timepicker({
         timeFormat: 'HH:mm',
         interval: 60,
         minTime: '0',
-        maxTime: '23',
-        startTime: '0',
+        maxTime: '22',
         dynamic: false,
-        scrollbar: true
+        scrollbar: true,
+        change: function(time) {
+            var timepicker = $(this).timepicker();
+            var minTime = (new Date(time).getHours()+1).toString();
+            var newTime = timepicker.format(new Date(0,0,0,minTime));
+
+            $("#time2").timepicker('option', 'minTime', minTime);
+
+            if($("#time2").val() < newTime) {
+                $("#time2").val(newTime);
+            }
+        }
     });
+
     $("#time2").timepicker({
         timeFormat: 'HH:mm',
         interval: 60,
-        minTime: '0',
+        minTime: (new Date(0,0,0,parseInt(<?php echo "'$time1'"; ?>)).getHours()+1).toString(),
         maxTime: '23',
-        startTime: '0',
         dynamic: false,
         scrollbar: true
     });

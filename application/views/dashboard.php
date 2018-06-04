@@ -39,11 +39,6 @@
                 </div>
             </form>
         </div>
-        <?php
-        if($this->session->flashdata('alert')) {
-            echo "<div class='alert alert-danger'>{$this->session->flashdata('alert')}</div>";
-        }
-        ?>
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fa fa-area-chart"></i> Usage & Production</div>

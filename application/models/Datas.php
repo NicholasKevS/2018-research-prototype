@@ -26,6 +26,14 @@ class Datas extends CI_Model {
             ->get()->row_array()['amount'];
     }
 
+    public function getUsageAvgByHour($location, $date, $hour)
+    {
+        return $this->db->select_avg('amount')->from('node_usages')
+            ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
+            ->where('users.locationid', $location)->where('date', $date)->where('time', $hour)
+            ->get()->row_array()['amount'];
+    }
+
     public function getProduction($userid, $date, $hour)
     {
         return $this->db->from('solar_productions')
@@ -50,6 +58,14 @@ class Datas extends CI_Model {
             ->get()->row_array()['amount'];
     }
 
+    public function getProductionAvgByHour($location, $date, $hour)
+    {
+        return $this->db->select_avg('amount')->from('solar_productions')
+            ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
+            ->where('users.locationid', $location)->where('date', $date)->where('time', $hour)
+            ->get()->row_array()['amount'];
+    }
+
     public function getPrice($userid)
     {
         return $this->db->from('provider_price')->join('users', 'provider_price.providerid = users.providerid')
@@ -64,13 +80,6 @@ class Datas extends CI_Model {
             ->get()->row_array();
     }
 
-    public function getVehicleBatByHour($userid, $date, $hour)
-    {
-        return $this->db->select('amount')->from('vehicle_bats')
-            ->join('vehicles', 'vehicle_bats.vehicleid = vehicles.id')->join('users', 'vehicles.userid = users.id')
-            ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
-            ->get()->row_array()['amount'];
-    }
     public function getBatterySums($userid, $from, $to)
     {
         return $this->db->from('battery_sums')
@@ -78,6 +87,23 @@ class Datas extends CI_Model {
             ->join('users', 'batteries.userid = users.id')
             ->where('users.id', $userid)->where('date >=', $from)->where('date <=', $to)
             ->get()->result_array();
+    }
+
+    public function getAvgBatterySum($location, $date)
+    {
+        return $this->db->select_avg('status')->select_avg('amount')->from('battery_sums')
+            ->join('batteries', 'battery_sums.batteryid = batteries.id')
+            ->join('users', 'batteries.userid = users.id')
+            ->where('users.locationid', $location)->where('date', $date)
+            ->get()->row_array();
+    }
+
+    public function getVehicleBatByHour($userid, $date, $hour)
+    {
+        return $this->db->select('amount')->from('vehicle_bats')
+            ->join('vehicles', 'vehicle_bats.vehicleid = vehicles.id')->join('users', 'vehicles.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
+            ->get()->row_array()['amount'];
     }
 
     public function getNode($id)
