@@ -254,6 +254,13 @@ class Processor {
         return $this->CI->datas->updateNodes($nodes);
     }
 
+    public function delNode($id)
+    {
+        $this->CI->datas->deleteSchedules($id);
+        $this->CI->datas->deleteNode($id);
+        return true;
+    }
+
     public function getSchedule($id)
     {
         $schedule = $this->CI->datas->getSchedule($id);
@@ -295,6 +302,7 @@ class Processor {
             return $this->CI->datas->updateSchedule($data);
         }
     }
+
     public function delSchedule($id)
     {
         return $this->CI->datas->deleteSchedule($id);

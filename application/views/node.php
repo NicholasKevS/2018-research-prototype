@@ -45,7 +45,8 @@
                             <input type='checkbox' name='status[]' value='{$node['id']}'$checked><span class='slider round'></span>
                             </label></td>";
                     echo "<td><a href='node/detail/{$node['id']}/' class='btn btn-secondary'>Details</a>
-                            <a href='schedule/detail/{$node['id']}/' class='btn btn-secondary'>Schedules</a></td></tr>";
+                            <a href='schedule/detail/{$node['id']}/' class='btn btn-secondary'>Schedules</a>
+                            <a href='node/delete/{$node['id']}/' class='btn btn-danger' role='button'>Delete</a></td></tr>";
                 }
                 ?>
                 </tbody>

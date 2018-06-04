@@ -131,6 +131,11 @@ class Datas extends CI_Model {
         return $this->db->update_batch('nodes', $nodes, 'id');
     }
 
+    public function deleteNode($id)
+    {
+        return $this->db->delete('nodes', array('id'=>$id));
+    }
+
     public function getSchedule($id)
     {
         return $this->db->get_where('node_schedules', array('id'=>$id))->row_array();
@@ -161,6 +166,11 @@ class Datas extends CI_Model {
     public function deleteSchedule($id)
     {
         return $this->db->delete('node_schedules', array('id'=>$id));
+    }
+
+    public function deleteSchedules($nodeid)
+    {
+        return $this->db->delete('node_schedules', array('nodeid'=>$nodeid));
     }
 
     public function getVehicle($userid)

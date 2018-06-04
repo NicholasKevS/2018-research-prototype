@@ -116,4 +116,12 @@ class Node extends MY_Controller {
 
         redirect('node/detail/'.$this->input->post('id'));
     }
+
+    public function delete($id)
+    {
+        $this->processor->delNode($id);
+        $this->session->set_flashdata('success', "Node deleted");
+
+        redirect('node/');
+    }
 }
