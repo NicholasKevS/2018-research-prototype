@@ -1,6 +1,6 @@
 <div class="row mb-3">
     <div class="col-12">
-        <h1><?php echo $nodeName; ?></h1>
+        <h1><?php echo $node['name']; ?> - Node</h1>
         <?php
         if($this->session->flashdata('success')) {
             echo "<div class='alert alert-success'>{$this->session->flashdata('success')}</div>";
@@ -130,8 +130,8 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -1,
-                        max: 4,
+                        min: -0,
+                        max: 2,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {

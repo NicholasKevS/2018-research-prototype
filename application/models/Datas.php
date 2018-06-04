@@ -131,6 +131,38 @@ class Datas extends CI_Model {
         return $this->db->update_batch('nodes', $nodes, 'id');
     }
 
+    public function getSchedule($id)
+    {
+        return $this->db->get_where('node_schedules', array('id'=>$id))->row_array();
+    }
+
+    public function getSchedules($nodeid)
+    {
+        return $this->db->get_where('node_schedules', array('nodeid'=>$nodeid))->result_array();
+    }
+
+    public function getScheduleNodes($userid)
+    {
+        return $this->db->distinct()->select('node_schedules.nodeid, nodes.*')->from('node_schedules')
+            ->join('nodes', 'node_schedules.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
+            ->where('users.id', $userid)->get()->result_array();
+    }
+
+    public function insertSchedule($schedule)
+    {
+        return $this->db->insert('node_schedules', $schedule);
+    }
+
+    public function updateSchedule($schedule)
+    {
+        return $this->db->where('id', $schedule['id'])->update('node_schedules', $schedule);
+    }
+
+    public function deleteSchedule($id)
+    {
+        return $this->db->delete('node_schedules', array('id'=>$id));
+    }
+
     public function getVehicle($userid)
     {
         return $this->db->get_where('vehicles', array('userid'=>$userid))->row_array();

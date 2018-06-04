@@ -83,7 +83,6 @@ class Node extends MY_Controller {
         $data['usage'] = $this->processor->getNodeUsage($id, $date, $time1, $time2);
         $data['total'] = $this->processor->getHourlyUsage($this->session->id, $date, $time1, $time2);
         $data['node'] = $this->processor->getNode($id);
-        $data['nodeName'] = "{$data['node']['name']} - Node";
         if($data['node']['status'] == 1) {
             $data['checked'] = " Checked";
         } else {

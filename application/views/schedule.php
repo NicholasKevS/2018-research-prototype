@@ -1,13 +1,15 @@
-<div class="row">
+<div class="row mb-3">
     <div class="col-12">
-        <h1>Node List</h1>
+        <h1>Node Schedule List</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-12 mb-3">
-        <div class="float-md-right mb-3">
-            <button type="button" class="btn btn-primary">Add New Node Schedule</button>
-        </div>
+        <?php
+        if($this->session->flashdata('success')) {
+            echo "<div class='alert alert-success'>{$this->session->flashdata('success')}</div>";
+        }
+        ?>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -19,36 +21,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Computer</td>
-                    <td>321321321</td>
-                    <td>All (on) : 5pm-11pm</td>
-                    <td><a href="schedule/detail/" class="btn btn-secondary" role="button">Details</a></td>
-                </tr>
-                <tr>
-                    <td>Standing Lamp</td>
-                    <td>456456456</td>
-                    <td>All (on) : 5pm-10pm</td>
-                    <td><a href="schedule/detail/" class="btn btn-secondary" role="button">Details</a></td>
-                </tr>
-                <tr>
-                    <td>Electric Blanket</td>
-                    <td>654654654</td>
-                    <td>Mon (on) : 1am-6am</td>
-                    <td><a href="schedule/detail/" class="btn btn-secondary" role="button">Details</a></td>
-                </tr>
-                <tr>
-                    <td>TV</td>
-                    <td>789789789</td>
-                    <td>Sat (on) : 3pm-5pm</td>
-                    <td><a href="schedule/detail/" class="btn btn-secondary" role="button">Details</a></td>
-                </tr>
-                <tr>
-                    <td>Playstation</td>
-                    <td>987987987</td>
-                    <td>Sun (on) : 3pm-5pm All (off) : 12am-11pm</td>
-                    <td><a href="schedule/detail/" class="btn btn-secondary" role="button">Details</a></td>
-                </tr>
+                <?php
+                foreach($schedules as $sch) {
+                    echo "<tr><td>{$sch['name']}</td>";
+                    echo "<td>{$sch['code']}</td>";
+                    echo "<td>";
+                    foreach($sch['schedule'] as $s) {
+                        echo "{$s['status']}: {$s['start']} to {$s['end']}<br>";
+                    }
+                    echo "</td>";
+                    echo "<td><a href='schedule/detail/{$sch['nodeid']}/' class='btn btn-secondary' role='button'>Details</a></td></tr>";
+                }
+                ?>
                 </tbody>
             </table>
         </div>

@@ -44,11 +44,7 @@ class Processor {
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
-            if($i<10) {
-                $temp = "0$i:00";
-            } else {
-                $temp = "$i:00";
-            }
+            $temp = date('H:00', mktime($i));
             array_push($time, $temp);
         }
         return $time;
@@ -256,6 +252,52 @@ class Processor {
             }
         }
         return $this->CI->datas->updateNodes($nodes);
+    }
+
+    public function getSchedule($id)
+    {
+        $schedule = $this->CI->datas->getSchedule($id);
+        $schedule['start'] =  date('H:00', mktime($schedule['start']));
+        $schedule['end'] =  date('H:00', mktime($schedule['end']));
+        return $schedule;
+    }
+
+    public function getSchedules($nodeid)
+    {
+        $schedule = $this->CI->datas->getSchedules($nodeid);
+        for($i=0;$i<count($schedule);$i++) {
+            if($schedule[$i]['status'] == 1) {
+                $schedule[$i]['status'] = "On";
+            } else {
+                $schedule[$i]['status'] = "Off";
+            }
+            $schedule[$i]['start'] = date('H:00', mktime($schedule[$i]['start']));
+            $schedule[$i]['end'] = date('H:00', mktime($schedule[$i]['end']));
+        }
+        return $schedule;
+    }
+
+    public function getAllSchedules($userid)
+    {
+        $schedule = $this->CI->datas->getScheduleNodes($userid);
+        for($i=0;$i<count($schedule);$i++) {
+            $schedule[$i]['schedule'] = $this->getSchedules($schedule[$i]['nodeid']);
+        }
+        return $schedule;
+    }
+
+    public function saveSchedule($data)
+    {
+        if($data['id'] == "new") {
+            unset($data['id']);
+            return $this->CI->datas->insertSchedule($data);
+        } else {
+            return $this->CI->datas->updateSchedule($data);
+        }
+    }
+    public function delSchedule($id)
+    {
+        return $this->CI->datas->deleteSchedule($id);
     }
 
     public function getVehicle($userid)

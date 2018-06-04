@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-3">
     <div class="col-12 mb-3">
         <h1>Node List</h1>
     </div>
@@ -25,7 +25,7 @@
                     <th>Id Number</th>
                     <th>Status</th>
                     <th>Toggle</th>
-                    <th>Details</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,8 @@
                     echo "<td><label class='switch'>
                             <input type='checkbox' name='status[]' value='{$node['id']}'$checked><span class='slider round'></span>
                             </label></td>";
-                    echo "<td><a href='node/detail/{$node['id']}/' class='btn btn-secondary'>Details</a></td></tr>";
+                    echo "<td><a href='node/detail/{$node['id']}/' class='btn btn-secondary'>Details</a>
+                            <a href='schedule/detail/{$node['id']}/' class='btn btn-secondary'>Schedules</a></td></tr>";
                 }
                 ?>
                 </tbody>
