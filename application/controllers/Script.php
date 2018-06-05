@@ -127,6 +127,56 @@ class Script extends CI_Controller {
 		echo "DONE";
 	}
 
+    private function populate_usage_forecast_today($userid)
+    {
+        $date = date("Y-m-d", strtotime("30 May 2018"));
+        $avg = $this->db->select_sum('amount')->from('node_usages')
+            ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)
+            ->get()->row_array()['amount'] / 16;
+        $usage = $this->db->select_sum('amount')->from('node_usages')
+            ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)->where('time', 15)
+            ->get()->row_array()['amount'];
+
+        for($hour=16;$hour<24;$hour++) {
+            echo "ADD USAGE FORECAST TOMORROW TIME $hour<br>";
+
+            $avgfin = $avg * rand(1,20)/100;
+            if(rand(1, 100) <= 50) {
+                $final = $usage - $avgfin;
+            } else {
+                $final = $usage + $avgfin;
+            }
+            $this->db->insert('forecast_today', array('userid'=>$userid, 'time'=>$hour, 'status'=>1, 'amount'=>number_format($final, 3)));
+        }
+    }
+
+	private function populate_usage_forecast_tomorrow($userid)
+    {
+        $date = date("Y-m-d", strtotime("29 May 2018"));
+        $avg = $this->db->select_avg('amount')->from('node_usages')
+            ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)
+            ->get()->row_array()['amount'];
+
+        for($hour=0;$hour<24;$hour++) {
+            echo "ADD USAGE FORECAST TOMORROW TIME $hour<br>";
+            $usage = $this->db->select_sum('amount')->from('node_usages')
+                ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
+                ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
+                ->get()->row_array()['amount'];
+
+            $avgfin = $avg * rand(1,20)/100;
+            if(rand(1, 100) <= 50) {
+                $final = $usage - $avgfin;
+            } else {
+                $final = $usage + $avgfin;
+            }
+            $this->db->insert('forecast_tomorrow', array('userid'=>$userid, 'time'=>$hour, 'status'=>1, 'amount'=>number_format($final, 3)));
+        }
+    }
+
 	private function populate_production($userid)
     {
         $base = 2.208;
@@ -151,6 +201,84 @@ class Script extends CI_Controller {
             }
         }
         echo "DONE";
+    }
+
+    private function populate_production_forecast_today($userid)
+    {
+        $date = date("Y-m-d", strtotime("30 May 2018"));
+        $avg = $this->db->select_avg('amount')->from('solar_productions')
+            ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)
+            ->get()->row_array()['amount'];
+        $production = $this->db->select('amount')->from('solar_productions')
+            ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)->where('time', 15)
+            ->get()->row_array()['amount'];
+        $weather = $this->db->select('tomorrow')->from('locations')
+            ->join('users', 'locations.id = users.locationid')->where('users.id', $userid)
+            ->get()->row_array()['tomorrow'];
+
+        for($hour=16;$hour<24;$hour++) {
+            echo "ADD USAGE FORECAST TODAY TIME $hour<br>";
+
+            $avgfin = $avg * rand(1,20)/100;
+            if($hour<=7 || $hour>=18) {
+                $final = 0;
+            } else {
+                if(rand(1, 100) <= 50) {
+                    $final = $production - $avgfin;
+                } else {
+                    $final = $production + $avgfin;
+                }
+            }
+            if($weather == "Cloudy") {
+                $final *= 90/100;
+            } elseif($weather == "Shower") {
+                $final *= 70/100;
+            } elseif($weather == "Rain") {
+                $final *= 50/100;
+            }
+            $this->db->insert('forecast_today', array('userid'=>$userid, 'time'=>$hour, 'status'=>2, 'amount'=>number_format($final, 3)));
+        }
+    }
+
+    private function populate_production_forecast_tomorrow($userid)
+    {
+        $date = date("Y-m-d", strtotime("29 May 2018"));
+        $avg = $this->db->select_avg('amount')->from('solar_productions')
+            ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)
+            ->get()->row_array()['amount'];
+        $weather = $this->db->select('tomorrow')->from('locations')
+            ->join('users', 'locations.id = users.locationid')->where('users.id', $userid)
+            ->get()->row_array()['tomorrow'];
+
+        for($hour=0;$hour<24;$hour++) {
+            echo "ADD PRODUCTION FORECAST TOMORROW TIME $hour<br>";
+            $production = $this->db->select('amount')->from('solar_productions')
+                ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
+                ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
+                ->get()->row_array()['amount'];
+
+            $avgfin = $avg * rand(1,20)/100;
+            if($hour<=7 || $hour>=18) {
+                $final = 0;
+            } else {
+                if(rand(1, 100) <= 50) {
+                    $final = $production - $avgfin;
+                } else {
+                    $final = $production + $avgfin;
+                }
+            }
+            if($weather == "Cloudy") {
+                $final *= 90/100;
+            } elseif($weather == "Shower") {
+                $final *= 70/100;
+            } elseif($weather == "Rain") {
+                $final *= 50/100;
+            }
+            $this->db->insert('forecast_tomorrow', array('userid'=>$userid, 'time'=>$hour, 'status'=>2, 'amount'=>number_format($final, 3)));
+        }
     }
 
     private function populate_battery_act($userid)
