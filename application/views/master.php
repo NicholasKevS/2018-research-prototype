@@ -7,8 +7,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="UTS Research 2018 Autumn">
+    <meta name="description" content="Research Prototype">
     <title>Power Grid - <?php echo $title; ?></title>
 
     <!-- Bootstrap core CSS-->
