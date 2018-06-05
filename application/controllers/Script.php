@@ -149,6 +149,7 @@ class Script extends CI_Controller {
             $date = date('Y-m-d', $d);
             echo "ADD TO BATTERY ACT DATE $date<br>";
             for($hour=0;$hour<24;$hour++) {
+                if($i == 29 && $hour>15) continue;
                 echo "ADD BATTERY ACT TIME $hour<br>";
                 $production = $this->db->select('amount')->get_where('solar_productions', array('date'=>$date, 'time'=>$hour))->row_array()['amount'];
                 $usage = $this->db->select_sum('amount')->get_where('node_usages', array('date'=>$date, 'time'=>$hour))->row_array()['amount'];
@@ -204,6 +205,7 @@ class Script extends CI_Controller {
             $date = date('Y-m-d', $d);
             echo "ADD TO VEHICLE ACT DATE $date<br>";
             for($hour=0;$hour<24;$hour++) {
+                if($i == 29 && $hour>15) continue;
                 echo "ADD VEHICLE ACT TIME $hour<br>";
 
                 if($hour>=6 && $hour<=18) {
