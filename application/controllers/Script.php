@@ -6,15 +6,23 @@ class Script extends CI_Controller {
     public function index()
     {
         $run = FALSE;
-
         if($run) {
-            $userid = 1;
-            echo "User Id: $userid <br>";
-            $this->populate_usage($userid);
-            $this->populate_production($userid);
-            $this->populate_battery_act($userid);
-            $this->populate_battery_sum($userid);
-            $this->populate_vehicle_bat($userid);
+            ini_set('max_execution_time', 300);
+            
+            $this->purge_data();
+
+            for($userid=1;$userid<=3;$userid++) {
+                echo "User Id: $userid <br>";
+                $this->populate_usage($userid);
+                $this->populate_production($userid);
+                $this->populate_usage_forecast_today($userid);
+                $this->populate_production_forecast_today($userid);
+                $this->populate_usage_forecast_tomorrow($userid);
+                $this->populate_production_forecast_tomorrow($userid);
+                $this->populate_battery_act($userid);
+                $this->populate_battery_sum($userid);
+                $this->populate_vehicle_bat($userid);
+            }
         } else {
             echo "No script to run.";
         }
@@ -61,7 +69,7 @@ class Script extends CI_Controller {
                 $tvsch = $this->db->get_where('node_schedules', array('nodeid'=>$tvid, 'status'=>0))->row_array();
                 $pssch = $this->db->get_where('node_schedules', array('nodeid'=>$psid, 'status'=>0))->row_array();
 
-                if($fridgesch['start']<=$hour && $hour<=$fridgesch['end']) {
+                if($fridgesch!=null && $fridgesch['start']<=$hour && $hour<=$fridgesch['end']) {
                     $fridgefin = 0;
                 } else {
                     if(rand(1,100) <= 50) {
@@ -70,7 +78,7 @@ class Script extends CI_Controller {
                         $fridgefin = $fridge + ($fridge*rand(1,20)/100);
                     }
                 }
-                if($compsch['start']<=$hour && $hour<=$compsch['end']) {
+                if($compsch!=null && $compsch['start']<=$hour && $hour<=$compsch['end']) {
                     $compfin = 0;
                 } else {
                     if(rand(1,100) <= 50) {
@@ -79,7 +87,7 @@ class Script extends CI_Controller {
                         $compfin = $comp + ($comp*rand(1,20)/100);
                     }
                 }
-                if($lampsch['start']<=$hour && $hour<=$lampsch['end']) {
+                if($lampsch!=null && $lampsch['start']<=$hour && $hour<=$lampsch['end']) {
                     $lampfin = 0;
                 } else {
                     if (rand(1, 100) <= 50) {
@@ -88,7 +96,7 @@ class Script extends CI_Controller {
                         $lampfin = $lamp + ($lamp * rand(1, 20) / 100);
                     }
                 }
-                if($blanketsch['start']<=$hour && $hour<=$blanketsch['end']) {
+                if($blanketsch!=null && $blanketsch['start']<=$hour && $hour<=$blanketsch['end']) {
                     $blanketfin = 0;
                 } else {
                     if (rand(1, 100) <= 50) {
@@ -97,7 +105,7 @@ class Script extends CI_Controller {
                         $blanketfin = $blanket + ($blanket * rand(1, 20) / 100);
                     }
                 }
-                if($tvsch['start']<=$hour && $hour<=$tvsch['end']) {
+                if($tvsch!=null && $tvsch['start']<=$hour && $hour<=$tvsch['end']) {
                     $tvfin = 0;
                 } else {
                     if (rand(1, 100) <= 50) {
@@ -106,7 +114,7 @@ class Script extends CI_Controller {
                         $tvfin = $tv + ($tv * rand(1, 20) / 100);
                     }
                 }
-                if($pssch['start']<=$hour && $hour<=$pssch['end']) {
+                if($pssch!=null && $pssch['start']<=$hour && $hour<=$pssch['end']) {
                     $psfin = 0;
                 } else {
                     if (rand(1, 100) <= 50) {
