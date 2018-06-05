@@ -83,8 +83,9 @@ class Schedule extends MY_Controller {
         redirect('schedule/edit/'.$this->input->post('id'));
     }
 
-    public function delete($nodeid, $id)
+    public function delete($id)
     {
+        $nodeid = $this->processor->getSchedule($id)['nodeid'];
         $this->processor->delSchedule($id);
         $this->session->set_flashdata('success', "Schedule deleted");
 
