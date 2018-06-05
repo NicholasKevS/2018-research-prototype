@@ -265,17 +265,15 @@
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+            labels: timeAxis,
             datasets: [{
-                label: "cents per kWh",
+                label: "Price",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
-                borderColor: "rgba(2,117,216,1)",
+                borderColor: "rgba(67,182,47,1)",
                 pointRadius: 5,
-                pointBackgroundColor: "rgba(2,117,216,1)",
+                pointBackgroundColor: "rgba(67,182,47,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
                 data: price
@@ -299,6 +297,10 @@
                         min: 10,
                         max: 60,
                         maxTicksLimit: 5
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Cents per kWh"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
