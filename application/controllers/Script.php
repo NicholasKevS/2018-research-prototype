@@ -5,10 +5,10 @@ class Script extends CI_Controller {
 
     public function index()
     {
-        $run = TRUE;
+        $run = FALSE;
 
         if($run) {
-            $userid = 3;
+            $userid = 1;
             echo "User Id: $userid <br>";
             $this->populate_usage($userid);
             $this->populate_production($userid);
