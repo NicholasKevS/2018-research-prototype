@@ -40,4 +40,11 @@ class Dashboard extends MY_Controller {
         $data['view'] = "dashboard";
         $this->load->view('master', $data);
     }
+
+    public function report()
+    {
+        $date = $this->input->post("datereport");
+        $data['title'] = "Power Grid Report";
+        $this->load->view('report', $data);
+    }
 }

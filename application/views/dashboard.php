@@ -81,10 +81,10 @@
         <div class="row">
             <div class="col-12">
                 <h2>Get Report</h2>
-                <form action="" method="post">
+                <form action="dashboard/report/" method="post">
                     <div class="col-12 mb-3">
                         Date:
-                        <input type="text" name="datereport" id="datereport" value="">
+                        <input type="text" name="datereport" id="datereport" onkeydown="return false" value="">
                         <button type="submit" class="btn btn-primary">Go</button>
                     </div>
                 </form>
