@@ -30,7 +30,7 @@
                     echo "<td>{$sch['start']}</td>";
                     echo "<td>{$sch['end']}</td>";
                     echo "<td><a href='schedule/edit/{$sch['id']}/' class='btn btn-secondary' role='button'>Edit</a>
-                            <a href='schedule/delete/{$node['id']}/{$sch['id']}/' class='btn btn-danger' role='button'>Delete</a></td></tr>";
+                            <a href='schedule/delete/{$sch['id']}/' class='btn btn-danger' role='button'>Delete</a></td></tr>";
                 }
                 ?>
                 </tbody>
