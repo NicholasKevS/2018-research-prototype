@@ -67,6 +67,13 @@ class Processor {
         return $usage;
     }
 
+    public function getDailyUsage($userid, $date)
+    {
+        $date = date("Y-m-d", strtotime($date));
+        $usage = $this->CI->datas->getUsageTotalByDate($userid, $date);
+        return number_format($usage, 3);
+    }
+
     public function getHourlyUsage($userid, $date, $from, $to)
     {
         $total = array();
@@ -123,6 +130,13 @@ class Processor {
             }
         }
         return $avg;
+    }
+
+    public function getDailyProduction($userid, $date)
+    {
+        $date = date("Y-m-d", strtotime($date));
+        $production = $this->CI->datas->getProductionTotalByDate($userid, $date);
+        return number_format($production, 3);
     }
 
     public function getHourlyProduction($userid, $date, $from, $to)

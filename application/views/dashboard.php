@@ -84,7 +84,7 @@
                 <form action="dashboard/report/" method="post">
                     <div class="col-12 mb-3">
                         Date:
-                        <input type="text" name="datereport" id="datereport" onkeydown="return false" value="">
+                        <input type="text" name="datereport" id="datereport" onkeydown="return false" value="<?php echo $datereport; ?>">
                         <button type="submit" class="btn btn-primary">Go</button>
                     </div>
                 </form>

@@ -20,10 +20,16 @@ class Dashboard extends MY_Controller {
         } else {
             $time2 = '23:00';
         }
+        if($this->input->post('datereport')) {
+            $datereport = $this->input->post('datereport');
+        } else {
+            $datereport = '30 May 2018';
+        }
 
         $data['date'] = $date;
         $data['time1'] = $time1;
         $data['time2'] = $time2;
+        $data['datereport'] = $datereport;
 
         $id = $this->session->id;
         $data['weather'] = $this->processor->getLocation($id);
@@ -44,7 +50,13 @@ class Dashboard extends MY_Controller {
     public function report()
     {
         $date = $this->input->post("datereport");
-        $data['title'] = "Power Grid Report";
+        $id = $this->session->id;
+
+        $data['date'] = $date;
+
+        $data['usage'] = $this->processor->getDailyUsage($id, $date);
+        $data['production'] = $this->processor->getDailyProduction($id, $date);
+
         $this->load->view('report', $data);
     }
 }
