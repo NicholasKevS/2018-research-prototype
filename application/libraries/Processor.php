@@ -84,6 +84,30 @@ class Processor {
         return $total;
     }
 
+    public function getUsageForecastToday($userid)
+    {
+        $forecast = array();
+        $usage = $this->CI->datas->getUsageForecastToday($userid);
+        for($i=0;$i<15;$i++) {
+            array_push($forecast, null);
+        }
+        array_push($forecast, $this->CI->datas->getUsageTotalByHour($userid, "2018-05-30", 15));
+        foreach($usage as $use) {
+            array_push($forecast, number_format($use['amount'], 3));
+        }
+        return $forecast;
+    }
+
+    public function getUsageForecastTomorrow($userid)
+    {
+        $forecast = array();
+        $usage = $this->CI->datas->getUsageForecastTomorrow($userid);
+        foreach($usage as $use) {
+            array_push($forecast, number_format($use['amount'], 3));
+        }
+        return $forecast;
+    }
+
     public function getAvgHourlyUsage($location, $date, $from, $to)
     {
         $avg = array();
@@ -116,6 +140,30 @@ class Processor {
             }
         }
         return $total;
+    }
+
+    public function getProductionForecastToday($userid)
+    {
+        $forecast = array();
+        $production = $this->CI->datas->getProductionForecastToday($userid);
+        for($i=0;$i<15;$i++) {
+            array_push($forecast, null);
+        }
+        array_push($forecast, $this->CI->datas->getProductionTotalByHour($userid, "2018-05-30", 15));
+        foreach($production as $prod) {
+            array_push($forecast, number_format($prod['amount'], 3));
+        }
+        return $forecast;
+    }
+
+    public function getProductionForecastTomorrow($userid)
+    {
+        $forecast = array();
+        $production = $this->CI->datas->getProductionForecastTomorrow($userid);
+        foreach($production as $prod) {
+            array_push($forecast, number_format($prod['amount'], 3));
+        }
+        return $forecast;
     }
 
     public function getAvgHourlyProduction($location, $date, $from, $to)

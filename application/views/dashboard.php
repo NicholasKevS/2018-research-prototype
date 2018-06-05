@@ -21,7 +21,7 @@
                 <a class="nav-link active" data-toggle="tab" href="#usageproduction">Usage & Production Chart</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#prediction">Prediction Chart</a>
+                <a class="nav-link" data-toggle="tab" href="#forecast">Tomorrow Forecast Chart</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#price">Price Rates</a>
@@ -37,6 +37,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Usage & Production Chart</h2>
+                <p>Today weather forecast: <?php echo $weather['today']; ?></p>
             </div>
         </div>
         <div class="card mb-3">
@@ -47,17 +48,18 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="prediction">
+    <div class="tab-pane fade" id="forecast">
         <div class="row">
             <div class="col-12">
-                <h2>Production & Usage Today Estimate</h2>
+                <h2>Production & Usage Forecast for Tomorrow (31 May 2018)</h2>
+                <p>Tomorrow weather forecast: <?php echo $weather['tomorrow']; ?></p>
             </div>
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Production & Usage Today Estimate</div>
+                <i class="fa fa-area-chart"></i> Production & Usage Tomorrow Forecast</div>
             <div class="card-body">
-                <canvas id="estimationChart" width="100%" height="30"></canvas>
+                <canvas id="forecastChart" width="100%" height="30"></canvas>
             </div>
         </div>
     </div>
@@ -95,6 +97,10 @@
     var timeAxis = <?php echo json_encode($timeAxis); ?>;
     var usage = <?php echo json_encode($usage); ?>;
     var production = <?php echo json_encode($production); ?>;
+    var usageForecastToday = <?php echo json_encode($usageForecastToday); ?>;
+    var productionForecastToday = <?php echo json_encode($productionForecastToday); ?>;
+    var usageForecastTomorrow = <?php echo json_encode($usageForecastTomorrow); ?>;
+    var productionForecastTomorrow = <?php echo json_encode($productionForecastTomorrow); ?>;
     var price = <?php echo json_encode($price); ?>;
 
     // usage & production chart
@@ -127,6 +133,32 @@
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
                 data: production
+            },{
+                label: "Usage Forecast",
+                yAxisID:"left",
+                lineTension: 0.3,
+                borderColor: "rgba(198,0,29,1)",
+                borderDash: [5, 5],
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(198,0,29,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: usageForecastToday
+            },{
+                label: "Production Forecast",
+                yAxisID:"left",
+                lineTension: 0.3,
+                borderColor: "rgba(2,117,216,1)",
+                borderDash: [5, 5],
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(2,117,216,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: productionForecastToday
             },{
                 label: "Price",
                 yAxisID:"right",
@@ -193,48 +225,44 @@
     });
 
     // estimation chart
-    var ctx = document.getElementById("estimationChart");
+    var ctx = document.getElementById("forecastChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+            labels: timeAxis,
             datasets: [{
-                label: "Usage",
+                label: "Usage Forecast",
+                yAxisID:"left",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
-                borderColor: "rgba(2,117,216,1)",
+                borderColor: "rgba(198,0,29,1)",
+                borderDash: [5, 5],
                 pointRadius: 5,
-                pointBackgroundColor: "rgba(2,117,216,1)",
+                pointBackgroundColor: "rgba(198,0,29,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
-                data: [10000, 30162, 26263, 18287, 28682, 33259, 25849 , 32651, 24159, 38451,
-                    10000, 30162, 26263, 18287, 28682, 33259, 25849 , 32651, 24159, 38451,
-                    10000, 30162, 26263, 18287]
+                data: usageForecastTomorrow
             },{
-                label: "Production",
+                label: "Production Forecast",
+                yAxisID:"left",
                 lineTension: 0.3,
-                backgroundColor: "rgba(2,117,216,0.2)",
                 borderColor: "rgba(2,117,216,1)",
+                borderDash: [5, 5],
                 pointRadius: 5,
                 pointBackgroundColor: "rgba(2,117,216,1)",
                 pointBorderColor: "rgba(255,255,255,0.8)",
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(2,117,216,1)",
                 pointHitRadius: 20,
                 pointBorderWidth: 2,
-                data: [1000, 3012, 2623, 1827, 2682, 3329, 2549 , 3651, 2459, 3851,
-                    1000, 3012, 2623, 1827, 2682, 3329, 2549 , 3651, 2459, 3851,
-                    1000, 3012, 2623, 1827]
+                data: productionForecastTomorrow
             }],
         },
         options: {
             scales: {
                 xAxes: [{
                     time: {
-                        unit: 'date'
+                        unit: 'time'
                     },
                     gridLines: {
                         display: false
@@ -244,10 +272,15 @@
                     }
                 }],
                 yAxes: [{
+                    id: "left",
                     ticks: {
-                        min: 0,
-                        max: 40000,
-                        maxTicksLimit: 5
+                        min: -1,
+                        max: 4,
+                        maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Kilowatt hour"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
@@ -255,7 +288,7 @@
                 }],
             },
             legend: {
-                display: false
+                display: true
             }
         }
     });

@@ -13,6 +13,14 @@ class Datas extends CI_Model {
     public function getUsageTotalByDate($userid, $date)
     {
         return $this->db->select_sum('amount')->from('node_usages')
+        ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
+        ->where('users.id', $userid)->where('date', $date)
+        ->get()->row_array()['amount'];
+    }
+
+    public function getUsageAvgByDate($userid, $date)
+    {
+        return $this->db->select_avg('amount')->from('node_usages')
             ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
             ->where('users.id', $userid)->where('date', $date)
             ->get()->row_array()['amount'];
@@ -24,6 +32,18 @@ class Datas extends CI_Model {
             ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
             ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
             ->get()->row_array()['amount'];
+    }
+
+    public function getUsageForecastToday($userid)
+    {
+        return $this->db->select('amount')->from('forecast_today')
+            ->where('userid', $userid)->where('status', 1)->get()->result_array();
+    }
+
+    public function getUsageForecastTomorrow($userid)
+    {
+        return $this->db->select('amount')->from('forecast_tomorrow')
+            ->where('userid', $userid)->where('status', 1)->get()->result_array();
     }
 
     public function getUsageAvgByHour($location, $date, $hour)
@@ -50,12 +70,32 @@ class Datas extends CI_Model {
             ->get()->row_array()['amount'];
     }
 
+    public function getProductionAvgByDate($userid, $date)
+    {
+        return $this->db->select_avg('amount')->from('solar_productions')
+            ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
+            ->where('users.id', $userid)->where('date', $date)
+            ->get()->row_array()['amount'];
+    }
+
     public function getProductionTotalByHour($userid, $date, $hour)
     {
         return $this->db->select('amount')->from('solar_productions')
             ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
             ->where('users.id', $userid)->where('date', $date)->where('time', $hour)
             ->get()->row_array()['amount'];
+    }
+
+    public function getProductionForecastToday($userid)
+    {
+        return $this->db->select('amount')->from('forecast_today')
+            ->where('userid', $userid)->where('status', 2)->get()->result_array();
+    }
+
+    public function getProductionForecastTomorrow($userid)
+    {
+        return $this->db->select('amount')->from('forecast_tomorrow')
+            ->where('userid', $userid)->where('status', 2)->get()->result_array();
     }
 
     public function getProductionAvgByHour($location, $date, $hour)
