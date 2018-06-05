@@ -58,7 +58,11 @@ class Processor {
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
             $node = $this->CI->datas->getUsage($id, $date, $i);
-            array_push($usage, number_format($node, 3));
+            if($node == null) {
+                array_push($usage, $node);
+            } else {
+                array_push($usage, number_format($node, 3));
+            }
         }
         return $usage;
     }
@@ -71,7 +75,11 @@ class Processor {
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
             $usage = $this->CI->datas->getUsageTotalByHour($userid, $date, $i);
-            array_push($total, number_format($usage, 3));
+            if($usage == null) {
+                array_push($total, $usage);
+            } else {
+                array_push($total, number_format($usage, 3));
+            }
         }
         return $total;
     }
@@ -84,7 +92,11 @@ class Processor {
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
             $usage = $this->CI->datas->getUsageAvgByHour($location, $date, $i);
-            array_push($avg, number_format($usage, 3));
+            if($usage == null) {
+                array_push($avg, $usage);
+            } else {
+                array_push($avg, number_format($usage, 3));
+            }
         }
         return $avg;
     }
@@ -97,7 +109,11 @@ class Processor {
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
             $production = $this->CI->datas->getProductionTotalByHour($userid, $date, $i);
-            array_push($total, number_format($production, 3));
+            if($production == null) {
+                array_push($total, $production);
+            } else {
+                array_push($total, number_format($production, 3));
+            }
         }
         return $total;
     }
@@ -109,8 +125,12 @@ class Processor {
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
-            $usage = $this->CI->datas->getProductionAvgByHour($location, $date, $i);
-            array_push($avg, number_format($usage, 3));
+            $production = $this->CI->datas->getProductionAvgByHour($location, $date, $i);
+            if($production == null) {
+                array_push($avg, $production);
+            } else {
+                array_push($avg, number_format($production, 3));
+            }
         }
         return $avg;
     }
@@ -154,17 +174,21 @@ class Processor {
         $to = (int)explode(":", $to)[0];
         for($i=$from;$i<=$to;$i++) {
             $act = $this->CI->datas->getBatteryActByHour($userid, $date, $i);
-            if($act['status'] == 1) {
-                $act['amount']*= -1;
+            if($act == null) {
+                array_push($total, $act);
+            } else {
+                if($act['status'] == 1) {
+                    $act['amount']*= -1;
+                }
+                array_push($total, number_format($act['amount'], 3));
             }
-            array_push($total, number_format($act['amount'], 3));
         }
         return $total;
     }
 
     public function getBatterySum($userid, $to)
     {
-        $sum = array();
+        $total = array();
         $default = date("j M Y", strtotime("1 May 2018"));
         $from = date("j M Y", strtotime("-6 day", strtotime($to)));
         if(strtotime($from) < strtotime($default)) {
@@ -172,14 +196,18 @@ class Processor {
         }
 
         while(strtotime($from) <= strtotime($to)) {
-            $sums = $this->CI->datas->getBatterySum($userid, date("Y-m-d", strtotime($from)));
-            if($sums['status'] == 1) {
-                $sums['amount']*= -1;
+            $sum = $this->CI->datas->getBatterySum($userid, date("Y-m-d", strtotime($from)));
+            if($sum == null) {
+                array_push($total, $sum);
+            } else {
+                if($sum['status'] == 1) {
+                    $sum['amount']*= -1;
+                }
+                array_push($total, number_format($sum['amount'], 3));
             }
-            array_push($sum, number_format($sums['amount'], 3));
             $from = date("j M Y", strtotime("+1 day", strtotime($from)));
         }
-        return $sum;
+        return $total;
     }
 
     public function getAvgBatterySum($location, $to)
@@ -193,10 +221,14 @@ class Processor {
 
         while(strtotime($from) <= strtotime($to)) {
             $sum = $this->CI->datas->getAvgBatterySum($location, date("Y-m-d", strtotime($from)));
-            if($sum['status'] == 1) {
-                $sum['amount']*= -1;
+            if($sum['amount'] == null) {
+                array_push($avg, $sum['amount']);
+            } else {
+                if ($sum['status'] == 1) {
+                    $sum['amount'] *= -1;
+                }
+                array_push($avg, number_format($sum['amount'], 3));
             }
-            array_push($avg, number_format($sum['amount'], 3));
             $from = date("j M Y", strtotime("+1 day", strtotime($from)));
         }
         return $avg;
@@ -211,8 +243,12 @@ class Processor {
         $capacity = $this->getVehicle($userid)['capacity'];
         for($i=$from;$i<=$to;$i++) {
             $amount = $this->CI->datas->getVehicleBatByHour($userid, $date, $i);
-            $final = ($amount/$capacity) * 100;
-            array_push($total, number_format($final, 2));
+            if($amount == null) {
+                array_push($total, $amount);
+            } else {
+                $final = ($amount/$capacity) * 100;
+                array_push($total, number_format($final, 2));
+            }
         }
         return $total;
     }
