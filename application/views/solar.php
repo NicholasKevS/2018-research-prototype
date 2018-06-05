@@ -10,6 +10,19 @@
         }
         ?>
     </div>
+    <form action="solar/" method="post">
+        <div class="col-12 mb-3">
+            Date:
+            <input type="text" name="date" id="date" onkeydown="return false" value="<?php echo $date; ?>">
+        </div>
+        <div class="col-12 mb-3">
+            From:
+            <input type="text" name="time1" id="time1" onkeydown="return false" value="<?php echo $time1; ?>">
+            To:
+            <input type="text" name="time2" id="time2" onkeydown="return false" value="<?php echo $time2; ?>">
+            <button type="submit" class="btn btn-primary">Go</button>
+        </div>
+    </form>
     <div class="col-12">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -30,19 +43,6 @@
             <div class="col-12">
                 <h2>Production Chart</h2>
             </div>
-            <form action="solar/" method="post">
-                <div class="col-12 mb-3">
-                    Date:
-                    <input type="text" name="date" id="date" onkeydown="return false" value="<?php echo $date; ?>">
-                </div>
-                <div class="col-12 mb-3">
-                    From:
-                    <input type="text" name="time1" id="time1" onkeydown="return false" value="<?php echo $time1; ?>">
-                    To:
-                    <input type="text" name="time2" id="time2" onkeydown="return false" value="<?php echo $time2; ?>">
-                    <button type="submit" class="btn btn-primary">Go</button>
-                </div>
-            </form>
         </div>
         <div class="card mb-3">
             <div class="card-header">

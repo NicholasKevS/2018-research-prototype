@@ -62,7 +62,7 @@ class Node extends MY_Controller {
         if($this->input->post('date')) {
             $date = $this->input->post('date');
         } else {
-            $date = '14 May 2018';
+            $date = '30 May 2018';
         }
         if($this->input->post('time1')) {
             $time1 = $this->input->post('time1');
