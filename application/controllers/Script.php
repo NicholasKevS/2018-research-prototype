@@ -20,6 +20,17 @@ class Script extends CI_Controller {
         }
     }
 
+    private function purge_data()
+    {
+        $this->db->empty_table('node_usages');
+        $this->db->empty_table('solar_productions');
+        $this->db->empty_table('forecast_today');
+        $this->db->empty_table('forecast_tomorrow');
+        $this->db->empty_table('battery_acts');
+        $this->db->empty_table('battery_sums');
+        $this->db->empty_table('vehicle_bats');
+    }
+
 	private function populate_usage($userid)
 	{
 	    $fridge = 0.25;
