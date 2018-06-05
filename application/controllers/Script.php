@@ -5,95 +5,147 @@ class Script extends CI_Controller {
 
     public function index()
     {
-        //$this->populate_usage();
-		//$this->populate_production();
-		//$this->populate_battery_act();
-        //$this->populate_battery_sum();
-		//$this->populate_vehicle_bat();
-        echo "No script to run.";
+        $run = TRUE;
+
+        if($run) {
+            $userid = 3;
+            echo "User Id: $userid <br>";
+            $this->populate_usage($userid);
+            $this->populate_production($userid);
+            $this->populate_battery_act($userid);
+            $this->populate_battery_sum($userid);
+            $this->populate_vehicle_bat($userid);
+        } else {
+            echo "No script to run.";
+        }
     }
 
-	private function populate_usage()
+	private function populate_usage($userid)
 	{
 	    $fridge = 0.25;
-	    $computer = 0.15;
+        $comp = 0.15;
 	    $lamp = 0.014;
         $blanket = 0.034;
         $tv = 0.243;
         $ps = 0.14;
-		for($i=0;$i<3;$i++) {
-		    $d = mktime(0, 0, 0, 5, 14+$i, 2018);
+		for($i=0;$i<30;$i++) {
+		    $d = mktime(0, 0, 0, 5, 1+$i, 2018);
 		    $date = date('Y-m-d', $d);
 		    echo "ADD TO USAGE DATE $date<br>";
 			for($hour=0;$hour<24;$hour++) {
+			    if($i == 29 && $hour>15) continue;
                 echo "ADD USAGE TIME $hour<br>";
 
-                if(rand(1,100) <= 50) {
-                    $fridge = $fridge - ($fridge*rand(1,20)/100);
+                $fridgeid = 1+(6*($userid-1));
+                $compid = 2+(6*($userid-1));
+                $lampid = 3+(6*($userid-1));
+                $blanketid = 4+(6*($userid-1));
+                $tvid = 5+(6*($userid-1));
+                $psid = 6+(6*($userid-1));
+
+                $fridgesch = $this->db->get_where('node_schedules', array('nodeid'=>$fridgeid, 'status'=>0))->row_array();
+                $compsch = $this->db->get_where('node_schedules', array('nodeid'=>$compid, 'status'=>0))->row_array();
+                $lampsch = $this->db->get_where('node_schedules', array('nodeid'=>$lampid, 'status'=>0))->row_array();
+                $blanketsch = $this->db->get_where('node_schedules', array('nodeid'=>$blanketid, 'status'=>0))->row_array();
+                $tvsch = $this->db->get_where('node_schedules', array('nodeid'=>$tvid, 'status'=>0))->row_array();
+                $pssch = $this->db->get_where('node_schedules', array('nodeid'=>$psid, 'status'=>0))->row_array();
+
+                if($fridgesch['start']<=$hour && $hour<=$fridgesch['end']) {
+                    $fridgefin = 0;
                 } else {
-                    $fridge = $fridge + ($fridge*rand(1,20)/100);
+                    if(rand(1,100) <= 50) {
+                        $fridgefin = $fridge - ($fridge*rand(1,20)/100);
+                    } else {
+                        $fridgefin = $fridge + ($fridge*rand(1,20)/100);
+                    }
                 }
-                if(rand(1,100) <= 50) {
-                    $computer = $computer - ($computer*rand(1,20)/100);
+                if($compsch['start']<=$hour && $hour<=$compsch['end']) {
+                    $compfin = 0;
                 } else {
-                    $computer = $computer + ($computer*rand(1,20)/100);
+                    if(rand(1,100) <= 50) {
+                        $compfin = $comp - ($comp*rand(1,20)/100);
+                    } else {
+                        $compfin = $comp + ($comp*rand(1,20)/100);
+                    }
                 }
-                if(rand(1,100) <= 50) {
-                    $lamp = $lamp - ($lamp*rand(1,20)/100);
+                if($lampsch['start']<=$hour && $hour<=$lampsch['end']) {
+                    $lampfin = 0;
                 } else {
-                    $lamp = $lamp + ($lamp*rand(1,20)/100);
+                    if (rand(1, 100) <= 50) {
+                        $lampfin = $lamp - ($lamp * rand(1, 20) / 100);
+                    } else {
+                        $lampfin = $lamp + ($lamp * rand(1, 20) / 100);
+                    }
                 }
-                if(rand(1,100) <= 50) {
-                    $blanket = $blanket - ($blanket*rand(1,20)/100);
+                if($blanketsch['start']<=$hour && $hour<=$blanketsch['end']) {
+                    $blanketfin = 0;
                 } else {
-                    $blanket = $blanket + ($blanket*rand(1,20)/100);
+                    if (rand(1, 100) <= 50) {
+                        $blanketfin = $blanket - ($blanket * rand(1, 20) / 100);
+                    } else {
+                        $blanketfin = $blanket + ($blanket * rand(1, 20) / 100);
+                    }
                 }
-                if(rand(1,100) <= 50) {
-                    $tv = $tv - ($tv*rand(1,20)/100);
+                if($tvsch['start']<=$hour && $hour<=$tvsch['end']) {
+                    $tvfin = 0;
                 } else {
-                    $tv = $tv + ($tv*rand(1,20)/100);
+                    if (rand(1, 100) <= 50) {
+                        $tvfin = $tv - ($tv * rand(1, 20) / 100);
+                    } else {
+                        $tvfin = $tv + ($tv * rand(1, 20) / 100);
+                    }
                 }
-                if(rand(1,100) <= 50) {
-                    $ps = $ps - ($ps*rand(1,20)/100);
+                if($pssch['start']<=$hour && $hour<=$pssch['end']) {
+                    $psfin = 0;
                 } else {
-                    $ps = $ps + ($ps*rand(1,20)/100);
+                    if (rand(1, 100) <= 50) {
+                        $psfin = $ps - ($ps * rand(1, 20) / 100);
+                    } else {
+                        $psfin = $ps + ($ps * rand(1, 20) / 100);
+                    }
                 }
-                $this->db->insert('node_usages', array('nodeid'=>1, 'date'=>$date, 'time'=>$hour, 'amount'=>$fridge));
-                $this->db->insert('node_usages', array('nodeid'=>2, 'date'=>$date, 'time'=>$hour, 'amount'=>$computer));
-                $this->db->insert('node_usages', array('nodeid'=>3, 'date'=>$date, 'time'=>$hour, 'amount'=>$lamp));
-                $this->db->insert('node_usages', array('nodeid'=>4, 'date'=>$date, 'time'=>$hour, 'amount'=>$blanket));
-                $this->db->insert('node_usages', array('nodeid'=>5, 'date'=>$date, 'time'=>$hour, 'amount'=>$tv));
-                $this->db->insert('node_usages', array('nodeid'=>6, 'date'=>$date, 'time'=>$hour, 'amount'=>$ps));
+
+                $this->db->insert('node_usages', array('nodeid'=>$fridgeid, 'date'=>$date, 'time'=>$hour, 'amount'=>$fridgefin));
+                $this->db->insert('node_usages', array('nodeid'=>$compid, 'date'=>$date, 'time'=>$hour, 'amount'=>$compfin));
+                $this->db->insert('node_usages', array('nodeid'=>$lampid, 'date'=>$date, 'time'=>$hour, 'amount'=>$lampfin));
+                $this->db->insert('node_usages', array('nodeid'=>$blanketid, 'date'=>$date, 'time'=>$hour, 'amount'=>$blanketfin));
+                $this->db->insert('node_usages', array('nodeid'=>$tvid, 'date'=>$date, 'time'=>$hour, 'amount'=>$tvfin));
+                $this->db->insert('node_usages', array('nodeid'=>$psid, 'date'=>$date, 'time'=>$hour, 'amount'=>$psfin));
 			}
 		}
 		echo "DONE";
 	}
 
-	private function populate_production()
+	private function populate_production($userid)
     {
         $base = 2.208;
-        for($i=0;$i<3;$i++) {
-            $d = mktime(0, 0, 0, 5, 14+$i, 2018);
+        for($i=0;$i<30;$i++) {
+            $d = mktime(0, 0, 0, 5, 1+$i, 2018);
             $date = date('Y-m-d', $d);
             echo "ADD TO PRODUCTION DATE $date<br>";
-            for($hour=7;$hour<18;$hour++) {
+            for($hour=0;$hour<24;$hour++) {
+                if($i == 29 && $hour>15) continue;
                 echo "ADD PRODUCTION TIME $hour<br>";
 
-                if(rand(1,100) <= 50) {
-                    $final = $base - ($base*rand(1,40)/100);
+                if($hour<=7 || $hour>=18) {
+                    $final = 0;
                 } else {
-                    $final = $base + ($base*rand(1,15)/100);
+                    if(rand(1,100) <= 50) {
+                        $final = $base - ($base*rand(1,40)/100);
+                    } else {
+                        $final = $base + ($base*rand(1,15)/100);
+                    }
                 }
-                $this->db->insert('solar_productions', array('solarid'=>1, 'date'=>$date, 'time'=>$hour, 'amount'=>$final));
+                $this->db->insert('solar_productions', array('solarid'=>$userid, 'date'=>$date, 'time'=>$hour, 'amount'=>$final));
             }
         }
         echo "DONE";
     }
 
-    private function populate_battery_act()
+    private function populate_battery_act($userid)
     {
-        for($i=0;$i<3;$i++) {
-            $d = mktime(0, 0, 0, 5, 14+$i, 2018);
+        for($i=0;$i<30;$i++) {
+            $d = mktime(0, 0, 0, 5, 1+$i, 2018);
             $date = date('Y-m-d', $d);
             echo "ADD TO BATTERY ACT DATE $date<br>";
             for($hour=0;$hour<24;$hour++) {
@@ -110,16 +162,16 @@ class Script extends CI_Controller {
                     $final = $total;
                 }
                 $final = number_format($final,3);
-                $this->db->insert('battery_acts', array('batteryid'=>1, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
+                $this->db->insert('battery_acts', array('batteryid'=>$userid, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
             }
         }
         echo "DONE";
     }
 
-    private function populate_battery_sum()
+    private function populate_battery_sum($userid)
     {
-        for($i=0;$i<3;$i++) {
-            $d = mktime(0, 0, 0, 5, 14+$i, 2018);
+        for($i=0;$i<29;$i++) {
+            $d = mktime(0, 0, 0, 5, 1+$i, 2018);
             $date = date('Y-m-d', $d);
             echo "ADD TO BATTERY SUM DATE $date<br>";
             $production = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>2))->row_array()['amount'];
@@ -135,20 +187,20 @@ class Script extends CI_Controller {
                 $status = 2;
                 $final = $total;
             }
-            $this->db->insert('battery_sums', array('batteryid'=>1, 'date'=>$date, 'status'=>$status, 'amount'=>$final));
+            $this->db->insert('battery_sums', array('batteryid'=>$userid, 'date'=>$date, 'status'=>$status, 'amount'=>$final));
         }
         echo "DONE";
     }
 
-    private function populate_vehicle_bat()
+    private function populate_vehicle_bat($userid)
     {
         $full = 30.000;
         $empty = 0.000;
         $use = 3.000;
         $charge = 0.500;
         $total = $full/2;
-        for($i=0;$i<3;$i++) {
-            $d = mktime(0, 0, 0, 5, 14+$i, 2018);
+        for($i=0;$i<30;$i++) {
+            $d = mktime(0, 0, 0, 5, 1+$i, 2018);
             $date = date('Y-m-d', $d);
             echo "ADD TO VEHICLE ACT DATE $date<br>";
             for($hour=0;$hour<24;$hour++) {
@@ -185,7 +237,7 @@ class Script extends CI_Controller {
                 }
 
                 $total = number_format($total,3);
-                $this->db->insert('vehicle_bats', array('vehicleid'=>1, 'date'=>$date, 'time'=>$hour, 'amount'=>$total));
+                $this->db->insert('vehicle_bats', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'amount'=>$total));
             }
         }
         echo "DONE";
