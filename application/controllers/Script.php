@@ -8,7 +8,7 @@ class Script extends CI_Controller {
         $run = FALSE;
         if($run) {
             ini_set('max_execution_time', 300);
-            
+
             $this->purge_data();
 
             for($userid=1;$userid<=3;$userid++) {
