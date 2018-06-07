@@ -48,10 +48,10 @@ class Datas extends CI_Model {
 
     public function getUsageAvgByHour($location, $date, $hour)
     {
-        return $this->db->select_avg('amount')->from('node_usages')
+        return $this->db->select('sum(amount)/count(distinct users.id) as avg')->from('node_usages')
             ->join('nodes', 'node_usages.nodeid = nodes.id')->join('users', 'nodes.userid = users.id')
             ->where('users.locationid', $location)->where('date', $date)->where('time', $hour)
-            ->get()->row_array()['amount'];
+            ->get()->row_array()['avg'];
     }
 
     public function getProduction($userid, $date, $hour)

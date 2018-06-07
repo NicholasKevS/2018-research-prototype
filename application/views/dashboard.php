@@ -21,6 +21,9 @@
                 <a class="nav-link active" data-toggle="tab" href="#usageproduction">Usage & Production Chart</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#suburb">Suburb's Average Chart</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#forecast">Tomorrow Forecast Chart</a>
             </li>
             <li class="nav-item">
@@ -45,6 +48,21 @@
                 <i class="fa fa-area-chart"></i> Usage & Production</div>
             <div class="card-body">
                 <canvas id="usageproductionChart" width="100%" height="30"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="suburb">
+        <div class="row">
+            <div class="col-12">
+                <h2>Average Usage & Production in Suburb Chart</h2>
+                <p>Today weather forecast: <?php echo $weather['today']; ?></p>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-area-chart"></i> Average Usage & Production in Suburb</div>
+            <div class="card-body">
+                <canvas id="suburbChart" width="100%" height="30"></canvas>
             </div>
         </div>
     </div>
@@ -100,6 +118,8 @@
     var timeAxis = <?php echo json_encode($timeAxis); ?>;
     var usage = <?php echo json_encode($usage); ?>;
     var production = <?php echo json_encode($production); ?>;
+    var usageAvg = <?php echo json_encode($usageAvg); ?>;
+    var productionAvg = <?php echo json_encode($productionAvg); ?>;
     var usageForecastToday = <?php echo json_encode($usageForecastToday); ?>;
     var productionForecastToday = <?php echo json_encode($productionForecastToday); ?>;
     var usageForecastTomorrow = <?php echo json_encode($usageForecastTomorrow); ?>;
@@ -215,6 +235,100 @@
                     scaleLabel: {
                         display: true,
                         labelString: "Cents per kWh"
+                    },
+                    gridLines: {
+                        color: "rgba(0, 0, 0, .125)",
+                    }
+                }],
+            },
+            legend: {
+                display: true
+            }
+        }
+    });
+
+    // suburb chart
+    var ctx = document.getElementById("suburbChart");
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timeAxis,
+            datasets: [{
+                label: "Usage",
+                yAxisID:"left",
+                lineTension: 0.3,
+                borderColor: "rgba(198,0,29,1)",
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(198,0,29,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: usage
+            },{
+                label: "Production",
+                yAxisID:"left",
+                lineTension: 0.3,
+                borderColor: "rgba(2,117,216,1)",
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(2,117,216,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: production
+            },{
+                label: "Suburb's Usage Average",
+                yAxisID:"left",
+                lineTension: 0.3,
+                borderColor: "rgba(198,0,29,1)",
+                borderDash: [5, 5],
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(198,0,29,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: usageAvg
+            },{
+                label: "Suburb's Production Average",
+                yAxisID:"left",
+                lineTension: 0.3,
+                borderColor: "rgba(2,117,216,1)",
+                borderDash: [5, 5],
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(2,117,216,1)",
+                pointBorderColor: "rgba(255,255,255,0.8)",
+                pointHoverRadius: 5,
+                pointHitRadius: 20,
+                pointBorderWidth: 2,
+                data: productionAvg
+            }],
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Time"
+                    },
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 7
+                    }
+                }],
+                yAxes: [{
+                    id: "left",
+                    ticks: {
+                        min: -1,
+                        max: 4,
+                        maxTicksLimit: 6
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Kilowatt hour"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
