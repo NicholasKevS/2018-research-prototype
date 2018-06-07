@@ -5,9 +5,9 @@ class Profile extends MY_Controller {
 
     public function index()
     {
-        $data['profile'] = $this->users->getUser($this->session->id);
-        $data['suburb'] = $this->users->getSuburbs();
-        $data['provider'] = $this->users->getProviders();
+        $data['profile'] = $this->processor->getProfile($this->session->id);
+        $data['suburb'] = $this->processor->getSuburbs();
+        $data['provider'] = $this->processor->getProviders();
         $data['title'] = "Profile";
         $data['view'] = "profile";
         $this->load->view('master', $data);

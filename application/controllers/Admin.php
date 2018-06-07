@@ -35,7 +35,7 @@ class Admin extends MY_Controller {
         $data['dateAxis'] = $this->processor->getDateAxis($date);
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
         $data['usage'] = $this->processor->getAvgHourlyUsage($locationid, $date, $time1, $time2);
-        $data['production'] = $this->processor->getAvgHourlyProduction($locationid, $date, $time1, $time2);;
+        $data['production'] = $this->processor->getAvgHourlyProduction($locationid, $date, $time1, $time2);
         $data['sum'] = $this->processor->getAvgBatterySum($locationid, $date);
 
         $data['title'] = "Admin Page";

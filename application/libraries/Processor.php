@@ -17,9 +17,24 @@ class Processor {
         }
     }
 
+    public function getProfile($id)
+    {
+        return $this->CI->users->getUser($id);
+    }
+
     public function saveProfile($id, $data)
     {
         return $this->CI->users->saveProfile($id, $data);
+    }
+
+    public function getSuburbs()
+    {
+        return $this->CI->users->getSuburbs();
+    }
+
+    public function getProviders()
+    {
+        return $this->CI->users->getProviders();
     }
 
     public function getDateAxis($to)
