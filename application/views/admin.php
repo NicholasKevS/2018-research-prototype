@@ -146,7 +146,7 @@
         data: {
             labels: dateAxis,
             datasets: [{
-                label: "Buy/Sell",
+                label: "Buy / Sell",
                 yAxisID:"left",
                 borderColor: "rgba(2,117,216,1)",
                 borderWidth: 2,
@@ -177,7 +177,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: "Buy / Sell (kW)"
+                        labelString: "Kilowatt hour"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",

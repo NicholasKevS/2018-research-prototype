@@ -112,7 +112,7 @@
         data: {
             labels: timeAxis,
             datasets: [{
-                label: "Activity",
+                label: "Net Charge",
                 yAxisID:"left",
                 lineTension: 0.3,
                 borderColor: "rgba(2,117,216,1)",
@@ -148,7 +148,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: "Net charge (kilowatt hour)"
+                        labelString: "Kilowatt hour"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
@@ -167,7 +167,7 @@
         data: {
             labels: dateAxis,
             datasets: [{
-                label: "Buy/Sell",
+                label: "Buy / Sell",
                 yAxisID:"left",
                 borderColor: "rgba(2,117,216,1)",
                 borderWidth: 2,
@@ -198,7 +198,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: "Buy / Sell (kW)"
+                        labelString: "Kilowatt hour"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
