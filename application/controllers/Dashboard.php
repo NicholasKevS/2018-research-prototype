@@ -37,10 +37,16 @@ class Dashboard extends MY_Controller {
         $data['price'] = $this->processor->getPrice($id, $date, $time1, $time2);
         $data['usage'] = $this->processor->getHourlyUsage($id, $date, $time1, $time2);
         $data['production'] = $this->processor->getHourlyProduction($id, $date, $time1, $time2);
-        $data['usageForecastToday'] = $this->processor->getUsageForecastToday($id);
-        $data['productionForecastToday'] = $this->processor->getProductionForecastToday($id);
         $data['usageForecastTomorrow'] = $this->processor->getUsageForecastTomorrow($id);
         $data['productionForecastTomorrow'] = $this->processor->getProductionForecastTomorrow($id);
+
+        if($date == '30 May 2018') {
+            $data['usageForecastToday'] = $this->processor->getUsageForecastToday($id);
+            $data['productionForecastToday'] = $this->processor->getProductionForecastToday($id);
+        } else {
+            $data['usageForecastToday'] = array();
+            $data['productionForecastToday'] = array();
+        }
 
         $data['title'] = "Dashboard";
         $data['view'] = "dashboard";
