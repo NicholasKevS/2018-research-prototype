@@ -97,5 +97,5 @@ ob_start();
 $content = ob_get_contents();
 ob_end_clean();
 $pdf->writeHTML($content, true, false, true, false, '');
-$pdf->Output('PowerGridReport'.'.pdf', 'D');
+$pdf->Output("PowerGrid Report $date.pdf", 'D');
 ?>
