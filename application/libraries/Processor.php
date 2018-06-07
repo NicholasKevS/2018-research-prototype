@@ -32,9 +32,19 @@ class Processor {
         return $this->CI->users->getSuburbs();
     }
 
+    public function getLocation($userid)
+    {
+        return $this->CI->datas->getLocation($userid);
+    }
+
     public function getProviders()
     {
         return $this->CI->users->getProviders();
+    }
+
+    public function getProvider($userid)
+    {
+        return $this->CI->datas->getProvider($userid);
     }
 
     public function getDateAxis($to)
@@ -212,18 +222,13 @@ class Processor {
         return $avg;
     }
 
-    public function getPrice($userid)
-    {
-        return $this->CI->datas->getPrice($userid);
-    }
-
     public function getPriceArray($userid, $date, $from, $to)
     {
         $final = array();
         $date = date('N', strtotime($date));
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
-        $price = $this->CI->datas->getPrice($userid);
+        $price = $this->CI->datas->getProvider($userid);
 
         if($date < 6) {
             for($i=$from;$i<=$to;$i++) {
@@ -490,10 +495,5 @@ class Processor {
     public function saveSolar($data)
     {
         return $this->CI->datas->updateSolar($data);
-    }
-
-    public function getLocation($userid)
-    {
-        return $this->CI->datas->getLocation($userid);
     }
 }

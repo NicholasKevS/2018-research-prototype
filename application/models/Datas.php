@@ -106,12 +106,6 @@ class Datas extends CI_Model {
             ->get()->row_array()['amount'];
     }
 
-    public function getPrice($userid)
-    {
-        return $this->db->from('provider_price')->join('users', 'provider_price.providerid = users.providerid')
-            ->where('users.id', $userid)->get()->row_array();
-    }
-
     public function getBatteryActByHour($userid, $date, $hour)
     {
         return $this->db->from('battery_acts')
@@ -245,7 +239,13 @@ class Datas extends CI_Model {
 
     public function getLocation($userid)
     {
-        return $this->db->from('locations')->join('users', 'locations.id = users.locationid')
+        return $this->db->select('locations.*')->from('locations')->join('users', 'locations.id = users.locationid')
+            ->where('users.id', $userid)->get()->row_array();
+    }
+
+    public function getProvider($userid)
+    {
+        return $this->db->select('providers.*')->from('providers')->join('users', 'providers.id = users.providerid')
             ->where('users.id', $userid)->get()->row_array();
     }
 }

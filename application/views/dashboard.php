@@ -67,6 +67,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Current Electricity Rate</h2>
+                <p>Your energy provider is <?php echo $provider['name']; ?></p>
             </div>
         </div>
         <div class="card mb-3">

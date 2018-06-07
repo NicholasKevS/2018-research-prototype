@@ -42,7 +42,7 @@ ob_start();
 <table>
     <thead>
     <tr>
-        <th></th>
+        <th>Price</th>
         <th>Peak</th>
         <th>Shoulder</th>
         <th>Off Peak</th>
@@ -51,7 +51,7 @@ ob_start();
     </thead>
     <tbody>
     <tr>
-        <td>Price</td>
+        <td><?php echo $price['name']; ?></td>
         <td><?php echo $price['peak']; ?></td>
         <td><?php echo $price['shoulder']; ?></td>
         <td><?php echo $price['offpeak']; ?></td>
