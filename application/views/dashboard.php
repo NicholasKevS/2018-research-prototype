@@ -27,7 +27,7 @@
                 <a class="nav-link" data-toggle="tab" href="#price">Price Rates</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#report">See Report</a>
+                <a class="nav-link" data-toggle="tab" href="#report">Get Report</a>
             </li>
         </ul>
     </div>
@@ -83,8 +83,10 @@
                 <h2>Get Report</h2>
                 <form action="dashboard/report/" method="post">
                     <div class="col-12 mb-3">
-                        Date:
-                        <input type="text" name="datereport" id="datereport" onkeydown="return false" value="<?php echo $datereport; ?>">
+                        From:
+                        <input type="text" name="report1" id="report1" onkeydown="return false" value="<?php echo $report1; ?>">
+                        To:
+                        <input type="text" name="report2" id="report2" onkeydown="return false" value="<?php echo $report2; ?>">
                         <button type="submit" class="btn btn-primary">Go</button>
                     </div>
                 </form>
@@ -351,9 +353,18 @@
         firstDay: 1
     });
 
-    $("#datereport").datepicker({
+    $("#report1").datepicker({
         dateFormat: 'd M yy',
-        firstDay: 1
+        firstDay: 1,
+        onSelect: function(dateText) {
+            $("#report2").datepicker("option", "minDate", dateText);
+        }
+    });
+
+    $("#report2").datepicker({
+        dateFormat: 'd M yy',
+        firstDay: 1,
+        minDate: $("#report1").val()
     });
 
     $("#time1").timepicker({

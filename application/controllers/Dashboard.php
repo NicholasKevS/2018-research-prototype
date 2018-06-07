@@ -20,21 +20,27 @@ class Dashboard extends MY_Controller {
         } else {
             $time2 = '23:00';
         }
-        if($this->input->post('datereport')) {
-            $datereport = $this->input->post('datereport');
+        if($this->input->post('report1')) {
+            $report1 = $this->input->post('report1');
         } else {
-            $datereport = '30 May 2018';
+            $report1 = '30 May 2018';
+        }
+        if($this->input->post('report2')) {
+            $report2 = $this->input->post('report2');
+        } else {
+            $report2 = '30 May 2018';
         }
 
         $data['date'] = $date;
         $data['time1'] = $time1;
         $data['time2'] = $time2;
-        $data['datereport'] = $datereport;
+        $data['report1'] = $report1;
+        $data['report2'] = $report2;
 
         $id = $this->session->id;
         $data['weather'] = $this->processor->getLocation($id);
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
-        $data['price'] = $this->processor->getPrice($id, $date, $time1, $time2);
+        $data['price'] = $this->processor->getPriceArray($id, $date, $time1, $time2);
         $data['usage'] = $this->processor->getHourlyUsage($id, $date, $time1, $time2);
         $data['production'] = $this->processor->getHourlyProduction($id, $date, $time1, $time2);
         $data['usageForecastTomorrow'] = $this->processor->getUsageForecastTomorrow($id);
@@ -55,13 +61,18 @@ class Dashboard extends MY_Controller {
 
     public function report()
     {
-        $date = $this->input->post("datereport");
+        $from = $this->input->post("report1");
+        $to = $this->input->post("report2");
         $id = $this->session->id;
 
-        $data['date'] = $date;
+        if($from == $to) {
+            $data['date'] = $from;
+        } else {
+            $data['date'] = "$from to $to";
+        }
 
-        $data['usage'] = $this->processor->getDailyUsage($id, $date);
-        $data['production'] = $this->processor->getDailyProduction($id, $date);
+        $data['price'] = $this->processor->getPrice($id);
+        $data['reports'] = $this->processor->getReport($id, $from, $to);
 
         $this->load->view('report', $data);
     }

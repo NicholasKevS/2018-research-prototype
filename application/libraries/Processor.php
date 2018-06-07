@@ -197,13 +197,18 @@ class Processor {
         return $avg;
     }
 
-    public function getPrice($id, $date, $from, $to)
+    public function getPrice($userid)
+    {
+        return $this->CI->datas->getPrice($userid);
+    }
+
+    public function getPriceArray($userid, $date, $from, $to)
     {
         $final = array();
         $date = date('N', strtotime($date));
         $from = (int)explode(":", $from)[0];
         $to = (int)explode(":", $to)[0];
-        $price = $this->CI->datas->getPrice($id);
+        $price = $this->CI->datas->getPrice($userid);
 
         if($date < 6) {
             for($i=$from;$i<=$to;$i++) {
@@ -226,6 +231,42 @@ class Processor {
         }
 
         return $final;
+    }
+
+    public function getPriceFinal($userid, $date)
+    {
+        $price = $this->getPriceArray($userid, $date, 0, 23);
+        $act = $this->getHourlyBatteryAct($userid, $date, 0, 23);
+        $final = 0;
+
+        for($i=0;$i<24;$i++) {
+            $sum = $act[$i] * $price[$i];
+            $final += $sum;
+        }
+        return number_format($final, 2);
+    }
+
+    public function getReport($userid, $from, $to)
+    {
+        $reports = array();
+        $from = date("Y-m-d", strtotime($from));
+        $to = date("Y-m-d", strtotime($to));
+        while(strtotime($from) <= strtotime($to)) {
+            $usage = $this->getDailyUsage($userid, $from);
+            $production = $this->getDailyProduction($userid, $from);
+            $sum = array_sum($this->getHourlyBatteryAct($userid, $from, 0, 23));
+            $final = $this->getPriceFinal($userid, $from);
+            $data = array(
+                'date' => date("j M Y", strtotime($from)),
+                'usage' => $usage,
+                'production' => $production, 3,
+                'sum' => $sum,
+                'final' => number_format($final/100, 2),
+            );
+            array_push($reports, $data);
+            $from = date("j M Y", strtotime("+1 day", strtotime($from)));
+        }
+        return $reports;
     }
 
     public function getHourlyBatteryAct($userid, $date, $from, $to)
