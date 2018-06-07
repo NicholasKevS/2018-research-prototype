@@ -29,7 +29,7 @@
                 <a class="nav-link active" data-toggle="tab" href="#usageproduction">Usage & Production Chart</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#buydischarge">Buy & Discharge Chart</a>
+                <a class="nav-link" data-toggle="tab" href="#buysell">Buy & Sell Chart</a>
             </li>
         </ul>
     </div>
@@ -49,17 +49,17 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="buydischarge">
+    <div class="tab-pane fade" id="buysell">
         <div class="row">
             <div class="col-12">
-                <h2>Average Buy & Discharge Chart</h2>
+                <h2>Average Buy & Sell Chart</h2>
             </div>
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Average Buy & Discharge</div>
+                <i class="fa fa-area-chart"></i> Average Buy & Sell</div>
             <div class="card-body">
-                <canvas id="buydischargeChart" width="100%" height="30"></canvas>
+                <canvas id="buysellChart" width="100%" height="30"></canvas>
             </div>
         </div>
     </div>
@@ -140,22 +140,17 @@
         }
     });
 
-    var ctx = document.getElementById("buydischargeChart");
+    var ctx = document.getElementById("buysellChart");
     var myLineChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: dateAxis,
             datasets: [{
-                label: "Buy/Discharge",
+                label: "Buy/Sell",
                 yAxisID:"left",
-                lineTension: 0.3,
                 borderColor: "rgba(2,117,216,1)",
-                pointRadius: 5,
-                pointBackgroundColor: "rgba(2,117,216,1)",
-                pointBorderColor: "rgba(255,255,255,0.8)",
-                pointHoverRadius: 5,
-                pointHitRadius: 20,
-                pointBorderWidth: 2,
+                borderWidth: 2,
+                backgroundColor: "rgba(2,117,216,0.5)",
                 data: sum
             }],
         },
@@ -182,7 +177,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: "Buy / Discharge (kW)"
+                        labelString: "Buy / Sell (kW)"
                     },
                     gridLines: {
                         color: "rgba(0, 0, 0, .125)",
