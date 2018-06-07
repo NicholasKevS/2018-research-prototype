@@ -19,9 +19,9 @@ class Script extends CI_Controller {
                 $this->populate_production_forecast_today($userid);
                 $this->populate_usage_forecast_tomorrow($userid);
                 $this->populate_production_forecast_tomorrow($userid);
+                $this->populate_vehicle_act_bat($userid);
                 $this->populate_battery_act($userid);
                 $this->populate_battery_sum($userid);
-                $this->populate_vehicle_bat($userid);
             }
         } else {
             echo "No script to run.";
@@ -289,6 +289,62 @@ class Script extends CI_Controller {
         }
     }
 
+    private function populate_vehicle_act_bat($userid)
+    {
+        $full = 30.000;
+        $empty = 0.000;
+        $use = 2.000;
+        $charge = 4.000;
+        $total = $full;
+        for($i=0;$i<30;$i++) {
+            $d = mktime(0, 0, 0, 5, 1+$i, 2018);
+            $date = date('Y-m-d', $d);
+            echo "ADD TO VEHICLE ACT DATE $date<br>";
+            for($hour=0;$hour<24;$hour++) {
+                if($i == 29 && $hour>15) continue;
+                echo "ADD VEHICLE ACT TIME $hour<br>";
+
+                if($hour>=8 && $hour<=17) {
+                    if(rand(1,100) <= 50) {
+                        $final = $use - ($use*rand(1,50)/100);
+                    } else {
+                        $final = $use + ($use*rand(1,50)/100);
+                    }
+                    $status = 1;
+                    $total = $total - $final;
+
+                    if($total < $empty) {
+                        $surplus = $empty - $total;
+                        $final -= $surplus;
+                        $total = $empty;
+                    }
+                    $final = number_format($final,3);
+                    $this->db->insert('vehicle_acts', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
+                } elseif($hour>=18 && $hour<=23) {
+                    if(rand(1,100) <= 50) {
+                        $final = $charge - ($charge*rand(1,50)/100);
+                    } else {
+                        $final = $charge + ($charge*rand(1,50)/100);
+                    }
+                    $status = 2;
+                    $total = $total + $final;
+
+                    if($total > $full) {
+                        $surplus = $total - $full;
+                        $final -= $surplus;
+                        $total = $full;
+                    }
+                    $final = number_format($final,3);
+                    $this->db->insert('vehicle_acts', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
+                }
+
+                $total = number_format($total,3);
+                $this->db->insert('vehicle_bats', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'amount'=>$total));
+            }
+        }
+        echo "DONE";
+    }
+
     private function populate_battery_act($userid)
     {
         for($i=0;$i<30;$i++) {
@@ -336,58 +392,6 @@ class Script extends CI_Controller {
                 $final = $total;
             }
             $this->db->insert('battery_sums', array('batteryid'=>$userid, 'date'=>$date, 'status'=>$status, 'amount'=>$final));
-        }
-        echo "DONE";
-    }
-
-    private function populate_vehicle_bat($userid)
-    {
-        $full = 30.000;
-        $empty = 0.000;
-        $use = 3.000;
-        $charge = 0.500;
-        $total = $full/2;
-        for($i=0;$i<30;$i++) {
-            $d = mktime(0, 0, 0, 5, 1+$i, 2018);
-            $date = date('Y-m-d', $d);
-            echo "ADD TO VEHICLE ACT DATE $date<br>";
-            for($hour=0;$hour<24;$hour++) {
-                if($i == 29 && $hour>15) continue;
-                echo "ADD VEHICLE ACT TIME $hour<br>";
-
-                if($hour>=6 && $hour<=18) {
-                    if(rand(1,100) <= 10) {
-                        if(rand(1,100) <= 50) {
-                            $total = $total - ($use - ($use*rand(1,20)/100));
-                        } else {
-                            $total = $total - ($use + ($use*rand(1,20)/100));
-                        }
-                    } else {
-                        if(rand(1,100) <= 50) {
-                            $total = $total + ($charge - ($charge*rand(1,20)/100));
-                        } else {
-                            $total = $total + ($charge + ($charge*rand(1,20)/100));
-                        }
-                    }
-                } elseif($hour>=18 && $hour<=23) {
-                    if(rand(1,100) <= 30) {
-                        if(rand(1,100) <= 50) {
-                            $total = $total - ($use - ($use*rand(1,20)/100));
-                        } else {
-                            $total = $total - ($use + ($use*rand(1,20)/100));
-                        }
-                    }
-                }
-
-                if($total > $full) {
-                    $total = $full;
-                } elseif($total < $empty) {
-                    $total = $empty;
-                }
-
-                $total = number_format($total,3);
-                $this->db->insert('vehicle_bats', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'amount'=>$total));
-            }
         }
         echo "DONE";
     }
