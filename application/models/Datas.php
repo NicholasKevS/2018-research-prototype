@@ -243,6 +243,14 @@ class Datas extends CI_Model {
             ->where('users.id', $userid)->get()->row_array();
     }
 
+    public function getWeather($userid, $date)
+    {
+        return $this->db->select('location_weathers.*')->from('location_weathers')
+            ->join('locations', 'location_weathers.locationid = locations.id')
+            ->join('users', 'locations.id = users.locationid')
+            ->where('users.id', $userid)->where('location_weathers.date', $date)->get()->row_array()['weather'];
+    }
+
     public function getProvider($userid)
     {
         return $this->db->select('providers.*')->from('providers')->join('users', 'providers.id = users.providerid')

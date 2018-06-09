@@ -37,6 +37,12 @@ class Processor {
         return $this->CI->datas->getLocation($userid);
     }
 
+    public function getWeather($userid, $date)
+    {
+        $date = date("Y-m-d", strtotime($date));
+        return $this->CI->datas->getWeather($userid, $date);
+    }
+
     public function getProviders()
     {
         return $this->CI->users->getProviders();

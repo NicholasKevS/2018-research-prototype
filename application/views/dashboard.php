@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Usage & Production Chart</h2>
-                <p>Today weather forecast: <?php echo $weather['today']; ?></p>
+                <p><?php echo $date; ?> weather forecast: <?php echo $weather['today']; ?></p>
             </div>
         </div>
         <div class="card mb-3">

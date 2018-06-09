@@ -30,6 +30,8 @@ class Solar extends MY_Controller {
         $data['production'] = $this->processor->getHourlyProduction($id, $date, $time1, $time2);
         $data['solar'] = $this->processor->getSolar($id);
         $data['location'] = $this->processor->getLocation($id);
+        $data['weather']['today'] = $this->processor->getWeather($id, '30 May 2018');
+        $data['weather']['tomorrow'] = $this->processor->getWeather($id, '31 May 2018');
 
         $data['title'] = "Solar Roof";
         $data['view'] = "solar";

@@ -58,10 +58,10 @@
                 <h2>Weather Forecast in <?php echo $location['name']; ?></h2>
             </div>
             <div class="col-3">
-                Today <?php echo $location['today']; ?>
+                Today <?php echo $weather['today']; ?>
             </div>
             <div class="col-3">
-                Tomorrow <?php echo $location['tomorrow']; ?>
+                Tomorrow <?php echo $weather['tomorrow']; ?>
             </div>
         </div>
     </div>

@@ -38,7 +38,9 @@ class Dashboard extends MY_Controller {
         $data['report2'] = $report2;
 
         $id = $this->session->id;
-        $data['weather'] = $this->processor->getLocation($id);
+        $locationid = $this->processor->getProfile($id)['locationid'];
+        $data['weather']['today'] = $this->processor->getWeather($id, $date);
+        $data['weather']['tomorrow'] = $this->processor->getWeather($id, '31 May 2018');
         $data['provider'] = $this->processor->getProvider($id);
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
         $data['price'] = $this->processor->getPriceArray($id, $date, $time1, $time2);
@@ -46,8 +48,8 @@ class Dashboard extends MY_Controller {
         $data['production'] = $this->processor->getHourlyProduction($id, $date, $time1, $time2);
         $data['usageForecastTomorrow'] = $this->processor->getUsageForecastTomorrow($id);
         $data['productionForecastTomorrow'] = $this->processor->getProductionForecastTomorrow($id);
-        $data['usageAvg'] = $this->processor->getAvgHourlyUsage($data['weather']['id'], $date, $time1, $time2);
-        $data['productionAvg'] = $this->processor->getAvgHourlyProduction($data['weather']['id'], $date, $time1, $time2);
+        $data['usageAvg'] = $this->processor->getAvgHourlyUsage($locationid, $date, $time1, $time2);
+        $data['productionAvg'] = $this->processor->getAvgHourlyProduction($locationid, $date, $time1, $time2);
 
         if($date == '30 May 2018') {
             $data['usageForecastToday'] = $this->processor->getUsageForecastToday($id);
