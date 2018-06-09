@@ -5,11 +5,10 @@ class Script extends CI_Controller {
 
     public function index()
     {
-        $run = FALSE;
-        if($run) {
+        if(FALSE) {
             ini_set('max_execution_time', 300);
 
-            $this->purge_data();
+            $this->purge_user_data();
 
             for($userid=1;$userid<=3;$userid++) {
                 echo "User Id: $userid <br>";
@@ -23,12 +22,16 @@ class Script extends CI_Controller {
                 $this->populate_battery_act($userid);
                 $this->populate_battery_sum($userid);
             }
+        } elseif(FALSE) {
+            $this->purge_other_data();
+
+            $this->populate_weather();
         } else {
             echo "No script to run.";
         }
     }
 
-    private function purge_data()
+    private function purge_user_data()
     {
         $this->db->empty_table('node_usages');
         $this->db->empty_table('solar_productions');
@@ -37,6 +40,11 @@ class Script extends CI_Controller {
         $this->db->empty_table('battery_acts');
         $this->db->empty_table('battery_sums');
         $this->db->empty_table('vehicle_bats');
+    }
+
+    private function purge_other_data()
+    {
+        $this->db->empty_table('location_weathers');
     }
 
 	private function populate_usage($userid)
@@ -394,5 +402,29 @@ class Script extends CI_Controller {
             $this->db->insert('battery_sums', array('batteryid'=>$userid, 'date'=>$date, 'status'=>$status, 'amount'=>$final));
         }
         echo "DONE";
+    }
+
+    private function populate_weather()
+    {
+        for($i=0;$i<31;$i++) {
+            $d = mktime(0, 0, 0, 5, 1+$i, 2018);
+            $date = date('Y-m-d', $d);
+            echo "ADD TO WEATHER DATE $date<br>";
+            $rand = rand(1,100);
+            if($rand <= 40) {
+                $weather = 'Clear';
+            } elseif($rand <= 60) {
+                $weather = 'Cloudy';
+            } elseif($rand <= 80) {
+                $weather = 'Shower';
+            } else {
+                $weather = 'Rain';
+            }
+            $this->db->insert('location_weathers', array('locationid'=>1, 'date'=>$date, 'weather'=>$weather));
+            $this->db->insert('location_weathers', array('locationid'=>2, 'date'=>$date, 'weather'=>$weather));
+            $this->db->insert('location_weathers', array('locationid'=>3, 'date'=>$date, 'weather'=>$weather));
+            $this->db->insert('location_weathers', array('locationid'=>4, 'date'=>$date, 'weather'=>$weather));
+            $this->db->insert('location_weathers', array('locationid'=>5, 'date'=>$date, 'weather'=>$weather));
+        }
     }
 }
