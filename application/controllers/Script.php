@@ -5,7 +5,7 @@ class Script extends CI_Controller {
 
     public function index()
     {
-        if(FALSE) {
+        if(false) {
             ini_set('max_execution_time', 300);
 
             $this->purge_user_data();
@@ -22,7 +22,7 @@ class Script extends CI_Controller {
                 $this->populate_battery_act($userid);
                 $this->populate_battery_sum($userid);
             }
-        } elseif(FALSE) {
+        } elseif(false) {
             $this->purge_other_data();
 
             $this->populate_weather();
@@ -37,9 +37,10 @@ class Script extends CI_Controller {
         $this->db->empty_table('solar_productions');
         $this->db->empty_table('forecast_today');
         $this->db->empty_table('forecast_tomorrow');
+        $this->db->empty_table('vehicle_acts');
+        $this->db->empty_table('vehicle_bats');
         $this->db->empty_table('battery_acts');
         $this->db->empty_table('battery_sums');
-        $this->db->empty_table('vehicle_bats');
     }
 
     private function purge_other_data()
@@ -199,6 +200,10 @@ class Script extends CI_Controller {
         for($i=0;$i<30;$i++) {
             $d = mktime(0, 0, 0, 5, 1+$i, 2018);
             $date = date('Y-m-d', $d);
+            $weather = $this->db->select('weather')->from('location_weathers')
+                ->join('locations', 'location_weathers.locationid = locations.id')
+                ->join('users', 'locations.id = users.locationid')
+                ->where('users.id', $userid)->where('location_weathers.date', $date)->get()->row_array()['weather'];
             echo "ADD TO PRODUCTION DATE $date<br>";
             for($hour=0;$hour<24;$hour++) {
                 if($i == 29 && $hour>15) continue;
@@ -208,10 +213,17 @@ class Script extends CI_Controller {
                     $final = 0;
                 } else {
                     if(rand(1,100) <= 50) {
-                        $final = $base - ($base*rand(1,40)/100);
+                        $final = $base - ($base*rand(1,20)/100);
                     } else {
-                        $final = $base + ($base*rand(1,15)/100);
+                        $final = $base + ($base*rand(1,20)/100);
                     }
+                }
+                if($weather == "Cloudy") {
+                    $final *= 90/100;
+                } elseif($weather == "Shower") {
+                    $final *= 70/100;
+                } elseif($weather == "Rain") {
+                    $final *= 50/100;
                 }
                 $this->db->insert('solar_productions', array('solarid'=>$userid, 'date'=>$date, 'time'=>$hour, 'amount'=>$final));
             }
@@ -230,9 +242,10 @@ class Script extends CI_Controller {
             ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
             ->where('users.id', $userid)->where('date', $date)->where('time', 15)
             ->get()->row_array()['amount'];
-        $weather = $this->db->select('tomorrow')->from('locations')
-            ->join('users', 'locations.id = users.locationid')->where('users.id', $userid)
-            ->get()->row_array()['tomorrow'];
+        $weather = $this->db->select('weather')->from('location_weathers')
+            ->join('locations', 'location_weathers.locationid = locations.id')
+            ->join('users', 'locations.id = users.locationid')
+            ->where('users.id', $userid)->where('location_weathers.date', $date)->get()->row_array()['weather'];
 
         for($hour=16;$hour<24;$hour++) {
             echo "ADD USAGE FORECAST TODAY TIME $hour<br>";
@@ -260,14 +273,21 @@ class Script extends CI_Controller {
 
     private function populate_production_forecast_tomorrow($userid)
     {
-        $date = date("Y-m-d", strtotime("29 May 2018"));
+        $weather = $this->db->select('weather')->from('location_weathers')
+            ->join('locations', 'location_weathers.locationid = locations.id')
+            ->join('users', 'locations.id = users.locationid')
+            ->where('users.id', $userid)->where('location_weathers.date', date("Y-m-d", strtotime("31 May 2018")))
+            ->get()->row_array()['weather'];
+        $date = $this->db->select('date')->from('location_weathers')
+            ->join('locations', 'location_weathers.locationid = locations.id')
+            ->join('users', 'locations.id = users.locationid')
+            ->where('users.id', $userid)->where('location_weathers.date <', '2018-05-30')
+            ->where('location_weathers.weather', $weather)->order_by('location_weathers.date', 'DESC')
+            ->get()->row_array()['date'];
         $avg = $this->db->select_avg('amount')->from('solar_productions')
             ->join('solars', 'solar_productions.solarid = solars.id')->join('users', 'solars.userid = users.id')
             ->where('users.id', $userid)->where('date', $date)
             ->get()->row_array()['amount'];
-        $weather = $this->db->select('tomorrow')->from('locations')
-            ->join('users', 'locations.id = users.locationid')->where('users.id', $userid)
-            ->get()->row_array()['tomorrow'];
 
         for($hour=0;$hour<24;$hour++) {
             echo "ADD PRODUCTION FORECAST TOMORROW TIME $hour<br>";
@@ -285,13 +305,6 @@ class Script extends CI_Controller {
                 } else {
                     $final = $production + $avgfin;
                 }
-            }
-            if($weather == "Cloudy") {
-                $final *= 90/100;
-            } elseif($weather == "Shower") {
-                $final *= 70/100;
-            } elseif($weather == "Rain") {
-                $final *= 50/100;
             }
             $this->db->insert('forecast_tomorrow', array('userid'=>$userid, 'time'=>$hour, 'status'=>2, 'amount'=>number_format($final, 3)));
         }
