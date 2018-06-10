@@ -18,7 +18,7 @@
     <form action="research/populate/" method="post">
         <div class="col-12 mb-3">
             Capacity:
-            <input type="number" name="capacity" id="capacity" min="0" onkeydown="return false" value="<?php echo $capacity; ?>">
+            <input type="number" name="capacity" id="capacity" min="0" value="<?php echo $capacity; ?>"> kW
             <button type="submit" class="btn btn-primary">Go</button>
         </div>
     </form>

@@ -65,7 +65,10 @@
                     </div>
                     <div class="form-group">
                         <label for="capacity">Battery Capacity</label>
-                        <input type="text" class="form-control" id="capacity" name="capacity" value="<?php echo $vehicle['capacity']; ?>">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="capacity" name="capacity" min="0" value="<?php echo $vehicle['capacity']; ?>">
+                            <div class="input-group-append"><span class="input-group-text" id="capacity-addon">kW</span></div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>

@@ -82,15 +82,24 @@
                     </div>
                     <div class="form-group">
                         <label for="capacity">Battery Capacity</label>
-                        <input type="text" class="form-control" id="capacity" name="capacity" value="<?php echo $battery['capacity']; ?>">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="capacity" name="capacity" min="0" value="<?php echo $battery['capacity']; ?>">
+                            <div class="input-group-append"><span class="input-group-text" id="capacity-addon">kW</span></div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="topthreshold">Top Threshold</label>
-                        <input type="text" class="form-control" id="topthreshold" name="topthreshold" value="<?php echo $battery['topthreshold']; ?>">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="topthreshold" name="topthreshold" min="0" value="<?php echo $battery['topthreshold']; ?>">
+                            <div class="input-group-append"><span class="input-group-text" id="topthreshold-addon">kW</span></div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="bottomthreshold">Bottom Threshold</label>
-                        <input type="text" class="form-control" id="bottomthreshold" name="bottomthreshold" value="<?php echo $battery['bottomthreshold']; ?>">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="bottomthreshold" name="bottomthreshold" min="0" value="<?php echo $battery['bottomthreshold']; ?>">
+                            <div class="input-group-append"><span class="input-group-text" id="bottomthreshold-addon">kW</span></div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>

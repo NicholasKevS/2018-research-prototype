@@ -81,15 +81,21 @@
                     </div>
                     <div class="form-group">
                         <label for="area">Area</label>
-                        <input type="text" class="form-control" id="area" name="area" value="<?php echo $solar['area']; ?>">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="area" name="area" min="0" value="<?php echo $solar['area']; ?>">
+                            <div class="input-group-append"><span class="input-group-text" id="area-addon">m<sup>2</sup></span></div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="quantity">Total Panel</label>
-                        <input type="text" class="form-control" id="quantity" name="quantity" value="<?php echo $solar['quantity']; ?>">
+                        <input type="number" class="form-control" id="quantity" name="quantity" min="0" value="<?php echo $solar['quantity']; ?>">
                     </div>
                     <div class="form-group">
                         <label for="size">System Size</label>
-                        <input type="text" class="form-control" id="size" name="size" value="<?php echo $solar['size']; ?>">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="size" name="size" min="0" value="<?php echo $solar['size']; ?>">
+                            <div class="input-group-append"><span class="input-group-text" id="size-addon">kW</span></div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
