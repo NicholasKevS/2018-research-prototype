@@ -5,7 +5,7 @@ class Script extends CI_Controller {
 
     public function index()
     {
-        if(true) {
+        if(false) {
             ini_set('max_execution_time', 300);
 
             $this->purge_user_data();
@@ -53,12 +53,16 @@ class Script extends CI_Controller {
 	    $fridge = 0.25;
         $comp = 0.15;
 	    $lamp = 0.014;
-        $blanket = 0.034;
+        $aircon = 3.500;
         $tv = 0.243;
         $ps = 0.14;
 		for($i=0;$i<30;$i++) {
 		    $d = mktime(0, 0, 0, 5, 1+$i, 2018);
 		    $date = date('Y-m-d', $d);
+            $weather = $this->db->select('weather')->from('location_weathers')
+                ->join('locations', 'location_weathers.locationid = locations.id')
+                ->join('users', 'locations.id = users.locationid')
+                ->where('users.id', $userid)->where('location_weathers.date', $date)->get()->row_array()['weather'];
 		    echo "ADD TO USAGE DATE $date<br>";
 			for($hour=0;$hour<24;$hour++) {
 			    if($i == 29 && $hour>15) continue;
@@ -67,14 +71,14 @@ class Script extends CI_Controller {
                 $fridgeid = 1+(6*($userid-1));
                 $compid = 2+(6*($userid-1));
                 $lampid = 3+(6*($userid-1));
-                $blanketid = 4+(6*($userid-1));
+                $airconid = 4+(6*($userid-1));
                 $tvid = 5+(6*($userid-1));
                 $psid = 6+(6*($userid-1));
 
                 $fridgesch = $this->db->get_where('node_schedules', array('nodeid'=>$fridgeid, 'status'=>0))->row_array();
                 $compsch = $this->db->get_where('node_schedules', array('nodeid'=>$compid, 'status'=>0))->row_array();
                 $lampsch = $this->db->get_where('node_schedules', array('nodeid'=>$lampid, 'status'=>0))->row_array();
-                $blanketsch = $this->db->get_where('node_schedules', array('nodeid'=>$blanketid, 'status'=>0))->row_array();
+                $airconsch = $this->db->get_where('node_schedules', array('nodeid'=>$airconid, 'status'=>0))->row_array();
                 $tvsch = $this->db->get_where('node_schedules', array('nodeid'=>$tvid, 'status'=>0))->row_array();
                 $pssch = $this->db->get_where('node_schedules', array('nodeid'=>$psid, 'status'=>0))->row_array();
 
@@ -99,25 +103,33 @@ class Script extends CI_Controller {
                 if($lampsch!=null && $lampsch['start']<=$hour && $hour<=$lampsch['end']) {
                     $lampfin = 0;
                 } else {
-                    if (rand(1, 100) <= 50) {
+                    if(rand(1, 100) <= 50) {
                         $lampfin = $lamp - ($lamp * rand(1, 20) / 100);
                     } else {
                         $lampfin = $lamp + ($lamp * rand(1, 20) / 100);
                     }
                 }
-                if($blanketsch!=null && $blanketsch['start']<=$hour && $hour<=$blanketsch['end']) {
-                    $blanketfin = 0;
+                if(0<=$hour && $hour<=18 || $weather == 'Clear' || $weather == 'Cloudy') {
+                    $airconfin = 0;
                 } else {
-                    if (rand(1, 100) <= 50) {
-                        $blanketfin = $blanket - ($blanket * rand(1, 20) / 100);
+                    if($weather == 'Shower') {
+                        if(rand(1, 100) <= 50) {
+                            $airconfin = $aircon - ($aircon * rand(1, 10) / 100);
+                        } else {
+                            $airconfin = $aircon + ($aircon * rand(1, 10) / 100);
+                        }
                     } else {
-                        $blanketfin = $blanket + ($blanket * rand(1, 20) / 100);
+                        if(rand(1, 100) <= 50) {
+                            $airconfin = $aircon + ($aircon * rand(10, 20) / 100);
+                        } else {
+                            $airconfin = $aircon + ($aircon * rand(10, 20) / 100);
+                        }
                     }
                 }
                 if($tvsch!=null && $tvsch['start']<=$hour && $hour<=$tvsch['end']) {
                     $tvfin = 0;
                 } else {
-                    if (rand(1, 100) <= 50) {
+                    if(rand(1, 100) <= 50) {
                         $tvfin = $tv - ($tv * rand(1, 20) / 100);
                     } else {
                         $tvfin = $tv + ($tv * rand(1, 20) / 100);
@@ -126,7 +138,7 @@ class Script extends CI_Controller {
                 if($pssch!=null && $pssch['start']<=$hour && $hour<=$pssch['end']) {
                     $psfin = 0;
                 } else {
-                    if (rand(1, 100) <= 50) {
+                    if(rand(1, 100) <= 50) {
                         $psfin = $ps - ($ps * rand(1, 20) / 100);
                     } else {
                         $psfin = $ps + ($ps * rand(1, 20) / 100);
@@ -136,7 +148,7 @@ class Script extends CI_Controller {
                 $this->db->insert('node_usages', array('nodeid'=>$fridgeid, 'date'=>$date, 'time'=>$hour, 'amount'=>$fridgefin));
                 $this->db->insert('node_usages', array('nodeid'=>$compid, 'date'=>$date, 'time'=>$hour, 'amount'=>$compfin));
                 $this->db->insert('node_usages', array('nodeid'=>$lampid, 'date'=>$date, 'time'=>$hour, 'amount'=>$lampfin));
-                $this->db->insert('node_usages', array('nodeid'=>$blanketid, 'date'=>$date, 'time'=>$hour, 'amount'=>$blanketfin));
+                $this->db->insert('node_usages', array('nodeid'=>$airconid, 'date'=>$date, 'time'=>$hour, 'amount'=>$airconfin));
                 $this->db->insert('node_usages', array('nodeid'=>$tvid, 'date'=>$date, 'time'=>$hour, 'amount'=>$tvfin));
                 $this->db->insert('node_usages', array('nodeid'=>$psid, 'date'=>$date, 'time'=>$hour, 'amount'=>$psfin));
 			}
