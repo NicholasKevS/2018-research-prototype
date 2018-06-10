@@ -96,6 +96,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span class='nav-link-text'>Admin Page</span>
                 </a>
             </li>";
+                echo "<li class='nav-item'>
+                <a class='nav-link' href='research/'>
+                    <i class='fa fa-fw fa-flask'></i>
+                    <span class='nav-link-text'>Research Page</span>
+                </a>
+            </li>";
             }
             ?>
         </ul>

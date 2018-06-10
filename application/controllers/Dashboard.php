@@ -20,22 +20,12 @@ class Dashboard extends MY_Controller {
         } else {
             $time2 = '23:00';
         }
-        if($this->input->post('report1')) {
-            $report1 = $this->input->post('report1');
-        } else {
-            $report1 = '30 May 2018';
-        }
-        if($this->input->post('report2')) {
-            $report2 = $this->input->post('report2');
-        } else {
-            $report2 = '30 May 2018';
-        }
 
         $data['date'] = $date;
         $data['time1'] = $time1;
         $data['time2'] = $time2;
-        $data['report1'] = $report1;
-        $data['report2'] = $report2;
+        $data['report1'] = '30 May 2018';
+        $data['report2'] = '30 May 2018';
 
         $id = $this->session->id;
         $locationid = $this->processor->getProfile($id)['locationid'];
