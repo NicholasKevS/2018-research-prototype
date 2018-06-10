@@ -140,7 +140,7 @@
                     id: "left",
                     ticks: {
                         min: -1,
-                        max: 7,
+                        max: 8,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {

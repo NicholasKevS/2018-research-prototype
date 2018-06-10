@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Average Usage & Production in Suburb Chart</h2>
-                <p>Today weather forecast: <?php echo $weather['today']; ?></p>
+                <p><?php echo $date; ?> weather forecast: <?php echo $weather['today']; ?></p>
             </div>
         </div>
         <div class="card mb-3">
@@ -214,7 +214,7 @@
                     id: "left",
                     ticks: {
                         min: -1,
-                        max: 7,
+                        max: 8,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
@@ -323,7 +323,7 @@
                     id: "left",
                     ticks: {
                         min: -1,
-                        max: 7,
+                        max: 8,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
@@ -392,7 +392,7 @@
                     id: "left",
                     ticks: {
                         min: -1,
-                        max: 7,
+                        max: 8,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
