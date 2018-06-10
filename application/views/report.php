@@ -66,8 +66,8 @@ ob_start();
         <th>Dates</th>
         <th>Total Usage</th>
         <th>Total Production</th>
-        <th>Buy/Sell</th>
-        <th>Spend/Earn</th>
+        <th>Sell/Buy</th>
+        <th>Earn/Spend</th>
     </tr>
     </thead>
     <tbody>

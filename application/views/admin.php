@@ -29,7 +29,7 @@
                 <a class="nav-link active" data-toggle="tab" href="#usageproduction">Usage & Production Chart</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#buysell">Buy & Sell Chart</a>
+                <a class="nav-link" data-toggle="tab" href="#sellbuy">Sell & Buy Chart</a>
             </li>
         </ul>
     </div>
@@ -49,17 +49,17 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="buysell">
+    <div class="tab-pane fade" id="sellbuy">
         <div class="row">
             <div class="col-12">
-                <h2>Average Buy & Sell Chart</h2>
+                <h2>Average Sell & Buy Chart</h2>
             </div>
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Average Buy & Sell</div>
+                <i class="fa fa-area-chart"></i> Average Sell & Buy</div>
             <div class="card-body">
-                <canvas id="buysellChart" width="100%" height="30"></canvas>
+                <canvas id="sellbuyChart" width="100%" height="30"></canvas>
             </div>
         </div>
     </div>
@@ -140,13 +140,13 @@
         }
     });
 
-    var ctx = document.getElementById("buysellChart");
+    var ctx = document.getElementById("sellbuyChart");
     var myLineChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: dateAxis,
             datasets: [{
-                label: "Buy / Sell",
+                label: "Sell / Buy",
                 yAxisID:"left",
                 borderColor: "rgba(2,117,216,1)",
                 borderWidth: 2,
