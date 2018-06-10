@@ -385,7 +385,8 @@ class Script extends CI_Controller {
                 echo "ADD BATTERY ACT TIME $hour<br>";
                 $production = $this->db->select('amount')->get_where('solar_productions', array('date'=>$date, 'time'=>$hour))->row_array()['amount'];
                 $usage = $this->db->select_sum('amount')->get_where('node_usages', array('date'=>$date, 'time'=>$hour))->row_array()['amount'];
-                $total = $production - $usage;
+                $vehicle = $this->db->select_sum('amount')->get_where('vehicle_acts', array('date'=>$date, 'time'=>$hour, 'status'=>2))->row_array()['amount'];
+                $total = $production - $usage - $vehicle;
 
                 if($total < 0) {
                     $status = 1;

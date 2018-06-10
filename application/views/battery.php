@@ -142,9 +142,9 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -2,
-                        max: 7,
-                        maxTicksLimit: 6
+                        min: -6,
+                        max: 6,
+                        maxTicksLimit: 8
                     },
                     scaleLabel: {
                         display: true,
