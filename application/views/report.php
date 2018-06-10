@@ -75,10 +75,10 @@ ob_start();
     $usage = $production = $sum = $final = 0;
     foreach($reports as $report) {
         echo "<tr><td>{$report['date']}</td>";
-        echo "<td>{$report['usage']} kW</td>";
-        echo "<td>{$report['production']} kW</td>";
-        echo "<td>{$report['sum']} kW</td>";
-        echo "<td>{$report['final']} AUD</td></tr>";
+        echo "<td>".number_format($report['usage'], 3)." kW</td>";
+        echo "<td>".number_format($report['production'], 3)." kW</td>";
+        echo "<td>".number_format($report['sum'], 3)." kW</td>";
+        echo "<td>".number_format($report['final'], 2)." AUD</td></tr>";
 
         $usage += $report['usage'];
         $production += $report['production'];
@@ -86,7 +86,11 @@ ob_start();
         $final += $report['final'];
     }
     if(count($reports) > 1) {
-        echo "<tr><td>Total</td><td>$usage kW</td><td>$production kW</td><td>$sum kW</td><td>$final AUD</td></tr>";
+        echo "<tr><td>Total</td><td>".
+            number_format($usage, 3)." kW</td><td>".
+            number_format($production, 3)." kW</td><td>".
+            number_format($sum, 3)." kW</td><td>".
+            number_format($final, 2)." AUD</td></tr>";
     }
     ?>
     </tbody>

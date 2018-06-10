@@ -92,7 +92,7 @@ class Processor {
             if($node == null) {
                 array_push($usage, $node);
             } else {
-                array_push($usage, number_format($node, 3));
+                array_push($usage, round($node, 3));
             }
         }
         return $usage;
@@ -102,7 +102,7 @@ class Processor {
     {
         $date = date("Y-m-d", strtotime($date));
         $usage = $this->CI->datas->getUsageTotalByDate($userid, $date);
-        return number_format($usage, 3);
+        return round($usage, 3);
     }
 
     public function getHourlyUsage($userid, $date, $from, $to)
@@ -116,7 +116,7 @@ class Processor {
             if($usage == null) {
                 array_push($total, $usage);
             } else {
-                array_push($total, number_format($usage, 3));
+                array_push($total, round($usage, 3));
             }
         }
         return $total;
@@ -131,7 +131,7 @@ class Processor {
         }
         array_push($forecast, $this->CI->datas->getUsageTotalByHour($userid, "2018-05-30", 15));
         foreach($usage as $use) {
-            array_push($forecast, number_format($use['amount'], 3));
+            array_push($forecast, round($use['amount'], 3));
         }
         return $forecast;
     }
@@ -141,7 +141,7 @@ class Processor {
         $forecast = array();
         $usage = $this->CI->datas->getUsageForecastTomorrow($userid);
         foreach($usage as $use) {
-            array_push($forecast, number_format($use['amount'], 3));
+            array_push($forecast, round($use['amount'], 3));
         }
         return $forecast;
     }
@@ -157,7 +157,7 @@ class Processor {
             if($usage == null) {
                 array_push($avg, $usage);
             } else {
-                array_push($avg, number_format($usage, 3));
+                array_push($avg, round($usage, 3));
             }
         }
         return $avg;
@@ -167,7 +167,7 @@ class Processor {
     {
         $date = date("Y-m-d", strtotime($date));
         $production = $this->CI->datas->getProductionTotalByDate($userid, $date);
-        return number_format($production, 3);
+        return round($production, 3);
     }
 
     public function getHourlyProduction($userid, $date, $from, $to)
@@ -181,7 +181,7 @@ class Processor {
             if($production == null) {
                 array_push($total, $production);
             } else {
-                array_push($total, number_format($production, 3));
+                array_push($total, round($production, 3));
             }
         }
         return $total;
@@ -196,7 +196,7 @@ class Processor {
         }
         array_push($forecast, $this->CI->datas->getProductionTotalByHour($userid, "2018-05-30", 15));
         foreach($production as $prod) {
-            array_push($forecast, number_format($prod['amount'], 3));
+            array_push($forecast, round($prod['amount'], 3));
         }
         return $forecast;
     }
@@ -206,7 +206,7 @@ class Processor {
         $forecast = array();
         $production = $this->CI->datas->getProductionForecastTomorrow($userid);
         foreach($production as $prod) {
-            array_push($forecast, number_format($prod['amount'], 3));
+            array_push($forecast, round($prod['amount'], 3));
         }
         return $forecast;
     }
@@ -222,7 +222,7 @@ class Processor {
             if($production == null) {
                 array_push($avg, $production);
             } else {
-                array_push($avg, number_format($production, 3));
+                array_push($avg, round($production, 3));
             }
         }
         return $avg;
@@ -269,7 +269,7 @@ class Processor {
             $sum = $act[$i] * $price[$i];
             $final += $sum;
         }
-        return number_format($final, 2);
+        return round($final, 2);
     }
 
     public function getReport($userid, $from, $to)
@@ -285,9 +285,9 @@ class Processor {
             $data = array(
                 'date' => date("j M Y", strtotime($from)),
                 'usage' => $usage,
-                'production' => $production, 3,
+                'production' => $production,
                 'sum' => $sum,
-                'final' => number_format($final/100, 2),
+                'final' => round($final/100, 2),
             );
             array_push($reports, $data);
             $from = date("j M Y", strtotime("+1 day", strtotime($from)));
@@ -309,7 +309,7 @@ class Processor {
                 if($act['status'] == 1) {
                     $act['amount']*= -1;
                 }
-                array_push($total, number_format($act['amount'], 3));
+                array_push($total, round($act['amount'], 3));
             }
         }
         return $total;
@@ -332,7 +332,7 @@ class Processor {
                 if($sum['status'] == 1) {
                     $sum['amount']*= -1;
                 }
-                array_push($total, number_format($sum['amount'], 3));
+                array_push($total, round($sum['amount'], 3));
             }
             $from = date("j M Y", strtotime("+1 day", strtotime($from)));
         }
@@ -356,7 +356,7 @@ class Processor {
                 if ($sum['status'] == 1) {
                     $sum['amount'] *= -1;
                 }
-                array_push($avg, number_format($sum['amount'], 3));
+                array_push($avg, round($sum['amount'], 3));
             }
             $from = date("j M Y", strtotime("+1 day", strtotime($from)));
         }
@@ -376,7 +376,7 @@ class Processor {
                 array_push($total, $amount);
             } else {
                 $final = ($amount/$capacity) * 100;
-                array_push($total, number_format($final, 2));
+                array_push($total, round($final, 2));
             }
         }
         return $total;
