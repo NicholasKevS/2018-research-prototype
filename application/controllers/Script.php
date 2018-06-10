@@ -5,7 +5,7 @@ class Script extends CI_Controller {
 
     public function index()
     {
-        if(false) {
+        if(true) {
             ini_set('max_execution_time', 300);
 
             $this->purge_user_data();
@@ -23,7 +23,7 @@ class Script extends CI_Controller {
                 $this->populate_battery_sum($userid);
             }
         } elseif(false) {
-            $this->purge_other_data();
+            $this->purge_system_data();
 
             $this->populate_weather();
         } else {
@@ -43,7 +43,7 @@ class Script extends CI_Controller {
         $this->db->empty_table('battery_sums');
     }
 
-    private function purge_other_data()
+    private function purge_system_data()
     {
         $this->db->empty_table('location_weathers');
     }
@@ -196,7 +196,13 @@ class Script extends CI_Controller {
 
 	private function populate_production($userid)
     {
-        $base = 2.208;
+        if($userid == 1) {
+            $base = 6.000;
+        } elseif($userid == 2) {
+            $base = 4.000;
+        } elseif($userid == 3) {
+            $base = 2.000;
+        }
         for($i=0;$i<30;$i++) {
             $d = mktime(0, 0, 0, 5, 1+$i, 2018);
             $date = date('Y-m-d', $d);

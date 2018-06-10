@@ -214,7 +214,7 @@
                     id: "left",
                     ticks: {
                         min: -1,
-                        max: 4,
+                        max: 7,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
@@ -323,7 +323,7 @@
                     id: "left",
                     ticks: {
                         min: -1,
-                        max: 4,
+                        max: 7,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
@@ -392,7 +392,7 @@
                     id: "left",
                     ticks: {
                         min: -1,
-                        max: 4,
+                        max: 7,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
