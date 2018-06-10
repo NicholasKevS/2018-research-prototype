@@ -196,6 +196,7 @@ class Script extends CI_Controller {
 
 	private function populate_production($userid)
     {
+        $base = 0;
         if($userid == 1) {
             $base = 6.000;
         } elseif($userid == 2) {
@@ -320,7 +321,8 @@ class Script extends CI_Controller {
     {
         $full = 30.000;
         $empty = 0.000;
-        $use = 2.000;
+        $use = 3.000;
+        $stdev = 0.500;
         $charge = 4.000;
         $total = $full;
         for($i=0;$i<30;$i++) {
@@ -331,11 +333,11 @@ class Script extends CI_Controller {
                 if($i == 29 && $hour>15) continue;
                 echo "ADD VEHICLE ACT TIME $hour<br>";
 
-                if($hour>=8 && $hour<=17) {
+                if($hour==8 || $hour==18) {
                     if(rand(1,100) <= 50) {
-                        $final = $use - ($use*rand(1,50)/100);
+                        $final = $use - ($stdev*rand(1,100)/100);
                     } else {
-                        $final = $use + ($use*rand(1,50)/100);
+                        $final = $use + ($stdev*rand(1,100)/100);
                     }
                     $status = 1;
                     $total = $total - $final;
@@ -347,7 +349,7 @@ class Script extends CI_Controller {
                     }
                     $final = number_format($final,3);
                     $this->db->insert('vehicle_acts', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
-                } elseif($hour>=18 && $hour<=23) {
+                } elseif($hour>=18 && $hour<=23 && $total!=$full) {
                     if(rand(1,100) <= 50) {
                         $final = $charge - ($charge*rand(1,50)/100);
                     } else {
