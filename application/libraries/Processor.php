@@ -502,4 +502,57 @@ class Processor {
     {
         return $this->CI->datas->updateSolar($data);
     }
+
+    public function getNotifications($userid)
+    {
+        return $this->CI->datas->getNotifications($userid);
+    }
+
+    public function makeMasterNotifications($userid)
+    {
+        $notifications = $this->CI->datas->getPageNotifications($userid);
+        $unread = false;
+
+        foreach($notifications as $notif) {
+            if($notif['unread'] == 1) {
+                $unread = true;
+            }
+        }
+
+        $final = "<a class='nav-link dropdown-toggle mr-lg-2' id='masterNotif' href='#' onclick='removeBadge(); return false;' data-toggle='dropdown'>";
+        $final .= "<i class='fa fa-fw fa-bell'></i>";
+        $final .= "<span class='d-lg-none'>Notification";
+        if($unread) {
+            $final .= "<span id='notifBadge1' class='badge badge-pill badge-warning'>!</span>";
+        }
+        $final .= "</span>";
+        if($unread) {
+            $final .= "<span id='notifBadge2' class='indicator text-warning d-none d-lg-block'>";
+            $final .= "<i class='fa fa-fw fa-circle'></i>";
+            $final .= "</span>";
+        }
+        $final .= "</a>";
+        $final .= "<div class='dropdown-menu'>";
+        $final .= "<h6 class='dropdown-header'>Notifications:</h6>";
+        $final .= "<div class='dropdown-divider'></div>";
+        foreach($notifications as $notif) {
+            $final .= "<a class='dropdown-item' href='{$notif['url']}'>";
+            if($notif['type'] == 1) {
+                $final .= "<span class='text-danger'>";
+            } else {
+                $final .= "<span class='text-success'>";
+            }
+            $final .= "<strong>{$notif['title']}</strong></span>";
+            $final .= "<div class='dropdown-message small'>{$notif['message']}</div>";
+            $final .= "</a>";
+            $final .= "<div class='dropdown-divider'></div>";
+        }
+        $final .= "<a class='dropdown-item small' href='notification/'>View all notification</a></div>";
+        return $final;
+    }
+
+    public function readNotifications($userid)
+    {
+        return $this->CI->datas->readNotifications($userid);
+    }
 }

@@ -256,4 +256,19 @@ class Datas extends CI_Model {
         return $this->db->select('providers.*')->from('providers')->join('users', 'providers.id = users.providerid')
             ->where('users.id', $userid)->get()->row_array();
     }
+
+    public function getNotifications($userid)
+    {
+        return $this->db->order_by('id', 'DESC')->get_where('notifications', array('userid'=>$userid))->result_array();
+    }
+
+    public function getPageNotifications($userid)
+    {
+        return $this->db->order_by('id', 'DESC')->get_where('notifications', array('userid'=>$userid), 3)->result_array();
+    }
+
+    public function readNotifications($userid)
+    {
+        return $this->db->where('userid', $userid)->update('notifications', array('unread'=>0));
+    }
 }

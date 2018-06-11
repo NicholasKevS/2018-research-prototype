@@ -84,6 +84,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="notification/">
+                    <i class="fa fa-fw fa-bell"></i>
+                    <span class="nav-link-text">Notification</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="help/">
                     <i class="fa fa-fw fa-question-circle-o"></i>
                     <span class="nav-link-text">Help</span>
@@ -114,44 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-fw fa-bell"></i>
-                    <span class="d-lg-none">Alerts
-              <span class="badge badge-pill badge-warning">6 New</span>
-            </span>
-                    <span class="indicator text-warning d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">Notifications:</h6>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-              <span class="text-danger">
-                <strong>Turned on node</strong>
-              </span>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">Someone turn on node that should be off in schedule.</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>You save many this week!</strong>
-              </span>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">You save {number}, click here to see your report.</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-              <span class="text-danger">
-                <strong>Turned off node</strong>
-              </span>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">Someone turn off node that should be on in schedule.</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item small" href="#">View all alerts</a>
-                </div>
+                <?php echo $this->processor->makeMasterNotifications($this->session->id); ?>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="profile/">
@@ -202,5 +171,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Custom scripts for all pages-->
     <script src="assets/js/sb-admin.min.js"></script>
+    <script>
+        function removeBadge() {
+            $("#notifBadge1").remove();
+            $("#notifBadge2").remove();
+            $.ajax({ url: 'notification/read/'});
+        }
+    </script>
 </body>
 </html>
