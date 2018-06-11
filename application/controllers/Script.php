@@ -145,12 +145,12 @@ class Script extends CI_Controller {
                     }
                 }
 
-                $this->db->insert('node_usages', array('nodeid'=>$fridgeid, 'date'=>$date, 'time'=>$hour, 'amount'=>$fridgefin));
-                $this->db->insert('node_usages', array('nodeid'=>$compid, 'date'=>$date, 'time'=>$hour, 'amount'=>$compfin));
-                $this->db->insert('node_usages', array('nodeid'=>$lampid, 'date'=>$date, 'time'=>$hour, 'amount'=>$lampfin));
-                $this->db->insert('node_usages', array('nodeid'=>$airconid, 'date'=>$date, 'time'=>$hour, 'amount'=>$airconfin));
-                $this->db->insert('node_usages', array('nodeid'=>$tvid, 'date'=>$date, 'time'=>$hour, 'amount'=>$tvfin));
-                $this->db->insert('node_usages', array('nodeid'=>$psid, 'date'=>$date, 'time'=>$hour, 'amount'=>$psfin));
+                $this->db->insert('node_usages', array('nodeid'=>$fridgeid, 'date'=>$date, 'time'=>$hour, 'amount'=>round($fridgefin, 3)));
+                $this->db->insert('node_usages', array('nodeid'=>$compid, 'date'=>$date, 'time'=>$hour, 'amount'=>round($compfin, 3)));
+                $this->db->insert('node_usages', array('nodeid'=>$lampid, 'date'=>$date, 'time'=>$hour, 'amount'=>round($lampfin, 3)));
+                $this->db->insert('node_usages', array('nodeid'=>$airconid, 'date'=>$date, 'time'=>$hour, 'amount'=>round($airconfin, 3)));
+                $this->db->insert('node_usages', array('nodeid'=>$tvid, 'date'=>$date, 'time'=>$hour, 'amount'=>round($tvfin, 3)));
+                $this->db->insert('node_usages', array('nodeid'=>$psid, 'date'=>$date, 'time'=>$hour, 'amount'=>round($psfin, 3)));
 			}
 		}
 		echo "DONE";
@@ -177,7 +177,7 @@ class Script extends CI_Controller {
             } else {
                 $final = $usage + $avgfin;
             }
-            $this->db->insert('forecast_today', array('userid'=>$userid, 'time'=>$hour, 'status'=>1, 'amount'=>number_format($final, 3)));
+            $this->db->insert('forecast_today', array('userid'=>$userid, 'time'=>$hour, 'status'=>1, 'amount'=>round($final, 3)));
         }
     }
 
@@ -202,7 +202,7 @@ class Script extends CI_Controller {
             } else {
                 $final = $usage + $avgfin;
             }
-            $this->db->insert('forecast_tomorrow', array('userid'=>$userid, 'time'=>$hour, 'status'=>1, 'amount'=>number_format($final, 3)));
+            $this->db->insert('forecast_tomorrow', array('userid'=>$userid, 'time'=>$hour, 'status'=>1, 'amount'=>round($final, 3)));
         }
     }
 
@@ -244,7 +244,7 @@ class Script extends CI_Controller {
                 } elseif($weather == "Rain") {
                     $final *= 50/100;
                 }
-                $this->db->insert('solar_productions', array('solarid'=>$userid, 'date'=>$date, 'time'=>$hour, 'amount'=>$final));
+                $this->db->insert('solar_productions', array('solarid'=>$userid, 'date'=>$date, 'time'=>$hour, 'amount'=>round($final, 3)));
             }
         }
         echo "DONE";
@@ -286,7 +286,7 @@ class Script extends CI_Controller {
             } elseif($weather == "Rain") {
                 $final *= 50/100;
             }
-            $this->db->insert('forecast_today', array('userid'=>$userid, 'time'=>$hour, 'status'=>2, 'amount'=>number_format($final, 3)));
+            $this->db->insert('forecast_today', array('userid'=>$userid, 'time'=>$hour, 'status'=>2, 'amount'=>round($final, 3)));
         }
     }
 
@@ -325,7 +325,7 @@ class Script extends CI_Controller {
                     $final = $production + $avgfin;
                 }
             }
-            $this->db->insert('forecast_tomorrow', array('userid'=>$userid, 'time'=>$hour, 'status'=>2, 'amount'=>number_format($final, 3)));
+            $this->db->insert('forecast_tomorrow', array('userid'=>$userid, 'time'=>$hour, 'status'=>2, 'amount'=>round($final, 3)));
         }
     }
 
@@ -359,7 +359,7 @@ class Script extends CI_Controller {
                         $final -= $surplus;
                         $total = $empty;
                     }
-                    $final = number_format($final,3);
+                    $final = round($final,3);
                     $this->db->insert('vehicle_acts', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
                 } elseif($hour>=18 && $hour<=23 && $total!=$full) {
                     if(rand(1,100) <= 50) {
@@ -375,11 +375,11 @@ class Script extends CI_Controller {
                         $final -= $surplus;
                         $total = $full;
                     }
-                    $final = number_format($final,3);
+                    $final = round($final,3);
                     $this->db->insert('vehicle_acts', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
                 }
 
-                $total = number_format($total,3);
+                $total = round($total,3);
                 $this->db->insert('vehicle_bats', array('vehicleid'=>$userid, 'date'=>$date, 'time'=>$hour, 'amount'=>$total));
             }
         }
@@ -407,7 +407,7 @@ class Script extends CI_Controller {
                     $status = 2;
                     $final = $total;
                 }
-                $final = number_format($final,3);
+                $final = round($final,3);
                 $this->db->insert('battery_acts', array('batteryid'=>$userid, 'date'=>$date, 'time'=>$hour, 'status'=>$status, 'amount'=>$final));
             }
         }
@@ -422,8 +422,8 @@ class Script extends CI_Controller {
             echo "ADD TO BATTERY SUM DATE $date<br>";
             $production = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>2))->row_array()['amount'];
             $usage = $this->db->select_sum('amount')->get_where('battery_acts', array('date'=>$date, 'status'=>1))->row_array()['amount'];
-            $production = number_format($production,3);
-            $usage = number_format($usage,3);
+            $production = round($production,3);
+            $usage = round($usage,3);
             $total = $production - $usage;
 
             if($total < 0) {
