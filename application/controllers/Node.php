@@ -16,11 +16,8 @@ class Node extends MY_Controller {
     {
         $status = $this->input->post('status');
 
-        if($this->processor->saveNodes($this->session->id, $status)) {
-            $this->session->set_flashdata('success',"Save success");
-        } else {
-            $this->session->set_flashdata('alert',"Saving failed");
-        }
+        $this->processor->saveNodes($this->session->id, $status);
+        $this->session->set_flashdata('success',"Save success");
 
         redirect('node/');
     }

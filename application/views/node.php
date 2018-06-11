@@ -9,9 +9,6 @@
         if($this->session->flashdata('success')) {
             echo "<div class='alert alert-success'>{$this->session->flashdata('success')}</div>";
         }
-        if($this->session->flashdata('alert')) {
-            echo "<div class='alert alert-danger'>{$this->session->flashdata('alert')}</div>";
-        }
         ?>
         <div class="float-md-right mb-3">
             <a href="node/create/" class="btn btn-primary">Add New Node</a>
