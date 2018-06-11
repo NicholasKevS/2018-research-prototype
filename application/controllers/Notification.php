@@ -19,6 +19,7 @@ class Notification extends MY_Controller {
     public function unread()
     {
         $this->processor->unreadNotifications($this->session->id);
+        $this->session->set_flashdata('success',"All notification are unread");
         redirect('notification/');
     }
 }

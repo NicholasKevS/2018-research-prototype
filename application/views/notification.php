@@ -5,6 +5,11 @@
 </div>
 <div class="row">
     <div class="col-12 mb-3">
+        <?php
+        if($this->session->flashdata('success')) {
+            echo "<div class='alert alert-success'>{$this->session->flashdata('success')}</div>";
+        }
+        ?>
         <div class="float-md-right mb-3">
             <a href="notification/unread/" class="btn btn-primary">Unread All Notification</a>
         </div>
