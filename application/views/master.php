@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom scripts for all pages-->
     <script src="assets/js/jquery-ui.min.js"></script>
     <script src="assets/js/jquery.timepicker.min.js"></script>
-    <script src="assets/js/powergrid.js"></script>
+    <script src="assets/js/powergrid.chart.min.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -95,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span class="nav-link-text">Help</span>
                 </a>
             </li>
-            <?php if($this->session->isAdmin == TRUE) {
+            <?php if($this->session->isAdmin == true) {
                 echo "<li class='nav-item'>
                 <a class='nav-link' href='admin/'>
                     <i class='fa fa-fw fa-wrench'></i>
@@ -171,12 +171,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Custom scripts for all pages-->
     <script src="assets/js/sb-admin.min.js"></script>
-    <script>
-        function removeBadge() {
-            $("#notifBadge1").remove();
-            $("#notifBadge2").remove();
-            $.ajax({ url: 'notification/read/'});
-        }
-    </script>
+    <script src="assets/js/powergrid.min.js"></script>
 </body>
 </html>
