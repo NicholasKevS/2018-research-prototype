@@ -187,6 +187,16 @@ class Datas extends CI_Model {
             ->where('users.id', $userid)->get()->result_array();
     }
 
+    public function getOffSchedule($nodeid)
+    {
+        return $this->db->distinct()->get_where('node_schedules', array('nodeid'=>$nodeid, 'status'=>0))->row_array();
+    }
+
+    public function getOnSchedule($nodeid)
+    {
+        return $this->db->distinct()->get_where('node_schedules', array('nodeid'=>$nodeid, 'status'=>1))->row_array();
+    }
+
     public function insertSchedule($schedule)
     {
         return $this->db->insert('node_schedules', $schedule);
@@ -265,6 +275,11 @@ class Datas extends CI_Model {
     public function getPageNotifications($userid)
     {
         return $this->db->order_by('id', 'DESC')->get_where('notifications', array('userid'=>$userid), 3)->result_array();
+    }
+
+    public function makeNotification($notification)
+    {
+        return $this->db->insert('notifications', $notification);
     }
 
     public function readNotifications($userid)

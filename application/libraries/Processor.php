@@ -398,6 +398,7 @@ class Processor {
             unset($data['id']);
             return $this->CI->datas->insertNode($data);
         } else {
+            $this->checkNode($data);
             return $this->CI->datas->updateNode($data);
         }
     }
@@ -415,6 +416,7 @@ class Processor {
                     $node['status'] = 0;
                 }
             }
+            $this->checkNode($node);
         }
         return $this->CI->datas->updateNodes($nodes);
     }
@@ -423,6 +425,37 @@ class Processor {
     {
         $this->CI->datas->deleteSchedules($id);
         $this->CI->datas->deleteNode($id);
+        return true;
+    }
+
+    public function checkNode($node)
+    {
+        $time = 16;
+        if($node['status'] == 0) {
+            $on = $this->CI->datas->getOnSchedule($node['id']);
+            if($on != null && $on['start']<=$time && $time<=$on['end']) {
+                $notification = array(
+                    'userid'=>$node['userid'],
+                    'type'=>1,
+                    'title'=>'Turned off node',
+                    'message'=>"Someone turn off {$node['name']} node that should be on in schedule.",
+                    'url'=>'node');
+                $this->pushNotification($notification);
+            }
+        } else {
+            $off = $this->CI->datas->getOffSchedule($node['id']);
+            if($off != null) {
+                if($off != null && $off['start']<=$time && $time<=$off['end']) {
+                    $notification = array(
+                        'userid'=>$node['userid'],
+                        'type'=>1,
+                        'title'=>'Turned on node',
+                        'message'=>"Someone turn on {$node['name']} node that should be on in schedule.",
+                        'url'=>'node');
+                    $this->pushNotification($notification);
+                }
+            }
+        }
         return true;
     }
 
@@ -549,6 +582,11 @@ class Processor {
         }
         $final .= "<a class='dropdown-item small' href='notification/'>View all notification</a></div>";
         return $final;
+    }
+
+    public function pushNotification($notification)
+    {
+        return $this->CI->datas->makeNotification($notification);
     }
 
     public function readNotifications($userid)
