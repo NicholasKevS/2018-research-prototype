@@ -30,6 +30,8 @@ class Battery extends MY_Controller {
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
         $data['activity'] = $this->processor->getHourlyBatteryAct($id, $date, $time1, $time2);
         $data['sum'] = $this->processor->getBatterySum($id, $date);
+        $data['activityChart'] = $this->processor->getMaxMin(array($data['activity']));
+        $data['sellbuyChart'] = $this->processor->getMaxMin(array($data['sum']));
         $data['battery'] = $this->processor->getBattery($id);
 
         $data['title'] = "Battery";

@@ -28,6 +28,8 @@ class Solar extends MY_Controller {
         $id = $this->session->id;
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
         $data['production'] = $this->processor->getHourlyProduction($id, $date, $time1, $time2);
+        $data['productionChart'] = $this->processor->getMaxMin(array($data['production']));
+
         $data['solar'] = $this->processor->getSolar($id);
         $data['location'] = $this->processor->getLocation($id);
         $data['weather']['today'] = $this->processor->getWeather($id, '30 May 2018');

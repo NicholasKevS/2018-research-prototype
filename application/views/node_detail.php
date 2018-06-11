@@ -130,8 +130,8 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -0,
-                        max: 2,
+                        min: <?php echo $usageChart['min']; ?>,
+                        max: <?php echo $usageChart['max']; ?>,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {

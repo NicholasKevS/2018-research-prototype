@@ -32,6 +32,7 @@ class Dashboard extends MY_Controller {
         $data['weather']['today'] = $this->processor->getWeather($id, $date);
         $data['weather']['tomorrow'] = $this->processor->getWeather($id, '31 May 2018');
         $data['provider'] = $this->processor->getProvider($id);
+
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
         $data['price'] = $this->processor->getPriceArray($id, $date, $time1, $time2);
         $data['usage'] = $this->processor->getHourlyUsage($id, $date, $time1, $time2);
@@ -40,7 +41,6 @@ class Dashboard extends MY_Controller {
         $data['productionForecastTomorrow'] = $this->processor->getProductionForecastTomorrow($id);
         $data['usageAvg'] = $this->processor->getAvgHourlyUsage($locationid, $date, $time1, $time2);
         $data['productionAvg'] = $this->processor->getAvgHourlyProduction($locationid, $date, $time1, $time2);
-
         if($date == '30 May 2018') {
             $data['usageForecastToday'] = $this->processor->getUsageForecastToday($id);
             $data['productionForecastToday'] = $this->processor->getProductionForecastToday($id);
@@ -48,6 +48,9 @@ class Dashboard extends MY_Controller {
             $data['usageForecastToday'] = array();
             $data['productionForecastToday'] = array();
         }
+        $data['usageproductionChart'] = $this->processor->getMaxMin(array($data['usage'],$data['production'],$data['usageForecastToday'],$data['productionForecastToday']));
+        $data['suburbChart'] = $this->processor->getMaxMin(array($data['usage'],$data['production'],$data['usageAvg'],$data['productionAvg']));
+        $data['forecastChart'] = $this->processor->getMaxMin(array($data['usageForecastTomorrow'],$data['productionForecastTomorrow']));
 
         $data['title'] = "Dashboard";
         $data['view'] = "dashboard";

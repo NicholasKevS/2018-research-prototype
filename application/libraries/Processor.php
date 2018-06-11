@@ -228,6 +228,25 @@ class Processor {
         return $avg;
     }
 
+    public function getMaxMin($datas)
+    {
+        $max = 0;
+        $min = 999;
+        foreach($datas as $data) {
+            $tempmax = max(array_map('doubleval', $data));
+            $tempmin = min(array_map('doubleval', $data));
+            if($max < $tempmax) {
+                $max = $tempmax;
+            }
+            if($min > $tempmin) {
+                $min = $tempmin;
+            }
+        }
+        $max = round($max) + 1;
+        $min = round($min) - 1;
+        return array('max'=>$max, 'min'=>$min);
+    }
+
     public function getPriceArray($userid, $date, $from, $to)
     {
         $final = array();

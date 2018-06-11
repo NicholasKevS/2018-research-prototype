@@ -82,6 +82,8 @@ class Node extends MY_Controller {
         $data['timeAxis'] = $this->processor->getTimeAxis($time1, $time2);
         $data['usage'] = $this->processor->getNodeUsage($id, $date, $time1, $time2);
         $data['total'] = $this->processor->getHourlyUsage($this->session->id, $date, $time1, $time2);
+        $data['usageChart'] = $this->processor->getMaxMin(array($data['usage'],$data['total']));
+
         $data['node'] = $this->processor->getNode($id);
         if($data['node']['status'] == 1) {
             $data['checked'] = " Checked";

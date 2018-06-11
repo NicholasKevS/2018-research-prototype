@@ -37,6 +37,8 @@ class Admin extends MY_Controller {
         $data['usage'] = $this->processor->getAvgHourlyUsage($locationid, $date, $time1, $time2);
         $data['production'] = $this->processor->getAvgHourlyProduction($locationid, $date, $time1, $time2);
         $data['sum'] = $this->processor->getAvgBatterySum($locationid, $date);
+        $data['usageproductionChart'] = $this->processor->getMaxMin(array($data['usage'],$data['production']));
+        $data['sellbuyChart'] = $this->processor->getMaxMin(array($data['sum']));
 
         $data['title'] = "Admin Page";
         $data['view'] = "admin";

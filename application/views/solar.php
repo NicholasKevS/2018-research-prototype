@@ -145,8 +145,8 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -1,
-                        max: 8,
+                        min: <?php echo $productionChart['min']; ?>,
+                        max: <?php echo $productionChart['max']; ?>,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {

@@ -121,8 +121,8 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -1,
-                        max: 8,
+                        min: <?php echo $usageproductionChart['min']; ?>,
+                        max: <?php echo $usageproductionChart['max']; ?>,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
@@ -171,8 +171,8 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -2,
-                        max: 6,
+                        min: <?php echo $sellbuyChart['min']; ?>,
+                        max: <?php echo $sellbuyChart['max']; ?>,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {

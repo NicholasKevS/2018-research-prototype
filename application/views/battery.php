@@ -151,9 +151,9 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -6,
-                        max: 6,
-                        maxTicksLimit: 8
+                        min: <?php echo $activityChart['min']; ?>,
+                        max: <?php echo $activityChart['max']; ?>,
+                        maxTicksLimit: 6
                     },
                     scaleLabel: {
                         display: true,
@@ -201,8 +201,8 @@
                 yAxes: [{
                     id: "left",
                     ticks: {
-                        min: -2,
-                        max: 45,
+                        min: <?php echo $sellbuyChart['min']; ?>,
+                        max: <?php echo $sellbuyChart['max']; ?>,
                         maxTicksLimit: 6
                     },
                     scaleLabel: {
