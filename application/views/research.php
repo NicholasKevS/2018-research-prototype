@@ -19,7 +19,7 @@
         <div class="col-12 mb-3">
             Capacity:
             <input type="number" name="capacity" id="capacity" min="0" value="<?php echo $capacity; ?>"> kW
-            <button type="submit" class="btn btn-primary">Go</button>
+            <button type="submit" class="btn btn-primary">Repopulate data</button>
         </div>
     </form>
 </div>
