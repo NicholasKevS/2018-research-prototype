@@ -593,4 +593,9 @@ class Processor {
     {
         return $this->CI->datas->readNotifications($userid);
     }
+
+    public function unreadNotifications($userid)
+    {
+        return $this->CI->datas->unreadNotifications($userid);
+    }
 }

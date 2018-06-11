@@ -5,6 +5,9 @@
 </div>
 <div class="row">
     <div class="col-12 mb-3">
+        <div class="float-md-right mb-3">
+            <a href="notification/unread/" class="btn btn-primary">Unread All Notification</a>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>

@@ -286,4 +286,9 @@ class Datas extends CI_Model {
     {
         return $this->db->where('userid', $userid)->update('notifications', array('unread'=>0));
     }
+
+    public function unreadNotifications($userid)
+    {
+        return $this->db->where('userid', $userid)->update('notifications', array('unread'=>1));
+    }
 }

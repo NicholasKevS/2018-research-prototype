@@ -15,4 +15,10 @@ class Notification extends MY_Controller {
     {
         $this->processor->readNotifications($this->session->id);
     }
+
+    public function unread()
+    {
+        $this->processor->unreadNotifications($this->session->id);
+        redirect('notification/');
+    }
 }
