@@ -233,13 +233,15 @@ class Processor {
         $max = 0;
         $min = 999;
         foreach($datas as $data) {
-            $tempmax = max(array_map('doubleval', $data));
-            $tempmin = min(array_map('doubleval', $data));
-            if($max < $tempmax) {
-                $max = $tempmax;
-            }
-            if($min > $tempmin) {
-                $min = $tempmin;
+            if($data != null) {
+                $tempmax = max(array_map('doubleval', $data));
+                $tempmin = min(array_map('doubleval', $data));
+                if($max < $tempmax) {
+                    $max = $tempmax;
+                }
+                if($min > $tempmin) {
+                    $min = $tempmin;
+                }
             }
         }
         $max = round($max) + 1;
