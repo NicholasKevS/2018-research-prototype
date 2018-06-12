@@ -169,7 +169,7 @@ class Script extends CI_Controller {
             ->get()->row_array()['amount'];
 
         for($hour=16;$hour<24;$hour++) {
-            echo "ADD USAGE FORECAST TOMORROW TIME $hour<br>";
+            echo "ADD USAGE FORECAST TODAY TIME $hour<br>";
 
             $avgfin = $avg * rand(1,20)/100;
             if(rand(1, 100) <= 50) {
