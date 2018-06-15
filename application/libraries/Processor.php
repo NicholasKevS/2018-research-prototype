@@ -12,8 +12,15 @@ class Processor {
 
     public function checkLogin()
     {
-        if(!$this->CI->session->userdata('isLogin')) {
+        if(!$this->CI->session->isLogin) {
             redirect('');
+        }
+    }
+
+    public function checkAdmin()
+    {
+        if(!$this->CI->session->isAdmin) {
+            redirect('dashboard/');
         }
     }
 
