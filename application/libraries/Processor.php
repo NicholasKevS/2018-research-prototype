@@ -478,7 +478,7 @@ class Processor {
                         'userid'=>$node['userid'],
                         'type'=>1,
                         'title'=>'Turned on node',
-                        'message'=>"Someone turn on {$node['name']} node that should be on in schedule.",
+                        'message'=>"Someone turn on {$node['name']} node that should be off in schedule.",
                         'url'=>'node');
                     $this->pushNotification($notification);
                 }
