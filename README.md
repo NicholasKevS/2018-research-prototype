@@ -1,2 +1,2 @@
 # 2018-research-prototype
-Research Prototype
+Prototype project for university research subject
